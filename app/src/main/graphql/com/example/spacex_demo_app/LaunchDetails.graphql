@@ -1,13 +1,66 @@
-query LaunchDetails($id:ID!) {
+query GetLaunches {
     launches {
         id
         details
-        launch_date_utc
+        ...MissionDetails
         rocket {
-            rocket_name
-            rocket_type
+            ...RocketFields
         }
-        mission_name
-        launch_success
     }
+}
+
+query GetLaunch($id:ID!) {
+
+    launch(id: $id) {
+        details
+        ...MissionDetails
+        links {
+            ...LinkInfo
+        }
+        rocket {
+            ...RocketFields
+            rocket {
+                ...RocketSpecifications
+                diameter {
+                    meters
+                }
+                mass {
+                    kg
+                }
+                wikipedia
+                engines {
+                    type
+                }
+
+
+            }
+        }
+    }
+}
+
+fragment RocketFields on LaunchRocket {
+    rocket_name
+    rocket_type
+}
+
+fragment MissionDetails on Launch{
+    launch_date_utc
+    mission_name
+    launch_success
+}
+
+fragment RocketSpecifications on Rocket{
+    company
+    country
+    name
+    type
+    boosters
+    description
+}
+
+fragment LinkInfo on LaunchLinks{
+    mission_patch
+    video_link
+    article_link
+    wikipedia
 }
