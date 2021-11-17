@@ -89,4 +89,5 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
-/app/src/main/java/com/example/spacex_demo_app/api/text.txt
+/app/src/main/java/com/example/spacex_demo_app/SimpleRx.kt
+/app/src/main/java/com/example/spacex_demo_app/TraitsRx.kt
