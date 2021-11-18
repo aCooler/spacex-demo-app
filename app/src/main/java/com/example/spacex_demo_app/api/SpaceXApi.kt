@@ -6,7 +6,6 @@ import com.apollographql.apollo.rx3.rxQuery
 import com.example.spacex_demo_app.GetLaunchQuery
 import com.example.spacex_demo_app.GetLaunchesQuery
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -23,11 +22,7 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
         return apolloClient.rxQuery(query).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
-
-
 }
-
-
 interface ISpaceXApi {
     fun getLaunches(): Observable<Response<GetLaunchesQuery.Data>>
     fun getLaunchById(id: String): Observable<Response<GetLaunchQuery.Data>>
