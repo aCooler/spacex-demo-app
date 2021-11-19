@@ -29,22 +29,21 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
         button.setOnClickListener {
-            val ob0: Disposable =
+            val requests: Disposable =
                 SpaceXApi(apolloClient).getLaunches()
                     .doOnSubscribe {
                         button.visibility = View.GONE
                         progressBar.visibility = View.VISIBLE
                     }
                     .observeOn(AndroidSchedulers.mainThread())
-                    .map {
+                    .doOnNext {
                         progressBar.visibility = View.INVISIBLE
                         textView.visibility = View.VISIBLE
                         textView.text = it.data?.launches?.get(0)?.details?.take(lim)
-                        it
                     }
                     .delay(5, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap { it ->
+                    .flatMap {
                         progressBar.visibility = View.VISIBLE
                         textView.visibility = View.INVISIBLE
                         SpaceXApi(apolloClient).getLaunchById("9").map { it2 ->
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                             it.first.data?.launches?.get(0)?.details?.take(lim) + it.second.data?.launch?.details?.take(
                                 lim)
                     }
-            disposable?.add(ob0)
+            disposable?.add(requests)
         }
     }
 
