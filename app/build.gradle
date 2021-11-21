@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.apollographql.apollo'
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 android {
@@ -29,6 +30,24 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    ignoreFailures = false
+    setSource(files(projectDir))
+    baseline = file("$rootDir/app/detekt-baseline.xml")
+    config.setFrom(rootProject.file("config/detekt/detekt.yml"))
+    reports {
+        xml {
+            enabled = true
+            destination = file("build/reports/detekt/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("build/reports/detekt/detekt.html")
+        }
     }
 }
 

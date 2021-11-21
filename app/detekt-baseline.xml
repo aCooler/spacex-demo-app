@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+<!--  <Whitelist>-->
+<!--    <ID>EmptyFunctionBlock:Client.kt$Client.&lt;no name provided&gt;${ }</ID>-->
+<!--    <ID>NewLineAtEndOfFile:DetailActivity.kt$com.example.spacex_demo_app.DetailActivity.kt</ID>-->
+<!--    <ID>NewLineAtEndOfFile:ExampleInstrumentedTest.kt$com.example.spacex_demo_app.ExampleInstrumentedTest.kt</ID>-->
+<!--    <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$com.example.spacex_demo_app.ExampleUnitTest.kt</ID>-->
+<!--    <ID>PackageNaming:Client.kt$package com.example.spacex_demo_app.api</ID>-->
+<!--    <ID>PackageNaming:DetailActivity.kt$package com.example.spacex_demo_app</ID>-->
+<!--    <ID>PackageNaming:MainActivity.kt$package com.example.spacex_demo_app</ID>-->
+<!--  </Whitelist>-->
+</SmellBaseline>
