@@ -1,8 +1,7 @@
-package com.example.spacex_demo_app
+package com.example.myspacexdemoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 
 class DetailActivity : AppCompatActivity() {
 
