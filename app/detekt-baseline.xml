@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Whitelist>
+    <ID>EmptyFunctionBlock:Client.kt$Client.&lt;no name provided&gt;${ }</ID>
+    <ID>PackageNaming:Client.kt$package com.example.spacex_demo_app.api</ID>
+    <ID>PackageNaming:DetailActivity.kt$package com.example.spacex_demo_app</ID>
+    <ID>PackageNaming:MainActivity.kt$package com.example.spacex_demo_app</ID>
+    <ID>SpacingBetweenPackageAndImports:ExampleUnitTest.kt$ </ID>
+    <ID>UnusedImports:Client.kt$import com.example.spacex_demo_app.GetLaunchQuery</ID>
+    <ID>UnusedImports:DetailActivity.kt$import android.os.Handler</ID>
+    <ID>UnusedImports:MainActivity.kt$import android.os.AsyncTask</ID>
+    <ID>UnusedImports:MainActivity.kt$import android.util.Log</ID>
+    <ID>UnusedImports:MainActivity.kt$import androidx.core.content.ContextCompat</ID>
+    <ID>UnusedImports:MainActivity.kt$import com.apollographql.apollo.ApolloCall as ApolloCall</ID>
+    <ID>UnusedImports:MainActivity.kt$import com.apollographql.apollo.ApolloClient</ID>
+    <ID>UnusedImports:MainActivity.kt$import com.apollographql.apollo.ApolloQueryCall</ID>
+    <ID>UnusedImports:MainActivity.kt$import com.apollographql.apollo.api.Response</ID>
+    <ID>UnusedImports:MainActivity.kt$import com.apollographql.apollo.exception.ApolloException</ID>
+    <ID>UnusedImports:MainActivity.kt$import java.util.concurrent.Executor</ID>
+    <ID>UnusedImports:MainActivity.kt$import java.util.concurrent.Executors</ID>
+  </Whitelist>
+</SmellBaseline>
