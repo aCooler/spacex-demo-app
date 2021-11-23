@@ -1,7 +1,8 @@
-package com.example.myspacexdemoapp
+package com.example.myspacexdemoapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.myspacexdemoapp.R
 
 class DetailActivity : AppCompatActivity() {
 
