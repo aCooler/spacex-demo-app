@@ -1,7 +1,6 @@
 package com.example.myspacexdemoapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -13,9 +12,6 @@ import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.jakewharton.rxbinding4.view.clicks
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: LaunchesViewModel
