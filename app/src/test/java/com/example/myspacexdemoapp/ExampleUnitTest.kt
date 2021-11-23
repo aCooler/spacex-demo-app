@@ -1,11 +1,8 @@
-package com.example.spacex_demo_app
+package com.example.myspacexdemoapp
 
 import android.os.Handler
 import android.os.Message
-import com.example.spacex_demo_app.api.Client
 import org.junit.Test
-
-import org.junit.Assert.*
 
 
 /**

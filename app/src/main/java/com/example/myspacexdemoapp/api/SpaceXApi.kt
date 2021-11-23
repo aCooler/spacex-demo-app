@@ -1,10 +1,10 @@
-package com.example.spacex_demo_app.api
+package com.example.myspacexdemoapp.api
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.rx3.rxQuery
-import com.example.spacex_demo_app.GetLaunchQuery
-import com.example.spacex_demo_app.GetLaunchesQuery
+import com.example.spacexdemoapp.GetLaunchQuery
+import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
