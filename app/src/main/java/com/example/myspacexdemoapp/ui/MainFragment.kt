@@ -3,10 +3,7 @@ package com.example.myspacexdemoapp.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +33,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })*/
 
-        val recyclerView : RecyclerView? = getView()?.findViewById(R.id.launches_list)
+        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter = RecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
@@ -46,7 +43,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
         viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchesViewModel::class.java)
 
-        val mySwipeRefreshLayout : SwipeRefreshLayout? = getView()?.findViewById(R.id.swiperefresh)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swiperefresh)
         mySwipeRefreshLayout?.setOnRefreshListener {
             viewModel.getLaunches()
 
@@ -54,25 +51,26 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         viewModel.launchesLiveData.observe(this, { state ->
             when (state) {
-                is LaunchesViewState.Error -> {state.error.localizedMessage
-/*                    textView.text = state.error.message
-                    button.visibility = View.VISIBLE
-                    progressBar.visibility = View.INVISIBLE*/
+                is LaunchesViewState.Error -> {
+                    //TODO
                 }
                 is LaunchesViewState.Success -> {
-/*                    textView.text = state.model?.data?.launches()?.get(0)?.details()
-                    button.visibility = View.VISIBLE
-                    progressBar.visibility = View.INVISIBLE*/
-                    //adapter.setItems(listOf("123","456","789","012","345"))
-                    adapter.setItems(state.model?: listOf())
+                    adapter.setItems(state.model ?: listOf())
                     mySwipeRefreshLayout?.isRefreshing = false
+
+                }
+                is LaunchesViewState.Success -> {
+                    adapter.setItems(state.model ?: listOf())
+                    mySwipeRefreshLayout?.isRefreshing = false
+
+                }
+                is LaunchesViewState.Loading -> {
+                    mySwipeRefreshLayout?.isRefreshing = true
 
                 }
             }
         })
         //viewModel.getLaunches()
-
-
 
 
     }
