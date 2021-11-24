@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">spacex-demo-app</string>
     <string name="spacexendpoint">spacexEndpoint</string>
+    <string name="title">Launch</string>
 </resources>

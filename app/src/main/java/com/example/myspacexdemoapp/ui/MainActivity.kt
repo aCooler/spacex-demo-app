@@ -1,11 +1,15 @@
 package com.example.myspacexdemoapp.ui
 
+import android.graphics.Insets.add
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
@@ -14,43 +18,37 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.jakewharton.rxbinding4.view.clicks
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: LaunchesViewModel
-    private lateinit var viewModelFactory: LaunchesViewModelFactory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                addToBackStack("main_fragment")
+                replace<MainFragment>(R.id.fragment_container)
+            }
+        }
 
-        val apolloClient =
-            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchesViewModel::class.java)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = getString(R.string.title)
 
 
-        val textView: TextView = findViewById(R.id.launches)
+
+
+
+/*        val textView: TextView = findViewById(R.id.launches)
         val button: Button = findViewById(R.id.button)
-        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)*/
 
-        button.clicks().subscribe {
+/*        button.clicks().subscribe {
             button.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             viewModel.getLaunches()
-        }
+        }*/
 
-        viewModel.launchesLiveData.observe(this, { state ->
-            when (state) {
-                is LaunchesViewState.Error -> {state.error.localizedMessage
-                    textView.text = state.error.message
-                    button.visibility = View.VISIBLE
-                    progressBar.visibility = View.INVISIBLE
-                }
-                is LaunchesViewState.Success -> {
-                    textView.text = state.model?.data?.launches()?.get(0)?.details()
-                    button.visibility = View.VISIBLE
-                    progressBar.visibility = View.INVISIBLE
-                }
-            }
-        })
+
 
 
     }
