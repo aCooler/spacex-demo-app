@@ -2,6 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fontFamily="@font/inter"
+    app:cardBackgroundColor="#202023"
+    app:cardCornerRadius="5dp"
     android:layout_width="match_parent"
     android:layout_height="272dp">
 
@@ -11,6 +14,7 @@
 
         <TextView
             android:id="@+id/place1"
+            android:textColor="@color/white"
             android:layout_width="394dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
