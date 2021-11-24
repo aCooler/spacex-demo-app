@@ -32,8 +32,6 @@ class MainActivity : AppCompatActivity() {
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
 
         button.clicks().subscribe {
-            button.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
             viewModel.getLaunches()
         }
 
@@ -46,8 +44,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 is LaunchesViewState.Success -> {
                     textView.text = state.model?.data?.launches()?.get(0)?.details()
-                    button.visibility = View.VISIBLE
                     progressBar.visibility = View.INVISIBLE
+                    textView.visibility = View.VISIBLE
+
+                }
+                is LaunchesViewState.Loading -> {
+                    button.visibility = View.GONE
+                    progressBar.visibility = View.VISIBLE
                 }
             }
         })
