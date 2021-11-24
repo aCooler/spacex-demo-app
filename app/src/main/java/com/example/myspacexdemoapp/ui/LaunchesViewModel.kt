@@ -14,7 +14,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     fun getLaunches() {
         spaceXApi.getLaunches()
             .doOnSubscribe {
-                _launchesMutableLiveData.postValue(LaunchesViewState.Loading())
+                _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
             }
             .subscribe({
                 _launchesMutableLiveData.postValue(LaunchesViewState.Success(it))
