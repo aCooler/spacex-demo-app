@@ -1,6 +1,5 @@
 package com.example.myspacexdemoapp.ui
 
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
@@ -77,7 +76,8 @@ class RecyclerViewAdapter :
 
         viewHolder.success.text = when (items[position].success) {
             true -> {
-                val green = Color.parseColor("#1aac80")
+
+                val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.success.setTextColor(green)
                 viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_done_black_18,
                     0,
@@ -89,7 +89,8 @@ class RecyclerViewAdapter :
             }
 
             else -> {
-                val red = Color.parseColor("#d05765")
+                val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
+                viewHolder.success.setTextColor(red)
                 viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_report_gmailerrorred_black_18,
                     0,
                     0,

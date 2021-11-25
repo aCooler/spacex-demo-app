@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui
 
+
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         title = getString(R.string.title)
     }

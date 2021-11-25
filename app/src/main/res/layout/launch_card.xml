@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="272dp"
     android:layout_margin="16dp"
-    android:fontFamily="@font/inter"
-    android:background="@drawable/card_edge"
-    >
+    app:cardBackgroundColor="@color/card_color"
+    app:cardCornerRadius="8dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/card_edge">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -54,10 +55,11 @@
             style="font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_white"
+            android:text="Misso"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/date"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/rocketImage" />
 
         <TextView
@@ -79,7 +81,7 @@
             style="font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#cbcecf"
+            android:textColor="@color/text_white"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/place"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -101,9 +103,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:backgroundTint="@color/text_white"
-            android:foregroundTint="@color/text_white"
-            android:foregroundTintMode="src_atop"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="38dp"
             app:layout_constraintStart_toStartOf="parent" />
@@ -194,7 +193,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/rocketName"
             app:srcCompat="@drawable/outline_rocket_launch_black_18"
-            app:tint="@color/white" />
+            app:tint="@color/text_white" />
 
         <ImageView
             android:id="@+id/imageView7"

@@ -11,4 +11,5 @@
     <color name="failed_red">#d05765</color>
     <color name="text_white">#cbcecf</color>
     <color name="card_color">#202023</color>
+    <color name="card_border">#2b2c33</color>
 </resources>
