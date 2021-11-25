@@ -28,12 +28,12 @@ class RecyclerViewAdapter :
 
         init {
             place = view.findViewById(R.id.place)
-            rocketName = view.findViewById(R.id.rocketName)
-            missionName = view.findViewById(R.id.missionName)
+            rocketName = view.findViewById(R.id.rocket_name)
+            missionName = view.findViewById(R.id.mission_name)
             date = view.findViewById(R.id.date)
             success = view.findViewById(R.id.success)
             number = view.findViewById(R.id.number)
-            picture = view.findViewById(R.id.rocketImage)
+            picture = view.findViewById(R.id.launch_image)
             badge = view.findViewById(R.id.badge)
         }
     }
@@ -79,26 +79,26 @@ class RecyclerViewAdapter :
 
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.success.setTextColor(green)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_done_black_18,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check,
                     0,
                     0,
                     0)
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                "Success"
+                viewHolder.itemView.context.getString(R.string.success)
             }
+
 
             else -> {
                 val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
-                viewHolder.success.setTextColor(red)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_report_gmailerrorred_black_18,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_report,
                     0,
                     0,
                     0)
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 viewHolder.success.setTextColor(red)
-                "Failed"
+                viewHolder.itemView.context.getString(R.string.failed)
             }
         }
 

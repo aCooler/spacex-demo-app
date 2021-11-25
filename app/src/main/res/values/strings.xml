@@ -2,4 +2,6 @@
     <string name="app_name">spacex-demo-app</string>
     <string name="spacexendpoint">spacexEndpoint</string>
     <string name="title">Launch</string>
+    <string name="failed">Failed</string>
+    <string name="success">Success</string>
 </resources>
