@@ -1,93 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="272dp">
+    android:layout_height="272dp"
+    android:layout_margin="16dp"
+    android:fontFamily="@font/inter"
+    android:background="@drawable/card_edge"
+    >
 
-    <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="#202023"
-        app:cardCornerRadius="5dp"
-        android:layout_marginBottom="21dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_width="409dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/success"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/picture"
-                android:fontFamily="@font/inter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"
-                 />
+        <ImageView
+            android:id="@+id/badge"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/circle"
+            android:elevation="2dp"
+            android:padding="11dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/number"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/patch" />
 
-            <TextView
-                android:id="@+id/number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:ignore="ImageContrastCheck"
-                    android:contentDescription="@string/app_name"
-                    tools:srcCompat="@tools:sample/avatars" />
-            </FrameLayout>
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/rocketImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sky" />
 
         <TextView
             android:id="@+id/missionName"
+            style="font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter"
-
-            />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:fontFamily="@font/inter"
-
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:id="@+id/rocketName"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:fontFamily="@font/inter"
-            android:layout_height="wrap_content"
-            />
+            android:textColor="@color/text_white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/date"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/rocketImage" />
 
         <TextView
             android:id="@+id/place"
-            android:layout_width="325dp"
-            android:layout_height="17dp"
-            android:fontFamily="@font/inter"
-            android:lineSpacingExtra="4.8sp"
+            style="font/inter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
             android:textColor="#cbcecf"
             android:textSize="12sp"
-            android:textStyle="normal" />
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.016"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/rocketName" />
+
+        <TextView
+            android:id="@+id/rocketName"
+            style="font/inter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#cbcecf"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/place"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+        <TextView
+            android:id="@+id/date"
+            style="font/inter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/rocketName"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/missionName" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/text_white"
+            android:foregroundTint="@color/text_white"
+            android:foregroundTintMode="src_atop"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="38dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:lineSpacingExtra="8sp"
+            android:textColor="@color/text_white"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+
+        <TextView
+            android:id="@+id/success"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded"
+            android:drawableLeft="@drawable/outline_report_gmailerrorred_black_18"
+            android:drawablePadding="4dp"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:paddingTop="4.5dp"
+            android:paddingBottom="4.5dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/success_green"
+            android:textSize="13sp"
+            app:drawableTint="@color/success_green"
+            app:drawableTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="@+id/rocketImage"
+            app:layout_constraintStart_toStartOf="@+id/guideline4" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="359dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:cropToPadding="true"
+            android:foregroundTintMode="src_in"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/date"
+            app:srcCompat="@drawable/ic_baseline_event_24"
+            app:tint="@color/text_white" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:cropToPadding="true"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rocketName"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/rocketName"
+            app:srcCompat="@drawable/outline_rocket_launch_black_18"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:cropToPadding="true"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/place"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/place"
+            app:srcCompat="@drawable/outline_room_24"
+            app:tint="@color/text_white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

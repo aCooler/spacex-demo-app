@@ -1,7 +1,6 @@
 package com.example.myspacexdemoapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,20 +18,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewModelFactory: LaunchesViewModelFactory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-//                activity?.supportFragmentManager?.commit {
-//                    setReorderingAllowed(true)
-//                    addToBackStack("main_fragment")
-//                    replace<MainFragment>(R.id.fragment_container)
-//                }
-
-
-
-            }
-        })*/
-
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter = RecyclerViewAdapter()
         recyclerView?.adapter = adapter
@@ -59,19 +44,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                     mySwipeRefreshLayout?.isRefreshing = false
 
                 }
-                is LaunchesViewState.Success -> {
-                    adapter.setItems(state.model ?: listOf())
-                    mySwipeRefreshLayout?.isRefreshing = false
-
-                }
                 is LaunchesViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true
 
                 }
             }
         })
-        //viewModel.getLaunches()
-
-
     }
 }
