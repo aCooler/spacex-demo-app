@@ -34,6 +34,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         }
 
+
+
+
+
+
         viewModel.launchesLiveData.observe(this, { state ->
             when (state) {
                 is LaunchesViewState.Error -> {

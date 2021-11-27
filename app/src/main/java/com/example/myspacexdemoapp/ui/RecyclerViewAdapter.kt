@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import java.text.SimpleDateFormat
 
+
 class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private var items: List<LaunchUiModel> = listOf()
@@ -55,6 +56,7 @@ class RecyclerViewAdapter :
         val formatter = SimpleDateFormat("MMM dd , yyyy HH:mm a")
         viewHolder.date.text = formatter.format(parser.parse(items[position].date))
         viewHolder.number.text = "№ ${items[position].number}"
+        val textView: TextView = viewHolder.success
 
         if (items[position].picture.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
@@ -74,15 +76,19 @@ class RecyclerViewAdapter :
             viewHolder.badge.visibility = View.VISIBLE
         }
 
+
+
         viewHolder.success.text = when (items[position].success) {
             true -> {
 
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.success.setTextColor(green)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_check,
                     0,
                     0,
-                    0)
+                    0
+                )
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 viewHolder.itemView.context.getString(R.string.success)
@@ -91,16 +97,19 @@ class RecyclerViewAdapter :
 
             else -> {
                 val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_report,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_report,
                     0,
                     0,
-                    0)
+                    0
+                )
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 viewHolder.success.setTextColor(red)
                 viewHolder.itemView.context.getString(R.string.failed)
             }
         }
+
 
     }
 
