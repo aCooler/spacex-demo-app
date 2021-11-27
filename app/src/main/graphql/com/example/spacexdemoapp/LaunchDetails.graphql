@@ -24,6 +24,9 @@ query GetLaunch($id:ID!) {
         links {
             ...LinkInfo
         }
+        launch_site {
+            site_name_long
+        }
         rocket {
             ...RocketFields
             rocket {
@@ -70,4 +73,5 @@ fragment LinkInfo on LaunchLinks{
     video_link
     article_link
     wikipedia
+    flickr_images
 }

@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -50,7 +50,7 @@ class RecyclerViewAdapter :
         viewHolder.place.text = items[position].place
         viewHolder.rocketName.text = items[position].rocketName
         viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date.toDateString() ?: ""
+        viewHolder.date.text = items[position].date.toDateString()
         viewHolder.number.text = String.format(viewHolder.itemView.context.getString(R.string.number), items[position].number)
 
         if (items[position].picture.isNotEmpty()) {

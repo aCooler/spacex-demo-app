@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +19,6 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             .subscribe({ response ->
                 _launchesMutableLiveData.postValue(LaunchesViewState.Success(
                     response.data?.launches()?.map {
-                        val pictures = it.links()?.flickr_images()
                         LaunchUiModel(
                             it.id() ?: "",
                             it.links()?.mission_patch() ?: "",
@@ -28,7 +27,13 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                             it.rocket()?.fragments()?.rocketFields()?.rocket_name() ?: "",
                             it.launch_site()?.site_name_long() ?: "",
                             it.fragments().missionDetails().launch_success() ?: true,
-                            if (!pictures.isNullOrEmpty()) { pictures[0] } else { "" }
+                            it.links()?.flickr_images().let { pictures ->
+                                if (pictures!!.isNotEmpty()) {
+                                    pictures[0]
+                                } else {
+                                    ""
+                                }
+                            }
                         )
                     }
                 ))
