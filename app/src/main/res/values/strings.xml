@@ -4,4 +4,5 @@
     <string name="title">Launch</string>
     <string name="failed">Failed</string>
     <string name="success">Success</string>
+    <string name="number">"№ %s"</string>
 </resources>

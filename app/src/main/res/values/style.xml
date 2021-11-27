@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bigger_white_style">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textColor">@color/real_white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="normal_white_style" >
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:foregroundGravity">bottom</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:singleLine">true</item>
+    </style>
+</resources>

@@ -3,10 +3,12 @@ package com.example.myspacexdemoapp.api
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.rx3.rxQuery
+import com.example.myspacexdemoapp.BuildConfig
 import com.example.spacexdemoapp.GetLaunchQuery
 import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
 import java.text.SimpleDateFormat
+import java.util.*
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 
@@ -20,13 +22,14 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
         return apolloClient.rxQuery(query)
     }
 }
+
 interface ISpaceXApi {
     fun getLaunches(): Observable<Response<GetLaunchesQuery.Data>>
     fun getLaunchById(id: String): Observable<Response<GetLaunchQuery.Data>>
 }
 
-fun String.toDateString(): String {
-    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-    val formatter = SimpleDateFormat("MMM dd , yyyy HH:mm a")
-    return formatter.format(parser.parse(this))
+fun String.toDateString(): String? {
+    val parser = SimpleDateFormat(BuildConfig.DATE_STRING_FROM, Locale.US)
+    val formatter = SimpleDateFormat(BuildConfig.DATE_STRING_TO, Locale.US)
+    return formatter.format(parser.parse(this) ?: "")
 }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
-import java.text.SimpleDateFormat
 
 class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -51,10 +50,8 @@ class RecyclerViewAdapter :
         viewHolder.place.text = items[position].place
         viewHolder.rocketName.text = items[position].rocketName
         viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date
-
-        viewHolder.date.text = items[position].date.toDateString()
-        viewHolder.number.text = "№ ${items[position].number}"
+        viewHolder.date.text = items[position].date.toDateString() ?: ""
+        viewHolder.number.text = String.format(viewHolder.itemView.context.getString(R.string.number), items[position].number)
 
         if (items[position].picture.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
