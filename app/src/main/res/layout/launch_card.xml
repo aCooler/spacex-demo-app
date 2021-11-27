@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="272dp"
     android:layout_margin="16dp"
+    android:paddingBottom="16dp"
     app:cardBackgroundColor="@color/card_color"
     app:cardCornerRadius="8dp">
 
@@ -52,59 +53,75 @@
 
         <TextView
             android:id="@+id/mission_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="font/inter_semibold"
-            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
             android:text="Launch"
-            app:layout_constraintBottom_toTopOf="@+id/date"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/launch_image" />
+            app:layout_constraintTop_toTopOf="@+id/horizontal_middle_divider"
+            app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:id="@+id/place"
             style="font/inter"
-            android:textColor="@color/text_white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:drawablePadding="4dp"
+            android:foregroundGravity="bottom"
+            android:gravity="center_vertical"
+            android:includeFontPadding="true"
             android:singleLine="true"
+            android:textColor="@color/text_white"
+            android:textSize="12sp"
             app:drawableLeftCompat="@drawable/ic_room"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
             app:layout_constraintHorizontal_bias="0.016"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
             app:layout_constraintTop_toBottomOf="@+id/rocket_name" />
 
         <TextView
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:id="@+id/rocket_name"
             style="font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="true"
+            android:singleLine="true"
             android:textColor="@color/text_white"
+            android:textSize="12sp"
             app:drawableLeftCompat="@drawable/ic_rocket_launch"
             app:layout_constraintBottom_toTopOf="@+id/place"
+            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
             app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <TextView
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:id="@+id/date"
             style="font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="true"
+            android:singleLine="true"
             android:textColor="@color/text_white"
+            android:textSize="12sp"
             app:drawableLeftCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/rocket_name"
+            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/mission_name" />
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/nearest_to_left_edge_guideline"
@@ -138,12 +155,13 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginBottom="16dp"
-            android:gravity="center"
             android:background="@drawable/rounded"
+            android:gravity="center"
+            android:includeFontPadding="true"
             android:paddingHorizontal="8dp"
             android:text="@string/success"
             android:textColor="@color/success_green"
-            android:textSize="13sp"
+            android:textSize="16dp"
             app:drawableLeftCompat="@drawable/ic_check"
             app:drawableTint="@color/success_green"
             app:drawableTintMode="src_atop"
@@ -161,6 +179,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_begin="359dp"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="174dp"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import com.apollographql.apollo.rx3.rxQuery
 import com.example.spacexdemoapp.GetLaunchQuery
 import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
+import java.text.SimpleDateFormat
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 
@@ -22,4 +23,10 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 interface ISpaceXApi {
     fun getLaunches(): Observable<Response<GetLaunchesQuery.Data>>
     fun getLaunchById(id: String): Observable<Response<GetLaunchQuery.Data>>
+}
+
+fun String.toDateString(): String {
+    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    val formatter = SimpleDateFormat("MMM dd , yyyy HH:mm a")
+    return formatter.format(parser.parse(this))
 }
