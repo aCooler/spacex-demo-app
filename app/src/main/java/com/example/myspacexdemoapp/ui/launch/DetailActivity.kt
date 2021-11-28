@@ -10,7 +10,7 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var viewModel: LaunchViewModel
+    private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,19 +20,19 @@ class DetailActivity : AppCompatActivity() {
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchDetailsViewModel::class.java)
 
         viewModel.getLaunch("9")
 
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
-                is LaunchViewState.Error -> {
+                is LaunchDetailsViewState.Error -> {
                     //TODO
                 }
-                is LaunchViewState.Success -> {
+                is LaunchDetailsViewState.Success -> {
                     title = state.model?.name ?: getString(R.string.title)
                 }
-                is LaunchViewState.Loading -> {
+                is LaunchDetailsViewState.Loading -> {
                     //TODO
                 }
             }

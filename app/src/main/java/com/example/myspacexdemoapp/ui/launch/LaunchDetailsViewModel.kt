@@ -8,27 +8,27 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.spacexdemoapp.GetLaunchQuery
 
-class LaunchViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
+class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
 
 
-    private val _launchMutableLiveData = MutableLiveData<LaunchViewState>()
-    val launchLiveData: LiveData<LaunchViewState> = _launchMutableLiveData
+    private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
+    val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
 
 
     fun getLaunch(id: String) {
         spaceXApi.getLaunchById(id)
             .doOnSubscribe {
-                _launchMutableLiveData.postValue(LaunchViewState.Loading)
+                _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
             .subscribe({ response ->
                 _launchMutableLiveData.postValue(
-                    LaunchViewState.Success(
+                    LaunchDetailsViewState.Success(
                         getLaunchUiModel(response, id),
                     )
                 )
 
             }, { throwable ->
-                _launchMutableLiveData.postValue(LaunchViewState.Error(throwable))
+                _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
     }
 
