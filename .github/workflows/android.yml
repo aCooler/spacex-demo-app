@@ -1,4 +1,4 @@
-name: Build check
+name: Testing Workflow
 
 on:
   push:
@@ -7,10 +7,12 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+
+   testing:
+    name: Lint Check and Testing
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: set up JDK 11
@@ -22,5 +24,20 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
+      
+   # Step 1: Check the code with ktlint
+    - name: Run Kotlin Linter
+      run: ./gradlew ktlintCheck
+      
+   # Step 2: Run Detekt
+    - name: Run Unit Tests
+      run: ./gradlew detekt
+      
+   # Step 3: Run unit tests
+    - name: Run Unit Tests
+      run: ./gradlew testDebugUnitTest
+      
+   # Step 3: Build debug apk
+    - name: Assemble Debug APK
       run: ./gradlew build
+    
