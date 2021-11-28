@@ -26,9 +26,16 @@ jobs:
       run: chmod +x gradlew
       
    # Step 1: Check the code with ktlint
-    - name: Run Kotlin Linter
-      run: ./gradlew ktlintCheck
-      
+    - name: Clone repo
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - name: ktlint
+      uses: ScaCap/action-ktlint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-check
+
    # Step 2: Run Detekt
     - name: Run Unit Tests
       run: ./gradlew detekt
@@ -40,4 +47,3 @@ jobs:
    # Step 3: Build debug apk
     - name: Assemble Debug APK
       run: ./gradlew build
-    
