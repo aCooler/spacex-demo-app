@@ -1,13 +1,12 @@
 package com.example.myspacexdemoapp.ui.launch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
@@ -24,5 +23,19 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchViewModel::class.java)
 
         viewModel.getLaunch("9")
+
+        viewModel.launchLiveData.observe(this, { state ->
+            when (state) {
+                is LaunchViewState.Error -> {
+                    //TODO
+                }
+                is LaunchViewState.Success -> {
+                    title = state.model?.name ?: getString(R.string.title)
+                }
+                is LaunchViewState.Loading -> {
+                    //TODO
+                }
+            }
+        })
     }
 }

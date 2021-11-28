@@ -18,6 +18,14 @@ query GetLaunches {
 
 query GetLaunch($id:ID!) {
 
+    payload(id: $id) {
+        nationality
+        payload_mass_kg
+        orbit
+        customers
+        reused
+        manufacturer
+    }
     launch(id: $id) {
         details
         ...MissionDetails
@@ -27,6 +35,7 @@ query GetLaunch($id:ID!) {
         launch_site {
             site_name_long
         }
+
         rocket {
             ...RocketFields
             rocket {
