@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.apollographql.apollo.api.Response
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
+import com.example.myspacexdemoapp.ui.launches.LaunchesViewState
 import com.example.spacexdemoapp.GetLaunchQuery
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
@@ -15,10 +16,11 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
 
 
+
     fun getLaunch(id: String) {
         spaceXApi.getLaunchById(id)
             .doOnSubscribe {
-                _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
+                _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading(id))
             }
             .subscribe({ response ->
                 _launchMutableLiveData.postValue(
@@ -31,6 +33,7 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
     }
+
 
 
     private fun getLaunchUiModel(

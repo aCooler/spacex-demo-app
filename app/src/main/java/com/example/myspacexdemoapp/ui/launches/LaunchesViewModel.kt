@@ -10,7 +10,6 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
 
-
     fun getLaunches() {
         spaceXApi.getLaunches()
             .doOnSubscribe {

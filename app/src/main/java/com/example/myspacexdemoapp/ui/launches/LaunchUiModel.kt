@@ -2,14 +2,14 @@ package com.example.myspacexdemoapp.ui.launches
 
 
 data class LaunchUiModel(
-    val number: String,
-    val badge: String,
-    val name: String,
-    val date: String,
-    val rocketName: String,
-    val place: String,
-    val success: Boolean,
-    val picture: String,
+    val number: String = "",
+    val badge: String = "",
+    val name: String = "",
+    val date: String = "",
+    val rocketName: String = "",
+    val place: String = "",
+    val success: Boolean = false,
+    val picture: String = "",
     val details: String = "",
     val orbit: String = "",
     val nationality: String = "",
@@ -19,4 +19,4 @@ data class LaunchUiModel(
     val pictures: List<String> = emptyList(),
     val video: String = "",
     val reused: Boolean = false,
-    )
+)

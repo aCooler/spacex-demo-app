@@ -12,9 +12,10 @@ import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
 
-class RecyclerViewAdapter :
+class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-    private var items: List<LaunchUiModel> = listOf()
+    private var items: List<LaunchUiModel> = emptyList()
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val place: TextView
@@ -29,7 +30,7 @@ class RecyclerViewAdapter :
         init {
             place = view.findViewById(R.id.place)
             rocketName = view.findViewById(R.id.rocket_name)
-            missionName = view.findViewById(R.id.mission_name)
+            missionName = view.findViewById(R.id.single_title)
             date = view.findViewById(R.id.date)
             success = view.findViewById(R.id.success)
             number = view.findViewById(R.id.number)
@@ -47,11 +48,18 @@ class RecyclerViewAdapter :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
+        viewHolder.itemView.setOnClickListener {
+            onClickListener.onClick(items[position].number)
+        }
+
         viewHolder.place.text = items[position].place
         viewHolder.rocketName.text = items[position].rocketName
         viewHolder.missionName.text = items[position].name
         viewHolder.date.text = items[position].date.toDateString()
-        viewHolder.number.text = String.format(viewHolder.itemView.context.getString(R.string.number), items[position].number)
+        viewHolder.number.text = String.format(
+            viewHolder.itemView.context.getString(R.string.number),
+            items[position].number
+        )
 
         if (items[position].picture.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
@@ -76,10 +84,12 @@ class RecyclerViewAdapter :
 
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.success.setTextColor(green)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_check,
                     0,
                     0,
-                    0)
+                    0
+                )
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 viewHolder.itemView.context.getString(R.string.success)
@@ -88,10 +98,12 @@ class RecyclerViewAdapter :
 
             else -> {
                 val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_report,
+                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_report,
                     0,
                     0,
-                    0)
+                    0
+                )
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 viewHolder.success.setTextColor(red)
@@ -99,9 +111,16 @@ class RecyclerViewAdapter :
             }
         }
 
+
+
+
+
+
     }
 
-
+    class OnClickListener(val clickListener: (id: String) -> Unit) {
+        fun onClick(id: String) = clickListener(id)
+    }
     fun setItems(strings: List<LaunchUiModel>) {
         items = strings
         notifyDataSetChanged()
@@ -111,3 +130,5 @@ class RecyclerViewAdapter :
     override fun getItemCount() = items.size
 
 }
+
+
