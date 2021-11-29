@@ -99,13 +99,10 @@ class RecyclerViewAdapter :
             }
         }
     }
-
-
-    fun setItems(strings: List<LaunchUiModel>){
+    fun setItems(strings: List<LaunchUiModel>) {
         items = strings
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = items.size
-
 }
