@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:paddingBottom="16dp"
     app:cardBackgroundColor="@color/card_color"
@@ -17,28 +17,15 @@
 
 
         <TextView
-            android:id="@+id/single_text"
+            android:id="@+id/row"
             style="@style/bigger_white_style"
-            android:layout_width="294dp"
-            android:layout_height="111dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:text="Launch"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/single_title" />
-
-        <TextView
-            android:id="@+id/single_title"
-            style="@style/normal_white_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/single_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/top_guideline"
-            app:layout_constraintVertical_bias="0.45"
-            tools:text="@string/success" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/nearest_to_left_edge_guideline"
@@ -53,14 +40,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="16dp" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/right_badge_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="16dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

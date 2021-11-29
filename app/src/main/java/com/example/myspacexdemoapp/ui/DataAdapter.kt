@@ -2,279 +2,294 @@ package com.example.myspacexdemoapp.ui
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
-class DataAdapter : RecyclerView.Adapter<DataAdapter.DataAdapterViewHolder>() {
+class DataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var launchUIModel: LaunchUiModel = LaunchUiModel()
 
-    private val adapterData = mutableListOf<DataModel>()
 
-    //--------onCreateViewHolder: inflate layout with view holder-------
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataAdapterViewHolder {
-
-        val layout = when (viewType) {
-            TYPE_PICTURE -> R.layout.card
-            TYPE_CARD -> R.layout.picture
-            TYPE_DETAILS -> R.layout.details
-            TYPE_SINGLE -> R.layout.single
-            TYPE_GALLERY -> R.layout.gallery
-            else -> throw IllegalArgumentException("Invalid view type")
-        }
-
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(layout, parent, false)
-
-        return DataAdapterViewHolder(view)
+    fun setItems(model: LaunchUiModel) {
+        launchUIModel = model
+        notifyDataSetChanged()
     }
 
-
-    //-----------onBindViewHolder: bind view with data model---------
-    override fun onBindViewHolder(holder: DataAdapterViewHolder, position: Int) {
-        if(adapterData.isEmpty()) {
-            holder.bind(DataModel.Card(LaunchUiModel()))
-        }
-        else{
-            holder.bind(adapterData[position])
-        }
-
-    }
-
-    override fun getItemCount(): Int = 5
-
-    override fun getItemViewType(position: Int): Int {
-        if(adapterData.isEmpty()){return TYPE_CARD }
-        return when (adapterData[position]) {
-            is DataModel.Picture -> TYPE_PICTURE
-            is DataModel.Card -> TYPE_CARD
-            is DataModel.Details -> TYPE_DETAILS
-            is DataModel.Single -> TYPE_SINGLE
-            is DataModel.Gallery -> TYPE_GALLERY
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val v = layoutInflater.inflate(viewType, parent, false)
+        return when (viewType) {
+            R.layout.picture -> PictureViewHolder(v)
+            R.layout.card -> CardViewHolder(v)
+            R.layout.details -> DetailsViewHolder(v)
+            R.layout.single -> SingleViewHolder(v)
+            R.layout.gallery -> CardViewHolder(v)
+            R.layout.row -> RowViewHolder(v)
+            else -> CardViewHolder(v)
         }
     }
 
-    fun setItems(data: LaunchUiModel) {
-        adapterData.apply {
-            clear()
-            addAll(listOf(
-                DataModel.Picture(data),
-                DataModel.Card(data),
-                DataModel.Details(data),
-                DataModel.Single(data),
-                DataModel.Gallery(data)
-            ))
-        }
-    }
+    class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val place: TextView
+        val rocketName: TextView
+        val success: TextView
+        val missionName: TextView
+        val date: TextView
+        val number: TextView
+        val picture: ImageView
+        val badge: ImageView
 
-    companion object {
-        private const val TYPE_PICTURE = 0
-        private const val TYPE_CARD = 1
-        private const val TYPE_DETAILS = 2
-        private const val TYPE_SINGLE = 3
-        private const val TYPE_GALLERY = 4
 
-    }
-
-    class DataAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private fun bindFamily(item: DataModel.Picture) {
-            //Do your view assignment here from the data model
-            val launchUiModel = item.launchUiModel
-            val place: TextView
-            val rocketName: TextView
-            val success: TextView
-            val missionName: TextView
-            val date: TextView
-            val number: TextView
-            val picture: ImageView
-            val badge: ImageView
-            place = itemView.findViewById(R.id.place)
-            rocketName = itemView.findViewById(R.id.rocket_name)
-            missionName = itemView.findViewById(R.id.single_title)
-            date = itemView.findViewById(R.id.date)
-            success = itemView.findViewById(R.id.success)
-            number = itemView.findViewById(R.id.number)
-            picture = itemView.findViewById(R.id.launch_image)
-            badge = itemView.findViewById(R.id.badge)
-            place.text = item.launchUiModel.place
-            rocketName.text = item.launchUiModel.rocketName
-            missionName.text = item.launchUiModel.name
-            date.text = launchUiModel.date.toDateString()
+        fun onBindView(model: LaunchUiModel) {
+            itemView.setOnClickListener {}
+            place.text = model.place
+            rocketName.text = model.rocketName
+            missionName.text = model.rocketName
+            date.text = model.date.toDateString()
             number.text = String.format(
                 itemView.context.getString(R.string.number),
-                launchUiModel.number
+                model.number
             )
 
-            if (launchUiModel.picture.isNotEmpty()) {
+            if (model.picture.isNotEmpty()) {
                 Glide.with(itemView)
-                    .load(picture)
+                    .load(model.picture)
                     .into(
                         picture
                     )
             }
 
 
-            if (launchUiModel.badge.isNotEmpty()) {
+            if (model.badge.isNotEmpty()) {
                 Glide.with(itemView)
-                    .load(launchUiModel.badge)
+                    .load(model.badge)
                     .into(
                         badge
                     )
                 badge.visibility = View.VISIBLE
             }
 
-            success.text = when (launchUiModel.success) {
-                true -> {
-
-                    val green = itemView.context.resources.getColor(R.color.success_green)
-                    success.setTextColor(green)
-                    success.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_check,
-                        0,
-                        0,
-                        0
-                    )
-                    success.compoundDrawables[0].colorFilter =
-                        PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                    itemView.context.getString(R.string.success)
-                }
-
-
-                else -> {
-                    val red = itemView.context.resources.getColor(R.color.failed_red)
-                    success.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_report,
-                        0,
-                        0,
-                        0
-                    )
-                    success.compoundDrawables[0].colorFilter =
-                        PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                    success.setTextColor(red)
-                    itemView.context.getString(R.string.failed)
-                }
-            }
-        }
-
-        private fun bindFriend(item: DataModel.Card) {
-            //Do your view assignment here from the data model
-            val launchUiModel = item.launchUiModel
-            val success: TextView
-            val number: TextView
-            val picture: ImageView
-            val badge: ImageView
-            success = itemView.findViewById(R.id.success)
-            number = itemView.findViewById(R.id.number)
-            picture = itemView.findViewById(R.id.launch_image)
-            badge = itemView.findViewById(R.id.badge)
-            number.text = String.format(
-                itemView.context.getString(R.string.number),
-                launchUiModel.number
-            )
-
-            if (launchUiModel.picture.isNotEmpty()) {
-                Glide.with(itemView)
-                    .load(picture)
-                    .into(
-                        picture
-                    )
-            }
-
-
-            if (launchUiModel.badge.isNotEmpty()) {
-                Glide.with(itemView)
-                    .load(launchUiModel.badge)
-                    .into(
-                        badge
-                    )
-                badge.visibility = View.VISIBLE
-            }
-
-            success.text = when (launchUiModel.success) {
-                true -> {
-
-                    val green = itemView.context.resources.getColor(R.color.success_green)
-                    success.setTextColor(green)
-                    success.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_check,
-                        0,
-                        0,
-                        0
-                    )
-                    success.compoundDrawables[0].colorFilter =
-                        PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                    itemView.context.getString(R.string.success)
-                }
-
-
-                else -> {
-                    val red = itemView.context.resources.getColor(R.color.failed_red)
-                    success.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_report,
-                        0,
-                        0,
-                        0
-                    )
-                    success.compoundDrawables[0].colorFilter =
-                        PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                    success.setTextColor(red)
-                    itemView.context.getString(R.string.failed)
-                }
-            }
-        }
-
-        private fun bindColleague(item: DataModel.Details) {
-            //Do your view assignment here from the data model
-            val launchUiModel = item.launchUiModel
-            val details: TextView
-            details = itemView.findViewById(R.id.details)
-            details.text = launchUiModel.details
-
-        }
-
-        private fun bindHeader(item: DataModel.Single) {
-            //Do your view assignment here from the data model
-            val launchUiModel = item.launchUiModel
-            val text: TextView
-            text = itemView.findViewById(R.id.single_text)
-            text.text = launchUiModel.manufacturer
-            val title: TextView
-            title = itemView.findViewById(R.id.single_title)
-            title.text = launchUiModel.details
-
-        }
-
-        private fun bindHeader(item: DataModel.Gallery) {
-            //Do your view assignment here from the data model
-            val launchUiModel = item.launchUiModel
-            val picture: ImageView
-            picture = itemView.findViewById(R.id.picture)
-            Glide.with(itemView)
-                .load(launchUiModel.pictures[0])
-                .into(
-                    picture
+            val drawable: Drawable?
+            drawable =
+                itemView.context!!.resources.getDrawable(
+                    R.drawable.ic_check,
+                    itemView.context!!.theme
                 )
+
+            success.text = when (model.success) {
+                true -> {
+
+                    val green = itemView.context.resources.getColor(R.color.success_green)
+                    success.setTextColor(green)
+                    success.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_check,
+                        0,
+                        0,
+                        0
+                    )
+                    success.compoundDrawables[0].colorFilter =
+                        PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
+                    itemView.context.getString(R.string.success)
+
+                }
+
+
+                else -> {
+                    val red = itemView.context.resources.getColor(R.color.failed_red)
+                    success.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_report,
+                        0,
+                        0,
+                        0
+                    )
+                    success.compoundDrawables[0].colorFilter =
+                        PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
+//                success.compoundDrawables[0].setBounds(0, 0, 0 + success.compoundDrawables[0].intrinsicWidth, 0
+//                        + success.compoundDrawables[0].intrinsicHeight);
+
+
+                    success.setTextColor(red)
+                    itemView.context.getString(R.string.failed)
+                }
+            }
+
         }
 
-        fun bind(dataModel: DataModel) {
-            when (dataModel) {
-                is DataModel.Picture -> bindFamily(dataModel)
-                is DataModel.Card -> bindFriend(dataModel)
-                is DataModel.Details -> bindColleague(dataModel)
-                is DataModel.Single -> bindHeader(dataModel)
-                is DataModel.Gallery -> bindHeader(dataModel)
-                else -> bindFriend(dataModel as DataModel.Card)
-            }
+        init {
+            place = view.findViewById(R.id.place)
+            rocketName = view.findViewById(R.id.rocket_name)
+            missionName = view.findViewById(R.id.row)
+            date = view.findViewById(R.id.single_title)
+            success = view.findViewById(R.id.success)
+            number = view.findViewById(R.id.number)
+            picture = view.findViewById(R.id.launch_image)
+            badge = view.findViewById(R.id.badge)
+        }
+
+    }
+
+    class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val details: TextView
+
+
+        fun onBindView(model: LaunchUiModel) {
+            itemView.setOnClickListener {}
+            details.text = model.details
+        }
+        init {
+            details = view.findViewById(R.id.details)
         }
     }
+    class RowViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val row: TextView
+
+
+        fun onBindView(model: LaunchUiModel) {
+            itemView.setOnClickListener {}
+            row.text = "Row"
+        }
+        init {
+            row = view.findViewById(R.id.row)
+        }
+    }
+
+    class SingleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val singleTitle: TextView
+        val singleText: TextView
+
+
+        fun onBindView(model: LaunchUiModel) {
+            itemView.setOnClickListener {}
+            singleTitle.text = "Start"
+            singleText.text = model.place
+
+        }
+        init {
+            singleTitle = view.findViewById(R.id.single_title)
+            singleText = view.findViewById(R.id.single_text)
+        }
+    }
+
+
+    class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val success: TextView
+        val number: TextView
+        val picture: ImageView
+        val badge: ImageView
+
+
+        fun onBindView(model: LaunchUiModel) {
+            itemView.setOnClickListener {}
+            number.text = String.format(
+                itemView.context.getString(R.string.number),
+                model.number
+            )
+
+            if (model.picture.isNotEmpty()) {
+                Glide.with(itemView)
+                    .load(model.picture)
+                    .into(
+                        picture
+                    )
+            }
+
+
+            if (model.badge.isNotEmpty()) {
+                Glide.with(itemView)
+                    .load(model.badge)
+                    .into(
+                        badge
+                    )
+                badge.visibility = View.VISIBLE
+            }
+
+            val drawable: Drawable?
+            drawable =
+                itemView.context!!.resources.getDrawable(
+                    R.drawable.ic_check,
+                    itemView.context!!.theme
+                )
+
+            success.text = when (model.success) {
+                true -> {
+
+                    val green = itemView.context.resources.getColor(R.color.success_green)
+                    success.setTextColor(green)
+                    success.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_check,
+                        0,
+                        0,
+                        0
+                    )
+                    success.compoundDrawables[0].colorFilter =
+                        PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
+                    itemView.context.getString(R.string.success)
+
+                }
+                else -> {
+                    val red = itemView.context.resources.getColor(R.color.failed_red)
+                    success.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_report,
+                        0,
+                        0,
+                        0
+                    )
+                    success.compoundDrawables[0].colorFilter =
+                        PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
+//                success.compoundDrawables[0].setBounds(0, 0, 0 + success.compoundDrawables[0].intrinsicWidth, 0
+//                        + success.compoundDrawables[0].intrinsicHeight);
+                    success.setTextColor(red)
+                    itemView.context.getString(R.string.failed)
+                }
+            }
+        }
+
+        init {
+            success = view.findViewById(R.id.success)
+            number = view.findViewById(R.id.number)
+            picture = view.findViewById(R.id.launch_image)
+            badge = view.findViewById(R.id.badge)
+        }
+
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        when (holder) {
+            is CardViewHolder -> holder.onBindView(launchUIModel)
+            is PictureViewHolder -> holder.onBindView(launchUIModel)
+            is DetailsViewHolder -> holder.onBindView(launchUIModel)
+            is RowViewHolder -> holder.onBindView(launchUIModel)
+            is SingleViewHolder -> holder.onBindView(launchUIModel)
+        }
+    }
+
+    override fun getItemViewType(position: Int) = when (position) {
+        0 -> R.layout.picture
+        1 -> R.layout.card
+        2 -> R.layout.details
+        3 -> R.layout.single
+        4 -> R.layout.row
+        5 -> R.layout.card
+        //2 -> R.layout.details
+        //3 -> R.layout.single
+        //4 -> R.layout.gallery
+        //5 -> R.layout.row
+        else -> throw IllegalStateException("Unknown view")
+    }
+
+    override fun getItemCount(): Int = if (launchUIModel.number.isEmpty()) {
+        0
+    } else {
+        6
+    }
+
 }

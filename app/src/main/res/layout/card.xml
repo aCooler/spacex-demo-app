@@ -53,7 +53,7 @@
 
 
         <TextView
-            android:id="@+id/single_title"
+            android:id="@+id/row"
             style="@style/bigger_white_style"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -85,18 +85,18 @@
             app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            app:layout_constraintTop_toBottomOf="@+id/single_title" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/single_title"
             style="@style/normal_white_style"
             android:layout_width="wrap_content"
             app:drawableLeftCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/rocket_name"
-            app:layout_constraintEnd_toEndOf="@+id/single_title"
+            app:layout_constraintEnd_toEndOf="@+id/row"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/single_title" />
+            app:layout_constraintTop_toBottomOf="@+id/row" />
 
         <TextView
             android:id="@+id/reused"

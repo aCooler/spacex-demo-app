@@ -12,14 +12,10 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.ActivitiesManagerViewModel
-import com.example.myspacexdemoapp.ui.ActivitiesManagerViewModelFactory
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 
-class MainFragment() : Fragment(R.layout.main_fragment) {
+class MainFragment : Fragment(R.layout.main_fragment) {
 
-    private lateinit var activitiesViewModel: ActivitiesManagerViewModel
-    private lateinit var activitiesManagerViewModelFactory: ActivitiesManagerViewModelFactory
 
     private lateinit var launchesViewModel: LaunchesViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
@@ -27,11 +23,6 @@ class MainFragment() : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        activitiesManagerViewModelFactory = ActivitiesManagerViewModelFactory()
-        activitiesViewModel = ViewModelProvider(
-            requireActivity(),
-            activitiesManagerViewModelFactory
-        ).get(ActivitiesManagerViewModel::class.java)
 
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
@@ -43,7 +34,7 @@ class MainFragment() : Fragment(R.layout.main_fragment) {
 
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
-            RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { activitiesViewModel.startDetailsFragment(it) })
+            RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
 
@@ -72,5 +63,16 @@ class MainFragment() : Fragment(R.layout.main_fragment) {
         })
     }
 
+
+
+    fun openDetailsFragment(id:String){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            val detailsFragment: Fragment = DetailsFragment(id)
+            addToBackStack("details_fragment")
+            replace(R.id.fragment_container, detailsFragment)
+        }
+        requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
 }

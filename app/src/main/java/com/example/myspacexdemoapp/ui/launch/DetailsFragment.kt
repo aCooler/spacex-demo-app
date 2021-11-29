@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,27 +13,19 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.ActivitiesManagerViewModel
-import com.example.myspacexdemoapp.ui.ActivitiesManagerViewModelFactory
 import com.example.myspacexdemoapp.ui.DataAdapter
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
+import com.example.myspacexdemoapp.ui.launches.MainFragment
 
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.main_fragment) {
 
-    private lateinit var activitiesViewModel: ActivitiesManagerViewModel
-    private lateinit var activitiesManagerViewModelFactory: ActivitiesManagerViewModelFactory
 
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-
-        activitiesManagerViewModelFactory = ActivitiesManagerViewModelFactory()
-        activitiesViewModel = ViewModelProvider(
-            requireActivity(),
-            activitiesManagerViewModelFactory
-        ).get(ActivitiesManagerViewModel::class.java)
+        requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
@@ -73,7 +66,8 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.main_fra
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        activitiesViewModel.startMainFragment()
+        requireActivity().supportFragmentManager.popBackStack()
+        requireActivity().actionBar?.setDisplayHomeAsUpEnabled(false)
         return true
     }
 }

@@ -2,6 +2,7 @@ package com.example.myspacexdemoapp.ui.launches
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +31,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         init {
             place = view.findViewById(R.id.place)
             rocketName = view.findViewById(R.id.rocket_name)
-            missionName = view.findViewById(R.id.single_title)
-            date = view.findViewById(R.id.date)
+            missionName = view.findViewById(R.id.row)
+            date = view.findViewById(R.id.single_title)
             success = view.findViewById(R.id.success)
             number = view.findViewById(R.id.number)
             picture = view.findViewById(R.id.launch_image)
@@ -79,6 +80,10 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             viewHolder.badge.visibility = View.VISIBLE
         }
 
+        val drawable: Drawable?
+        drawable =
+            viewHolder.itemView.context!!.resources.getDrawable(R.drawable.ic_check,viewHolder.itemView.context!!.theme)
+
         viewHolder.success.text = when (items[position].success) {
             true -> {
 
@@ -93,6 +98,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 viewHolder.itemView.context.getString(R.string.success)
+
             }
 
 
@@ -106,6 +112,10 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
                 )
                 viewHolder.success.compoundDrawables[0].colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
+//                viewHolder.success.compoundDrawables[0].setBounds(0, 0, 0 + viewHolder.success.compoundDrawables[0].intrinsicWidth, 0
+//                        + viewHolder.success.compoundDrawables[0].intrinsicHeight);
+
+
                 viewHolder.success.setTextColor(red)
                 viewHolder.itemView.context.getString(R.string.failed)
             }

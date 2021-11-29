@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="272dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="16dp"
     android:paddingBottom="16dp"
     app:cardBackgroundColor="@color/card_color"
@@ -52,11 +53,11 @@
 
 
         <TextView
-            android:id="@+id/single_title"
+            android:id="@+id/row"
             style="@style/bigger_white_style"
             android:layout_width="0dp"
             android:layout_height="24dp"
-            android:text="Launch"
+            tools:text="Launch"
             app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
             app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
             app:layout_constraintHorizontal_bias="0.0"
@@ -69,6 +70,7 @@
             style="@style/normal_white_style"
             android:layout_width="0dp"
             android:layout_marginBottom="16dp"
+            tools:text="Bay"
             app:drawableLeftCompat="@drawable/ic_room"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
@@ -80,16 +82,18 @@
             android:id="@+id/rocket_name"
             style="@style/normal_white_style"
             android:layout_width="wrap_content"
+            tools:text="Falcon"
             app:drawableLeftCompat="@drawable/ic_rocket_launch"
             app:layout_constraintBottom_toTopOf="@+id/place"
             app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            app:layout_constraintTop_toBottomOf="@+id/single_title" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/single_title"
             style="@style/normal_white_style"
+            tools:text="June"
             android:layout_width="wrap_content"
             app:drawableLeftCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/rocket_name"
