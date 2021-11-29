@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_card_margin">4dp</dimen>
+    <dimen name="badge_size">64dp</dimen>
+    <dimen name="card_height">272dp</dimen>
 </resources>

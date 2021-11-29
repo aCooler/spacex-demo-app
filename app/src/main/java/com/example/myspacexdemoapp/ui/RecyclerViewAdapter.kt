@@ -17,23 +17,23 @@ class RecyclerViewAdapter :
     private var items: List<LaunchUiModel> = listOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val place: TextView
+        /*val place: TextView
         val rocketName: TextView
         val success: TextView
         val missionName: TextView
-        val date: TextView
+        val date: TextView*/
         val number: TextView
-        val picture: ImageView
+        //val picture: ImageView
         val badge: ImageView
 
         init {
-            place = view.findViewById(R.id.place)
-            rocketName = view.findViewById(R.id.rocket_name)
-            missionName = view.findViewById(R.id.mission_name)
-            date = view.findViewById(R.id.date)
-            success = view.findViewById(R.id.success)
+            //place = view.findViewById(R.id.place)
+            //rocketName = view.findViewById(R.id.rocket_name)
+            //missionName = view.findViewById(R.id.mission_name)
+            //date = view.findViewById(R.id.date)
+                 //success = view.findViewById(R.id.success)
             number = view.findViewById(R.id.number)
-            picture = view.findViewById(R.id.launch_image)
+                   //picture = view.findViewById(R.id.launch_image)
             badge = view.findViewById(R.id.badge)
         }
     }
@@ -46,21 +46,21 @@ class RecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.place.text = items[position].place
+        /*viewHolder.place.text = items[position].place
         viewHolder.rocketName.text = items[position].rocketName
         viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date.toDateString() ?: ""
+        viewHolder.date.text = items[position].date.toDateString() ?: ""*/
         viewHolder.number.text = String.format(
             viewHolder.itemView.context.getString(R.string.number),
             items[position].number
         )
-        if (items[position].picture.isNotEmpty()) {
+        /*if (items[position].picture.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
                 .load(items[position].picture)
                 .into(
                     viewHolder.picture
                 )
-        }
+        }*/
         if (items[position].badge.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
                 .load(items[position].badge)
@@ -69,7 +69,7 @@ class RecyclerViewAdapter :
                 )
             viewHolder.badge.visibility = View.VISIBLE
         }
-        viewHolder.success.text = when (items[position].success) {
+        /*viewHolder.success.text = when (items[position].success) {
             true -> {
 
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
@@ -97,7 +97,7 @@ class RecyclerViewAdapter :
                 viewHolder.success.setTextColor(red)
                 viewHolder.itemView.context.getString(R.string.failed)
             }
-        }
+        }*/
     }
     fun setItems(strings: List<LaunchUiModel>) {
         items = strings
