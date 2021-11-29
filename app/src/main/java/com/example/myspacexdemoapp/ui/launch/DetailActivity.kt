@@ -30,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
                     //TODO
                 }
                 is LaunchDetailsViewState.Success -> {
-                    title = state.model?.name ?: getString(R.string.title)
+                    title = state.model?.mission?.name ?: getString(R.string.title)
                 }
                 is LaunchDetailsViewState.Loading -> {
                     //TODO

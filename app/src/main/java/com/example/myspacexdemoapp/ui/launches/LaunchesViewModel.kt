@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.spacexdemoapp.GetLaunchesQuery
 
 class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
 
@@ -20,20 +21,9 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 _launchesMutableLiveData.postValue(LaunchesViewState.Success(
                     response.data?.launches()?.map {
                         LaunchUiModel(
-                            it.id() ?: "",
-                            it.links()?.mission_patch() ?: "",
-                            it.fragments().missionDetails().mission_name() ?: "",
-                            it.fragments().missionDetails().launch_date_utc().toString() ?: "",
-                            it.rocket()?.fragments()?.rocketFields()?.rocket_name() ?: "",
-                            it.launch_site()?.site_name_long() ?: "",
-                            it.fragments().missionDetails().launch_success() ?: true,
-                            it.links()?.flickr_images().let { pictures ->
-                                if (pictures!!.isNotEmpty()) {
-                                    pictures[0]
-                                } else {
-                                    ""
-                                }
-                            }
+                            number = it.id() ?: "",
+                            mission = getMission(it),
+                            linkInfo = getLinkInfo(it),
                         )
                     }
                 ))
@@ -41,6 +31,37 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }, { throwable ->
                 _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
             })
+    }
+
+    private fun getMission(it: GetLaunchesQuery.Launch): Mission? {
+        return Mission(
+            name = it.fragments().missionDetails().mission_name() ?: "",
+            date = it.fragments().missionDetails().launch_date_utc().toString(),
+            rocketName = it.rocket()?.fragments()?.rocketFields()?.rocket_name()
+                ?: "",
+            place = it.launch_site()?.site_name_long() ?: "",
+            success = it.fragments().missionDetails().launch_success() ?: true,
+        )
+    }
+
+    private fun getLinkInfo(it: GetLaunchesQuery.Launch): LinkInfo? {
+        return LinkInfo(
+            badge = it.links()?.mission_patch() ?: "",
+            picture = it.links()?.flickr_images().let { pictures ->
+                if (pictures!!.isNotEmpty()) {
+                    pictures[0]
+                } else {
+                    ""
+                }
+            },
+            pictures = it.links()?.flickr_images().let { pictures ->
+                if (pictures!!.isNotEmpty()) {
+                    pictures
+                } else {
+                    emptyList<String>()
+                }
+            }
+        )
     }
 
 
