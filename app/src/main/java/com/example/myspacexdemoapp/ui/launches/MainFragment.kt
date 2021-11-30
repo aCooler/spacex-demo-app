@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
 import android.os.Bundle
 import android.view.View
@@ -11,8 +11,6 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewState
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
