@@ -11,7 +11,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
 
-//
+    //
     fun getLaunches() {
         spaceXApi.getLaunches()
             .doOnSubscribe {
@@ -21,18 +21,19 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 { response ->
                     _launchesMutableLiveData.postValue(
                         LaunchesViewState.Success(
-                        response.data?.launches()?.map {
-                            LaunchUiModel(
-                                number = it.id() ?: "",
-                                mission = getMission(it),
-                                linkInfo = getLinkInfo(it),
-                            )
-                        }
-                    )
+                            response.data?.launches()?.map {
+                                LaunchUiModel(
+                                    number = it.id() ?: "",
+                                    mission = getMission(it),
+                                    linkInfo = getLinkInfo(it),
+                                )
+                            }
+                        )
                     )
                 }, { throwable ->
                     _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
-                })
+                }
+            )
     }
 
     private fun getMission(it: GetLaunchesQuery.Launch): Mission? {
