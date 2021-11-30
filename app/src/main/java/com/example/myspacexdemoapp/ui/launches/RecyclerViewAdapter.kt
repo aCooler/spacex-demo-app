@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
+import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
 class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -49,70 +50,85 @@ class RecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.place.text = items[position].place
-        viewHolder.rocketName.text = items[position].rocketName
-        viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date.toDateString() ?: ""
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString() ?: ""
         viewHolder.number.text = String.format(
             viewHolder.itemView.context.getString(R.string.number),
             items[position].number
         )
 
-        if (items[position].picture.isNotEmpty()) {
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString()
+        viewHolder.number.text = String.format(
+            viewHolder.itemView.context.getString(R.string.number),
+            items[position].number
+        )
+
+        if (items[position].linkInfo?.picture?.isNotEmpty() ?: false) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].picture)
+                .load(items[position].linkInfo?.picture)
                 .into(
                     viewHolder.picture
                 )
         }
 
-        if (items[position].badge.isNotEmpty()) {
+        if (items[position].linkInfo?.badge?.isNotEmpty() ?: false) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].badge)
+                .load(items[position].linkInfo?.badge)
                 .into(
                     viewHolder.badge
                 )
             viewHolder.badge.visibility = View.VISIBLE
         }
 
-        viewHolder.successText.text = when (items[position].success) {
+        viewHolder.successText.text = makeSucess(items[position], viewHolder)
+    }
+
+    private fun makeSucess(model: LaunchUiModel, holder: ViewHolder): CharSequence? {
+        return when (model.mission?.success) {
             true -> {
-                val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
-                viewHolder.successText.setTextColor(green)
+                val green = holder.itemView.context.resources.getColor(R.color.success_green)
+                holder.successText.setTextColor(green)
                 val drawable: Drawable? =
-                    viewHolder.itemView.context!!.resources.getDrawable(
+                    holder.itemView.context!!.resources.getDrawable(
                         R.drawable.ic_check,
-                        viewHolder.itemView.context!!.theme
+                        holder.itemView.context!!.theme
                     )
 
                 drawable?.colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                viewHolder.successIcon.setImageDrawable(
+                holder.successIcon.setImageDrawable(
                     drawable
 
                 )
-                viewHolder.itemView.context.getString(R.string.success)
+                holder.itemView.context.getString(R.string.success)
             }
             else -> {
-                val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
+                val red = holder.itemView.context.resources.getColor(R.color.failed_red)
                 val drawable: Drawable? =
-                    viewHolder.itemView.context!!.resources.getDrawable(
+                    holder.itemView.context!!.resources.getDrawable(
                         R.drawable.ic_report,
-                        viewHolder.itemView.context!!.theme
+                        holder.itemView.context!!.theme
                     )
                 drawable?.colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                viewHolder.successIcon.setImageDrawable(
+                holder.successIcon.setImageDrawable(
                     drawable
                 )
-                viewHolder.successText.setTextColor(red)
-                viewHolder.itemView.context.getString(R.string.failed)
+                holder.successText.setTextColor(red)
+                holder.itemView.context.getString(R.string.failed)
             }
         }
     }
+
     fun setItems(strings: List<LaunchUiModel>) {
         items = strings
         notifyDataSetChanged()
     }
+
     override fun getItemCount() = items.size
 }
