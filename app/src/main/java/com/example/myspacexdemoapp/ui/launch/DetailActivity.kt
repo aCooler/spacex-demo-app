@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

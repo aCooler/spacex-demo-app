@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

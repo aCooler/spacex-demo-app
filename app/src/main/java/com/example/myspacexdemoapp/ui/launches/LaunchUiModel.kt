@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
 data class LaunchUiModel(
     val number: String,
