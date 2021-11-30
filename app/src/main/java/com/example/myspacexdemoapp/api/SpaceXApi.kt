@@ -8,7 +8,7 @@ import com.example.spacexdemoapp.GetLaunchQuery
 import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 

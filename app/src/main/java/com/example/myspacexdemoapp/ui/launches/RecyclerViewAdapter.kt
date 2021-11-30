@@ -1,7 +1,8 @@
-package com.example.myspacexdemoapp.ui.launches
+package com.example.myspacexdemoapp.ui
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
+import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
 class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -19,22 +21,24 @@ class RecyclerViewAdapter :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val place: TextView
         val rocketName: TextView
-        val success: TextView
+        val successText: TextView
         val missionName: TextView
         val date: TextView
         val number: TextView
         val picture: ImageView
         val badge: ImageView
+        val successIcon: ImageView
 
         init {
             place = view.findViewById(R.id.place)
             rocketName = view.findViewById(R.id.rocket_name)
             missionName = view.findViewById(R.id.mission_name)
             date = view.findViewById(R.id.date)
-            success = view.findViewById(R.id.success)
+            successText = view.findViewById(R.id.success)
             number = view.findViewById(R.id.number)
             picture = view.findViewById(R.id.launch_image)
             badge = view.findViewById(R.id.badge)
+            successIcon = view.findViewById(R.id.success_icon)
         }
     }
 
@@ -46,6 +50,14 @@ class RecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString() ?: ""
+        viewHolder.number.text = String.format(
+            viewHolder.itemView.context.getString(R.string.number),
+            items[position].number
+        )
 
         viewHolder.place.text = items[position].mission?.place
         viewHolder.rocketName.text = items[position].mission?.rocketName
@@ -64,7 +76,6 @@ class RecyclerViewAdapter :
                 )
         }
 
-
         if (items[position].linkInfo?.badge?.isNotEmpty() ?: false) {
             Glide.with(viewHolder.itemView)
                 .load(items[position].linkInfo?.badge)
@@ -74,47 +85,44 @@ class RecyclerViewAdapter :
             viewHolder.badge.visibility = View.VISIBLE
         }
 
-        viewHolder.success.text = when (items[position].mission?.success) {
+        viewHolder.successText.text = when (items[position].mission?.success) {
             true -> {
-
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
-                viewHolder.success.setTextColor(green)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check,
-                    0,
-                    0,
-                    0
-                )
-                viewHolder.success.compoundDrawables[0].colorFilter =
+                viewHolder.successText.setTextColor(green)
+                val drawable: Drawable? =
+                    viewHolder.itemView.context!!.resources.getDrawable(
+                        R.drawable.ic_check,
+                        viewHolder.itemView.context!!.theme
+                    )
+
+                drawable?.colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
+                viewHolder.successIcon.setImageDrawable(
+                    drawable
+
+                )
                 viewHolder.itemView.context.getString(R.string.success)
             }
-
-
             else -> {
                 val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
-                viewHolder.success.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_report,
-                    0,
-                    0,
-                    0
-                )
-                viewHolder.success.compoundDrawables[0].colorFilter =
+                val drawable: Drawable? =
+                    viewHolder.itemView.context!!.resources.getDrawable(
+                        R.drawable.ic_report,
+                        viewHolder.itemView.context!!.theme
+                    )
+                drawable?.colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                viewHolder.success.setTextColor(red)
+                viewHolder.successIcon.setImageDrawable(
+                    drawable
+                )
+                viewHolder.successText.setTextColor(red)
                 viewHolder.itemView.context.getString(R.string.failed)
             }
         }
-
     }
-
-
     fun setItems(strings: List<LaunchUiModel>) {
         items = strings
         notifyDataSetChanged()
-
     }
-
     override fun getItemCount() = items.size
-
 }

@@ -11,6 +11,7 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.myspacexdemoapp.ui.RecyclerViewAdapter
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
