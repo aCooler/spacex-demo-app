@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.toDateString
+import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
 class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -49,33 +50,42 @@ class RecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.place.text = items[position].place
-        viewHolder.rocketName.text = items[position].rocketName
-        viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date.toDateString() ?: ""
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString() ?: ""
         viewHolder.number.text = String.format(
             viewHolder.itemView.context.getString(R.string.number),
             items[position].number
         )
 
-        if (items[position].picture.isNotEmpty()) {
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString()
+        viewHolder.number.text = String.format(
+            viewHolder.itemView.context.getString(R.string.number),
+            items[position].number
+        )
+
+        if (items[position].linkInfo?.picture?.isNotEmpty() ?: false) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].picture)
+                .load(items[position].linkInfo?.picture)
                 .into(
                     viewHolder.picture
                 )
         }
 
-        if (items[position].badge.isNotEmpty()) {
+        if (items[position].linkInfo?.badge?.isNotEmpty() ?: false) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].badge)
+                .load(items[position].linkInfo?.badge)
                 .into(
                     viewHolder.badge
                 )
             viewHolder.badge.visibility = View.VISIBLE
         }
 
-        viewHolder.successText.text = when (items[position].success) {
+        viewHolder.successText.text = when (items[position].mission?.success) {
             true -> {
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.successText.setTextColor(green)
