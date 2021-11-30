@@ -17,8 +17,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String",
+                "DATE_STRING_FROM",
+                "\"yyyy-MM-dd'T'HH:mm:ss\"")
+        buildConfigField("String",
+                "DATE_STRING_TO",
+                "\"MMM dd , yyyy HH:mm a\"");
+        buildConfigField("String",
                 "SPACEX_ENDPOINT",
                 "\"https://api.spacex.land/graphql/\"")
+
     }
 
     buildTypes {
@@ -72,10 +79,12 @@ ktlint {
 }
 
 dependencies {
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
     implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0'
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation 'com.apollographql.apollo:apollo-rx3-support:2.5.11'
     implementation 'com.google.dagger:dagger:2.40.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.40.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.40.1'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
