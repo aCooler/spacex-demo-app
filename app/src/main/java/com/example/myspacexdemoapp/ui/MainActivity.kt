@@ -22,6 +22,6 @@ class MainActivity : AppCompatActivity() {
         }
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         title = getString(R.string.title)
-        //startActivity(Intent(this,DetailActivity::class.java))
+        // startActivity(Intent(this,DetailActivity::class.java))
     }
 }

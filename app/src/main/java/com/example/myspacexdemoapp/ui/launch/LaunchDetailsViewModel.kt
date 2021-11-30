@@ -12,8 +12,6 @@ import com.example.myspacexdemoapp.ui.launches.Payload
 import com.example.spacexdemoapp.GetLaunchQuery
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
-
-
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
 
@@ -34,7 +32,6 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                         ),
                     )
                 )
-
             }, { throwable ->
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
@@ -53,8 +50,6 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 ?: "",
         )
     }
-
-
     private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {
         return Mission(
             name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name()
@@ -80,8 +75,5 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             mass = response.data?.payload()?.payload_mass_kg() ?: 0.0,
             reused = response.data?.payload()?.reused() ?: false,
         )
-
     }
-
-
 }

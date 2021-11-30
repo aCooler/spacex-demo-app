@@ -17,20 +17,21 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             .doOnSubscribe {
                 _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
             }
-            .subscribe({ response ->
-                _launchesMutableLiveData.postValue(LaunchesViewState.Success(
-                    response.data?.launches()?.map {
-                        LaunchUiModel(
-                            number = it.id() ?: "",
-                            mission = getMission(it),
-                            linkInfo = getLinkInfo(it),
-                        )
-                    }
-                ))
-
-            }, { throwable ->
-                _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
-            })
+            .subscribe(
+                { response ->
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Success(
+                        response.data?.launches()?.map {
+                            LaunchUiModel(
+                                number = it.id() ?: "",
+                                mission = getMission(it),
+                                linkInfo = getLinkInfo(it),
+                            )
+                        }
+                    )
+                    )
+                }, { throwable ->
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
+                })
     }
 
     private fun getMission(it: GetLaunchesQuery.Launch): Mission? {
@@ -63,6 +64,4 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
         )
     }
-
-
 }

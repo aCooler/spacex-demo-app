@@ -1,6 +1,5 @@
 package com.example.myspacexdemoapp.ui.launches
 
-
 data class LaunchUiModel(
     val number: String = "",
     val mission: Mission? = null,
@@ -25,7 +24,6 @@ data class Payload(
     val mass: Double = 0.0,
     val reused: Boolean = false,
 )
-
 
 data class LinkInfo(
     val badge: String = "",

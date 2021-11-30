@@ -27,13 +27,13 @@ class DetailActivity : AppCompatActivity() {
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
-                    //TODO
+                    // TODO
                 }
                 is LaunchDetailsViewState.Success -> {
                     title = state.model?.mission?.name ?: getString(R.string.title)
                 }
                 is LaunchDetailsViewState.Loading -> {
-                    //TODO
+                    // TODO
                 }
             }
         })
