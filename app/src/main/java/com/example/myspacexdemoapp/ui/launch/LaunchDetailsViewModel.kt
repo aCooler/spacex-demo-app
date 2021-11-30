@@ -15,7 +15,7 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
 
-
+//
     fun getLaunch(id: String) {
         spaceXApi.getLaunchById(id)
             .doOnSubscribe {
@@ -65,7 +65,7 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
         )
     }
 
-
+//
     private fun getPayload(response: Response<GetLaunchQuery.Data>): Payload {
         return Payload(
             orbit = response.data?.payload()?.orbit() ?: "",

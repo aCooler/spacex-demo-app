@@ -11,7 +11,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
 
-
+//
     fun getLaunches() {
         spaceXApi.getLaunches()
             .doOnSubscribe {
@@ -19,7 +19,8 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
             .subscribe(
                 { response ->
-                    _launchesMutableLiveData.postValue(LaunchesViewState.Success(
+                    _launchesMutableLiveData.postValue(
+                        LaunchesViewState.Success(
                         response.data?.launches()?.map {
                             LaunchUiModel(
                                 number = it.id() ?: "",
