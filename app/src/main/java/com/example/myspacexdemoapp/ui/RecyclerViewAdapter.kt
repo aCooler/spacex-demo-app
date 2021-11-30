@@ -38,8 +38,6 @@ class RecyclerViewAdapter :
             picture = view.findViewById(R.id.launch_image)
             badge = view.findViewById(R.id.badge)
             successIcon = view.findViewById(R.id.success_icon)
-
-
         }
     }
 
@@ -68,7 +66,6 @@ class RecyclerViewAdapter :
                 )
         }
 
-
         if (items[position].badge.isNotEmpty()) {
             Glide.with(viewHolder.itemView)
                 .load(items[position].badge)
@@ -77,7 +74,6 @@ class RecyclerViewAdapter :
                 )
             viewHolder.badge.visibility = View.VISIBLE
         }
-
 
         viewHolder.successText.text = when (items[position].success) {
             true -> {
