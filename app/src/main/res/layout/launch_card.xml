@@ -49,11 +49,10 @@
 
         <ImageView
             android:id="@+id/badge"
+            style="@style/badge"
             android:layout_width="@dimen/badge_size"
             android:layout_height="@dimen/badge_size"
             android:background="@drawable/circle"
-            android:padding="12dp"
-            android:contentDescription="@string/badge_description"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintTop_toBottomOf="@id/top_guideline" />
 
@@ -63,21 +62,111 @@
             android:layout_width="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/left_guideline"
             app:layout_constraintTop_toTopOf="@+id/top_guideline"
-            tools:text="№ 137" />
+            tools:text="@string/number_dummy" />
 
+        <ImageView
+            android:id="@+id/success_background"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/success"
+            app:layout_constraintEnd_toEndOf="@id/success"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toTopOf="@id/success"
+            app:srcCompat="@drawable/rounded" />
 
         <TextView
+            android:id="@+id/success"
+            style="@style/success_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semibold"
-            android:textStyle="normal"
-            android:textSize="12sp"
-            android:textColor="#1aac80"
-            android:lineSpacingExtra="4.8sp"
+            android:paddingVertical="4dp"
             app:layout_constraintBottom_toBottomOf="@id/launch_image"
+            app:layout_constraintStart_toEndOf="@id/success_icon"
+            tools:text="Success" />
+
+        <ImageView
+            android:id="@+id/success_icon"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:padding="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/success"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:layout_constraintTop_toTopOf="@id/success"
+            app:srcCompat="@drawable/ic_check" />
+
+        <TextView
+            android:id="@+id/mission_name"
+            style="@style/mission_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/launch_image"
+            tools:text="Starlink 4-1 (v1.5)" />
+
+        <ImageView
+            android:id="@+id/place_icon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            tools:text="Success"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:srcCompat="@drawable/ic_room" />
+
+        <TextView
+            android:id="@+id/place"
+            style="@style/place_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/place_icon"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/place_icon"
+            app:layout_constraintTop_toTopOf="@id/place_icon"
+            tools:text="Cape  Co..." />
+
+        <ImageView
+            android:id="@+id/rocket_icon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/place_icon"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:srcCompat="@drawable/ic_rocket_launch" />
+
+        <TextView
+            android:id="@+id/rocket_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/rocket_style"
+            app:layout_constraintBottom_toBottomOf="@+id/rocket_icon"
+            app:layout_constraintStart_toEndOf="@id/rocket_icon"
+            app:layout_constraintTop_toTopOf="@id/rocket_icon"
+            tools:text="Falcon 9" />
+
+        <ImageView
+            android:id="@+id/calendar_icon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/rocket_icon"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/date_style"
+            app:layout_constraintBottom_toBottomOf="@+id/calendar_icon"
+            app:layout_constraintStart_toEndOf="@id/calendar_icon"
+            app:layout_constraintTop_toTopOf="@id/calendar_icon"
+            tools:text="Nov 12, 2021 2:40 pm" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

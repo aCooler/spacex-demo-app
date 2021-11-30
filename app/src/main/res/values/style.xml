@@ -16,6 +16,48 @@
         <item name="android:includeFontPadding">true</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="mission_name_style" >
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/real_white</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+    <style name="success_style" >
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">@color/success_green</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="date_style" >
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="rocket_style" >
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="place_style" >
+        <item name="android:fontFamily">8dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
+    </style>
     <style name="number_style" >
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:layout_height">wrap_content</item>
@@ -24,4 +66,12 @@
         <item name="android:textColor">@color/real_white</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
+    <style name="badge" >
+        <item name="android:padding">12dp</item>
+        <item name="android:contentDescription">@string/badge_description</item>
+    </style>
+    <style name="success_icon_style" >
+        <item name="android:padding">4dp</item>
+    </style>
+
 </resources>
