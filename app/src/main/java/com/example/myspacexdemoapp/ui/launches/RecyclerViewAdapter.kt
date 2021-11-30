@@ -85,44 +85,50 @@ class RecyclerViewAdapter :
             viewHolder.badge.visibility = View.VISIBLE
         }
 
-        viewHolder.successText.text = when (items[position].mission?.success) {
+        viewHolder.successText.text = makeSucess(items[position], viewHolder)
+    }
+
+    private fun makeSucess(model: LaunchUiModel, holder: ViewHolder): CharSequence? {
+        return when (model.mission?.success) {
             true -> {
-                val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
-                viewHolder.successText.setTextColor(green)
+                val green = holder.itemView.context.resources.getColor(R.color.success_green)
+                holder.successText.setTextColor(green)
                 val drawable: Drawable? =
-                    viewHolder.itemView.context!!.resources.getDrawable(
+                    holder.itemView.context!!.resources.getDrawable(
                         R.drawable.ic_check,
-                        viewHolder.itemView.context!!.theme
+                        holder.itemView.context!!.theme
                     )
 
                 drawable?.colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                viewHolder.successIcon.setImageDrawable(
+                holder.successIcon.setImageDrawable(
                     drawable
 
                 )
-                viewHolder.itemView.context.getString(R.string.success)
+                holder.itemView.context.getString(R.string.success)
             }
             else -> {
-                val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
+                val red = holder.itemView.context.resources.getColor(R.color.failed_red)
                 val drawable: Drawable? =
-                    viewHolder.itemView.context!!.resources.getDrawable(
+                    holder.itemView.context!!.resources.getDrawable(
                         R.drawable.ic_report,
-                        viewHolder.itemView.context!!.theme
+                        holder.itemView.context!!.theme
                     )
                 drawable?.colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                viewHolder.successIcon.setImageDrawable(
+                holder.successIcon.setImageDrawable(
                     drawable
                 )
-                viewHolder.successText.setTextColor(red)
-                viewHolder.itemView.context.getString(R.string.failed)
+                holder.successText.setTextColor(red)
+                holder.itemView.context.getString(R.string.failed)
             }
         }
     }
+
     fun setItems(strings: List<LaunchUiModel>) {
         items = strings
         notifyDataSetChanged()
     }
+
     override fun getItemCount() = items.size
 }
