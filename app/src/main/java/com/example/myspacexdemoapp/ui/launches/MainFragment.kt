@@ -31,22 +31,19 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swiperefresh)
         mySwipeRefreshLayout?.setOnRefreshListener {
             viewModel.getLaunches()
-
         }
 
         viewModel.launchesLiveData.observe(this, { state ->
             when (state) {
                 is LaunchesViewState.Error -> {
-                    //TODO
+                    // TODO
                 }
                 is LaunchesViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
                     mySwipeRefreshLayout?.isRefreshing = false
-
                 }
                 is LaunchesViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true
-
                 }
             }
         })
