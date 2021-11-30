@@ -30,10 +30,10 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                             }
                         )
                     )
-                }, { throwable ->
-                    _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
                 }
-            )
+            ) { throwable ->
+                _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
+            }
     }
 
     private fun getMission(it: GetLaunchesQuery.Launch): Mission? {
