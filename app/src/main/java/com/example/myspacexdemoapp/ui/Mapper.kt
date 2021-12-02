@@ -28,20 +28,20 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
 
     private fun addGallery() {
         launchUiModel.linkInfo?.pictures.let { list ->
-            val dataModel = DataModel.Gallery(list?.filter {
-                it.isNotBlank()
-            })
+            val dataModel = DataModel.Gallery(
+                list?.filter
+                {
+                    it.isNotBlank()
+                }
+            )
             if (!dataModel.pictures.isNullOrEmpty()) {
                 recycleViewModel.add(DataModel.OneWord(word = gallery))
                 recycleViewModel.add(dataModel)
             }
-
         }
     }
 
     private fun addPayload() {
-
-
         val payloadList = mutableListOf<DataModel>()
         if (launchUiModel.mission?.name?.isNotEmpty() == true) {
             payloadList.add(DataModel.TitleAndText(title = name, text = launchUiModel.mission.name))
@@ -78,19 +78,22 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
                 )
             )
         }
-        if (launchUiModel.payload?.orbit?.isNotEmpty() ==true) {
-            payloadList.add(DataModel.TitleAndText(title = orbit, text = launchUiModel.payload.orbit))
+        if (launchUiModel.payload?.orbit?.isNotEmpty() == true) {
+            payloadList.add(
+                DataModel.TitleAndText(
+                    title = orbit,
+                    text = launchUiModel.payload.orbit
+                )
+            )
         }
         if (payloadList.isNotEmpty()) {
             payloadList.add(0, DataModel.OneWord(word = payloadName))
             recycleViewModel.addAll(payloadList)
         }
-
     }
 
-
     private fun addLaunchDetails() {
-        if (launchUiModel.mission?.details?.isNotEmpty()==true) {
+        if (launchUiModel.mission?.details?.isNotEmpty() == true) {
             recycleViewModel.add(DataModel.Details(details = launchUiModel.mission.details))
         }
     }
@@ -126,8 +129,6 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
         if (!listIsEmpty) {
             recycleViewModel.add(data)
         }
-
-
     }
 
     private fun addPicture() {

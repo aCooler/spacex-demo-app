@@ -55,5 +55,4 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             viewModel.getLaunch(launchId)
         }
     }
-
 }

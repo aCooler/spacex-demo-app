@@ -35,5 +35,4 @@ sealed class DataModel {
 
     data class Gallery(val pictures: List<String>?) :
         DataModel()
-
 }

@@ -19,8 +19,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         title = getString(R.string.title)
-
     }
-
-
 }

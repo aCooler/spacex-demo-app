@@ -12,11 +12,10 @@ class CategoryViewHolder constructor(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
     private val viewPagerItem: ImageView = itemView.findViewById(R.id.view_pager_image)
 
-    constructor(parent: ViewGroup) :
-            this(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_pager_item, parent, false)
-            )
+    constructor(parent: ViewGroup) : this(
+        itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.view_pager_item, parent, false)
+    )
 
     fun bind(imageUrl: String) {
         Glide.with(itemView.context)
@@ -26,5 +25,4 @@ class CategoryViewHolder constructor(itemView: View) :
             .placeholder(R.drawable.sky)
             .into(viewPagerItem)
     }
-
 }
