@@ -19,12 +19,33 @@ query GetLaunches {
 query GetLaunch($id:ID!) {
 
     payload(id: $id) {
-        nationality
-        payload_mass_kg
-        orbit
-        customers
-        reused
+        payload_type
+        norad_id
         manufacturer
+        id
+        customers
+        orbit
+        orbit_params {
+            apoapsis_km
+            arg_of_pericenter
+            eccentricity
+            epoch
+            inclination_deg
+            lifespan_years
+            longitude
+            mean_anomaly
+            mean_motion
+            periapsis_km
+            period_min
+            raan
+            reference_system
+            regime
+            semi_major_axis_km
+        }
+        payload_mass_kg
+        payload_mass_lbs
+        reused
+        nationality
     }
     launch(id: $id) {
         details

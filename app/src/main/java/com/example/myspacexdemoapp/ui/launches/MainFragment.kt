@@ -1,6 +1,7 @@
 package com.example.myspacexdemoapp.ui.launches
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -22,8 +23,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
@@ -31,6 +30,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             requireActivity(),
             viewModelFactory
         ).get(LaunchesViewModel::class.java)
+
 
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
@@ -42,13 +42,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         mySwipeRefreshLayout?.setOnRefreshListener {
             launchesViewModel.getLaunches()
         }
-
         launchesViewModel.getLaunches()
-
         launchesViewModel.launchesLiveData.observe(this, { state ->
             when (state) {
                 is LaunchesViewState.Error -> {
-                    //TODO
+                    Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
                 }
                 is LaunchesViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
@@ -57,15 +55,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
                 is LaunchesViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true
-
                 }
             }
         })
     }
 
 
-
-    fun openDetailsFragment(id:String){
+    fun openDetailsFragment(id: String) {
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
             val detailsFragment: Fragment = DetailsFragment(id)

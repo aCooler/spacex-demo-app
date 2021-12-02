@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
                 add(R.id.fragment_container, mainFragment)
             }
         }
-
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         title = getString(R.string.title)
 
     }

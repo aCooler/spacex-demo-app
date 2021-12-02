@@ -1,181 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="312dp"
-    android:layout_margin="16dp"
-    android:paddingBottom="16dp"
-    app:cardBackgroundColor="@color/card_color"
-    app:cardCornerRadius="8dp">
+    android:layout_height="wrap_content"
+    android:background="@color/basic_background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/date_icon"
+        android:layout_width="12sp"
+        android:layout_height="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/date"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/date"
+        app:srcCompat="@drawable/ic_calendar" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="4.8sp"
+        android:paddingLeft="8dp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/rocket_name"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/date_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="16 Nov 2021 at 2:41 AM" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/card_edge">
+    <ImageView
+        android:id="@+id/rocket_name_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/rocket_name"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/rocket_name"
+        app:srcCompat="@drawable/ic_rocket_launch" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/horizontal_middle_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintGuide_percent="0.5"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/rocket_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="4.8sp"
+        android:paddingLeft="8dp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/place"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/rocket_name_icon"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        tools:text="Falcon 9" />
 
-        <ImageView
-            android:id="@+id/launch_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toTopOf="@+id/horizontal_middle_divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sky" />
+    <ImageView
+        android:id="@+id/place_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/dummy_text"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/place"
+        app:srcCompat="@drawable/ic_room" />
 
-        <ImageView
-            android:id="@+id/badge"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@drawable/circle"
-            android:contentDescription="@string/app_name"
-            android:padding="12dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/horizontal_middle_divider"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/number"
-            app:layout_constraintTop_toTopOf="@+id/top_guideline"
-            app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/place"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="4.8sp"
+        android:maxLines="3"
+        android:paddingLeft="8dp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/reused"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/place_icon"
+        app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+        tools:text="Cape Canaveral Space Force Station Space Launch Complex 40" />
 
+    <TextView
+        android:id="@+id/dummy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="4.8sp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@id/place"
+        app:layout_constraintEnd_toStartOf="@+id/place" />
 
-        <TextView
-            android:id="@+id/row"
-            style="@style/bigger_white_style"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:text="Launch"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toTopOf="@+id/horizontal_middle_divider"
-            app:layout_constraintVertical_bias="0.5" />
+    <ImageView
+        android:id="@+id/reused_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/reused"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/reused"
+        app:srcCompat="@drawable/reused" />
 
-        <TextView
-            android:id="@+id/place"
-            style="@style/normal_white_style"
-            android:layout_width="344dp"
-            app:drawableLeftCompat="@drawable/ic_room"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/reused" />
+    <TextView
+        android:id="@+id/reused"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="4.8sp"
+        android:paddingLeft="8dp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/reused_icon"
+        app:layout_constraintTop_toBottomOf="@+id/place"
+        tools:text="Reused" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/rocket_name"
-            style="@style/normal_white_style"
-            android:layout_width="wrap_content"
-            app:drawableLeftCompat="@drawable/ic_rocket_launch"
-            app:layout_constraintBottom_toTopOf="@+id/reused"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/single_title" />
-
-        <TextView
-            android:id="@+id/single_title"
-            style="@style/normal_white_style"
-            android:layout_width="wrap_content"
-            app:drawableLeftCompat="@drawable/ic_calendar"
-            app:layout_constraintBottom_toTopOf="@+id/rocket_name"
-            app:layout_constraintEnd_toEndOf="@+id/row"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/row" />
-
-        <TextView
-            android:id="@+id/reused"
-            style="@style/normal_white_style"
-            android:layout_width="wrap_content"
-            android:text="Reused"
-            app:drawableLeftCompat="@drawable/reused"
-            app:layout_constraintBottom_toTopOf="@+id/place"
-            app:layout_constraintEnd_toStartOf="@+id/right_badge_guideline"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/rocket_name" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nearest_to_left_edge_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="16dp" />
-
-        <TextView
-            android:id="@+id/number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semibold"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/real_white"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline"
-            app:layout_constraintTop_toTopOf="@+id/top_guideline" />
-
-
-        <TextView
-            android:id="@+id/success"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded"
-            android:gravity="center"
-            android:includeFontPadding="true"
-            android:paddingHorizontal="8dp"
-            android:text="@string/success"
-            android:textColor="@color/success_green"
-            android:textSize="16dp"
-            app:drawableLeftCompat="@drawable/ic_check"
-            app:drawableTint="@color/success_green"
-            app:drawableTintMode="src_atop"
-            app:layout_constraintBottom_toBottomOf="@+id/launch_image"
-            app:layout_constraintStart_toStartOf="@+id/nearest_to_left_edge_guideline" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/right_badge_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_begin="360dp"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottom_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_begin="174dp"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
