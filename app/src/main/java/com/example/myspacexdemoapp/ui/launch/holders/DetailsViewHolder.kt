@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.ui.DataModel
 
-
 class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val details: TextView = view.findViewById(R.id.details)
     fun onBindView(model: DataModel.Details) {

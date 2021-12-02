@@ -94,29 +94,33 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addLaunchEvent() {
-        val data: DataModel.LaunchEvent = DataModel.LaunchEvent()
 
         var listIsEmpty = true
-        if (launchUiModel.date.isNotEmpty()) {
-            data.date = launchUiModel.date
+        val date = if (launchUiModel.date.isNotEmpty()) {
+            listIsEmpty = false
+            launchUiModel.date
+        } else {
+            null
+        }
+        val rocket = if (launchUiModel.rocketName.isNotEmpty()) {
+            listIsEmpty = false
+            launchUiModel.rocketName
+        } else {
+            null
+        }
+        val place = if (launchUiModel.place.isNotEmpty()) {
+            listIsEmpty = false
+            launchUiModel.place
+        } else {
+            null
+        }
+        val reused = launchUiModel.reused
+        if (reused == null) {
             listIsEmpty = false
         }
-        if (launchUiModel.rocketName.isNotEmpty()) {
-            data.rocket = launchUiModel.rocketName
-            listIsEmpty = false
-        }
-        if (launchUiModel.place.isNotEmpty()) {
-            data.place = launchUiModel.place
-            listIsEmpty = false
-        }
-        //TODO
-//        if (launchUiModel.reused) {
-//            data.reused = launchUiModel.reused
-//            listIsEmpty = false
-//        }
-        data.reused = launchUiModel.reused
-        listIsEmpty = false
 
+        val data: DataModel.LaunchEvent =
+            DataModel.LaunchEvent(date = date, rocket = rocket, reused = reused, place = place)
         if (!listIsEmpty) {
             recycleViewModel.add(data)
         }
@@ -125,18 +129,13 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addPicture() {
-        val data: DataModel.Picture = DataModel.Picture()
-        if (launchUiModel.number.isNotEmpty()) {
-            data.number = launchUiModel.number
-        }
-        if (launchUiModel.picture.isNotEmpty()) {
-            data.picture_url = launchUiModel.picture
-        }
-        if (launchUiModel.badge.isNotEmpty()) {
-            data.badge_url = launchUiModel.badge
-        }
-        data.success = launchUiModel.success
-        if (!data.picture_url.isNullOrEmpty() || !data.badge_url.isNullOrEmpty()) {
+        val data: DataModel.Picture = DataModel.Picture(
+            pictureUrl = launchUiModel.picture,
+            badgeUrl = launchUiModel.badge,
+            success = launchUiModel.success,
+            number = launchUiModel.number
+        )
+        if (!data.pictureUrl.isNullOrEmpty() || !data.badgeUrl.isNullOrEmpty()) {
             recycleViewModel.add(data)
         }
     }

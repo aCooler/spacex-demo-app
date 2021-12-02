@@ -18,5 +18,5 @@ data class LaunchUiModel(
     val mass: Double = 0.0,
     val pictures: List<String> = emptyList(),
     val video: String = "",
-    val reused: Boolean = false,
+    val reused: Boolean? = null,
 )

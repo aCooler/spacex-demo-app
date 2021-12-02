@@ -139,10 +139,10 @@
 
         <TextView
             android:id="@+id/rocket_name"
+            style="@style/rocket_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/rocket_style"
             app:layout_constraintBottom_toBottomOf="@+id/rocket_icon"
             app:layout_constraintStart_toEndOf="@id/rocket_icon"
             app:layout_constraintTop_toTopOf="@id/rocket_icon"
@@ -159,10 +159,10 @@
 
         <TextView
             android:id="@+id/date"
+            style="@style/date_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/date_style"
             app:layout_constraintBottom_toBottomOf="@+id/calendar_icon"
             app:layout_constraintStart_toEndOf="@id/calendar_icon"
             app:layout_constraintTop_toTopOf="@id/calendar_icon"

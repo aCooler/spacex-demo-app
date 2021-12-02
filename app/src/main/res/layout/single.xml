@@ -33,33 +33,22 @@
             android:id="@+id/single_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/inter"
-            android:lineSpacingExtra="4.8sp"
-            android:textColor="#cbcecf"
-            android:textSize="12sp"
-            android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@id/left_guideline"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nationalities" />
+            tools:text="Nationalities"
+            style="@style/single_single_title" />
 
 
         <TextView
             android:id="@+id/single_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/bottom_border"
-            android:fontFamily="@font/inter"
-            android:lineSpacingExtra="8sp"
-            android:textColor="#fafafa"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_guideline"
             app:layout_constraintStart_toStartOf="@+id/left_guideline"
             app:layout_constraintTop_toBottomOf="@+id/single_title"
-            tools:text="United States" />
+            tools:text="United States"
+            style="@style/single_single_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

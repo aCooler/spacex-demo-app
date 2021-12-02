@@ -35,6 +35,16 @@
         <item name="android:textColor">@color/success_green</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="card_date_style" >
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
     <style name="date_style" >
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:textSize">12sp</item>

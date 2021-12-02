@@ -5,7 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.ui.DataModel
-import com.example.myspacexdemoapp.ui.launch.holders.*
+import com.example.myspacexdemoapp.ui.launch.holders.RowViewHolder
+import com.example.myspacexdemoapp.ui.launch.holders.CardViewHolder
+import com.example.myspacexdemoapp.ui.launch.holders.SingleViewHolder
+import com.example.myspacexdemoapp.ui.launch.holders.DetailsViewHolder
+import com.example.myspacexdemoapp.ui.launch.holders.PictureViewHolder
+import com.example.myspacexdemoapp.ui.launch.holders.GalleryViewHolder
 
 class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<DataModel> = mutableListOf()

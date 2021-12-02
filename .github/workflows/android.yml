@@ -1,0 +1,49 @@
+name: Testing Workflow
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+   testing:
+    name: Lint Check and Testing
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+   # Step 1: Check the code with ktlint
+    - name: Clone repo
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - name: ktlint
+      uses: ScaCap/action-ktlint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-check
+
+   # Step 2: Run Detekt
+    - name: Run Unit Tests
+      run: ./gradlew detekt
+      
+   # Step 3: Run unit tests
+    - name: Run Unit Tests
+      run: ./gradlew testDebugUnitTest
+      
+   # Step 3: Build debug apk
+    - name: Assemble Debug APK
+      run: ./gradlew build

@@ -26,9 +26,9 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             model.number
         )
 
-        if (!model.picture_url.isNullOrEmpty()) {
+        if (!model.pictureUrl.isNullOrEmpty()) {
             Glide.with(itemView)
-                .load(model.picture_url)
+                .load(model.pictureUrl)
                 .placeholder(R.drawable.sky)
                 .into(
                     picture
@@ -36,9 +36,9 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
 
-        if (!model.badge_url.isNullOrEmpty()) {
+        if (!model.badgeUrl.isNullOrEmpty()) {
             Glide.with(itemView)
-                .load(model.badge_url)
+                .load(model.badgeUrl)
                 .into(
                     badge
                 )
@@ -48,7 +48,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         success.text = makeSuccess(model)
     }
 
-    private fun makeSuccess(model: DataModel.Picture): CharSequence? {
+    private fun makeSuccess(model: DataModel.Picture): CharSequence {
         return when (model.success) {
             true -> {
                 val green = ContextCompat.getColor(itemView.context, R.color.success_green)

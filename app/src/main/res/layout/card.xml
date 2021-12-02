@@ -33,14 +33,7 @@
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="4.8sp"
-        android:paddingLeft="8dp"
-        android:textColor="@color/text_white"
-        android:textSize="12sp"
-        android:textStyle="normal"
+        style="@style/card_date_style"
         app:layout_constraintBottom_toTopOf="@+id/rocket_name"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/date_icon"
@@ -61,18 +54,12 @@
         android:id="@+id/rocket_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="4.8sp"
-        android:paddingLeft="8dp"
-        android:textColor="@color/text_white"
-        android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/place"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/rocket_name_icon"
         app:layout_constraintTop_toBottomOf="@+id/date"
-        tools:text="Falcon 9" />
+        tools:text="Falcon 9"
+        style="@style/card_rocket_name" />
 
     <ImageView
         android:id="@+id/place_icon"
@@ -87,32 +74,20 @@
         android:id="@+id/place"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="4.8sp"
-        android:maxLines="3"
-        android:paddingLeft="8dp"
-        android:textColor="@color/text_white"
-        android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/reused"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/place_icon"
         app:layout_constraintTop_toBottomOf="@+id/rocket_name"
-        tools:text="Cape Canaveral Space Force Station Space Launch Complex 40" />
+        tools:text="Cape Canaveral Space Force Station Space Launch Complex 40"
+        style="@style/card_place" />
 
     <TextView
         android:id="@+id/dummy_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="4.8sp"
-        android:textColor="@color/text_white"
-        android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintBaseline_toBaselineOf="@id/place"
-        app:layout_constraintEnd_toStartOf="@+id/place" />
+        app:layout_constraintEnd_toStartOf="@+id/place"
+        style="@style/card_reused" />
 
     <ImageView
         android:id="@+id/reused_icon"
@@ -127,16 +102,11 @@
         android:id="@+id/reused"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="4.8sp"
-        android:paddingLeft="8dp"
-        android:textColor="@color/text_white"
-        android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/reused_icon"
         app:layout_constraintTop_toBottomOf="@+id/place"
-        tools:text="Reused" />
+        tools:text="Reused"
+        style="@style/card_reused" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

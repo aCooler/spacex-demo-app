@@ -2,38 +2,38 @@ package com.example.myspacexdemoapp.ui
 
 sealed class DataModel {
     data class Picture(
-        var number: String? = null,
-        var picture_url: String? = null,
-        var badge_url: String? = null,
-        var success: Boolean? = null
+        val number: String?,
+        val pictureUrl: String?,
+        val badgeUrl: String?,
+        val success: Boolean?
     ) :
         DataModel()
 
     data class LaunchEvent(
-        var rocket: String? = null,
-        var date: String? = null,
-        var place: String? = null,
-        var reused: Boolean? = null
+        val rocket: String?,
+        val date: String?,
+        val place: String?,
+        val reused: Boolean?
     ) :
         DataModel()
 
     data class Details(
-        var details: String? = null,
+        val details: String?,
     ) :
         DataModel()
 
     data class OneWord(
-        var word: String? = null,
+        val word: String?,
     ) :
         DataModel()
 
     data class TitleAndText(
-        var title: String? = null,
-        var text: String? = null,
+        val title: String?,
+        val text: String?,
     ) :
         DataModel()
 
-    data class Gallery(var pictures: List<String>? = null) :
+    data class Gallery(val pictures: List<String>?) :
         DataModel()
 
 }

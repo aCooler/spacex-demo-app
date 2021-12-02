@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.apollographql.apollo.api.Response
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewState
 import com.example.spacexdemoapp.GetLaunchQuery
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
@@ -63,7 +62,7 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 .let { if (it!!.isNotEmpty()) it else emptyList() },
             video = response.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link()
                 ?: "",
-            reused = response.data?.payload()?.reused() ?: false,
+            reused = response.data?.payload()?.reused(),
         )
     }
 

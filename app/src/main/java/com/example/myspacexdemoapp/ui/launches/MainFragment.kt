@@ -38,7 +38,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
 
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swiperefresh)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh)
         mySwipeRefreshLayout?.setOnRefreshListener {
             launchesViewModel.getLaunches()
         }

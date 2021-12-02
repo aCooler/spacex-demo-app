@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="card_rocket_name">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="card_place" parent="card_rocket_name">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="card_reused">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+    <style name="details">
+        <item name="android:background">@color/basic_background</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:textColor">#fafafa</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="gallery_viewpager">
+        <item name="android:animationCache">false</item>
+        <item name="android:background">@drawable/sky</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="row_row">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="single_single_title">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="single_single_text">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@drawable/bottom_border</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:textColor">#fafafa</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

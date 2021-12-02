@@ -33,7 +33,7 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swiperefresh)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh)
         viewModel.getLaunch(launchId)
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
