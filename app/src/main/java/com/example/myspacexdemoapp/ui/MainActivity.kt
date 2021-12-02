@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
                 replace<MainFragment>(R.id.fragment_container)
             }
         }
+        ////////////
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         title = getString(R.string.title)
         // startActivity(Intent(this,DetailActivity::class.java))
