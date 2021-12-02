@@ -109,10 +109,14 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
             data.place = launchUiModel.place
             listIsEmpty = false
         }
-        if (launchUiModel.reused) {
-            data.reused = launchUiModel.reused
-            listIsEmpty = false
-        }
+        //TODO
+//        if (launchUiModel.reused) {
+//            data.reused = launchUiModel.reused
+//            listIsEmpty = false
+//        }
+        data.reused = launchUiModel.reused
+        listIsEmpty = false
+
         if (!listIsEmpty) {
             recycleViewModel.add(data)
         }
