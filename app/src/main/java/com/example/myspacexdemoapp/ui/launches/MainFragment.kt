@@ -16,12 +16,8 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 
 class MainFragment : Fragment(R.layout.main_fragment) {
-
-
     private lateinit var launchesViewModel: LaunchesViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
@@ -30,8 +26,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             requireActivity(),
             viewModelFactory
         ).get(LaunchesViewModel::class.java)
-
-
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
             RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
@@ -58,8 +52,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })
     }
-
-
     fun openDetailsFragment(id: String) {
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
@@ -69,5 +61,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
 }

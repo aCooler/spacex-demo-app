@@ -28,7 +28,6 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         val number: TextView = view.findViewById(R.id.number)
         val picture: ImageView = view.findViewById(R.id.launch_image)
         val badge: ImageView = view.findViewById(R.id.badge)
-
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MainListViewHolder {
@@ -67,15 +66,15 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             viewHolder.badge.visibility = View.VISIBLE
         }
 
-        viewHolder.success.text = makeSuccess(viewHolder,position)
+        viewHolder.success.text = makeSuccess(viewHolder, position)
     }
 
     private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
         return when (items[position].mission?.success) {
             true -> {
-                val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
+                val green = ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
                 viewHolder.success.setTextColor(green)
-                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context,R.drawable.ic_check)
+                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_check)
                 drawable?.colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 viewHolder.successImage.setImageDrawable(
@@ -84,8 +83,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
                 viewHolder.itemView.context.getString(R.string.success)
             }
             else -> {
-                val red = viewHolder.itemView.context.resources.getColor(R.color.failed_red)
-                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context,R.drawable.ic_report)
+                val red = ContextCompat.getColor(viewHolder.itemView.context, R.color.failed_red)
+                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_report)
                 drawable?.colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 viewHolder.successImage.setImageDrawable(
@@ -108,5 +107,3 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
 
     override fun getItemCount() = items.size
 }
-
-

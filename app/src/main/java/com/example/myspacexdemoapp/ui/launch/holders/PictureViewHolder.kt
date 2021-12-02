@@ -34,8 +34,6 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     picture
                 )
         }
-
-
         if (!model.badgeUrl.isNullOrEmpty()) {
             Glide.with(itemView)
                 .load(model.badgeUrl)
@@ -77,5 +75,4 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
     }
-
 }
