@@ -51,7 +51,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is LaunchesViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
                     mySwipeRefreshLayout?.isRefreshing = false
-
                 }
                 is LaunchesViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true

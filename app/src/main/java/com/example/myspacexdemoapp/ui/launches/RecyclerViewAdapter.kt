@@ -18,7 +18,6 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
     private var items: List<LaunchUiModel> = emptyList()
 
-
     class MainListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val place: TextView = view.findViewById(R.id.place)
         val rocketName: TextView = view.findViewById(R.id.rocket_name)
@@ -42,31 +41,37 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         viewHolder.itemView.setOnClickListener {
             onClickListener.onClick(items[position].number)
         }
-        viewHolder.place.text = items[position].place
-        viewHolder.rocketName.text = items[position].rocketName
-        viewHolder.missionName.text = items[position].name
-        viewHolder.date.text = items[position].date.toDateString()
+        viewHolder.place.text = items[position].mission?.place
+        viewHolder.rocketName.text = items[position].mission?.rocketName
+        viewHolder.missionName.text = items[position].mission?.name
+        viewHolder.date.text = items[position].mission?.date?.toDateString()
         viewHolder.number.text = String.format(
             viewHolder.itemView.context.getString(R.string.number),
             items[position].number
         )
-        if (items[position].picture.isNotEmpty()) {
+        if (!items[position].linkInfo?.picture.isNullOrEmpty()) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].picture)
+                .load(items[position].linkInfo?.picture)
+                .load(items[position].linkInfo?.picture)
                 .placeholder(R.drawable.sky)
                 .into(
                     viewHolder.picture
                 )
         }
-        if (items[position].badge.isNotEmpty()) {
+        if (!items[position].linkInfo?.badge.isNullOrEmpty()) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].badge)
+                .load(items[position].linkInfo?.badge)
                 .into(
                     viewHolder.badge
                 )
             viewHolder.badge.visibility = View.VISIBLE
         }
-        viewHolder.success.text = when (items[position].success) {
+
+        viewHolder.success.text = makeSuccess(viewHolder,position)
+    }
+
+    private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
+        return when (items[position].mission?.success) {
             true -> {
                 val green = viewHolder.itemView.context.resources.getColor(R.color.success_green)
                 viewHolder.success.setTextColor(green)
@@ -92,7 +97,6 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-
     class OnClickListener(val clickListener: (id: String) -> Unit) {
         fun onClick(id: String) = clickListener(id)
     }
@@ -103,7 +107,6 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     }
 
     override fun getItemCount() = items.size
-
 }
 
 

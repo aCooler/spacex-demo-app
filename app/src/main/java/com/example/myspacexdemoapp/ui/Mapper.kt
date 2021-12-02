@@ -27,8 +27,8 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addGallery() {
-        launchUiModel.pictures.let { list ->
-            val dataModel = DataModel.Gallery(list.filter {
+        launchUiModel.linkInfo?.pictures.let { list ->
+            val dataModel = DataModel.Gallery(list?.filter {
                 it.isNotBlank()
             })
             if (!dataModel.pictures.isNullOrEmpty()) {
@@ -40,44 +40,46 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addPayload() {
+
+
         val payloadList = mutableListOf<DataModel>()
-        if (launchUiModel.name.isNotEmpty()) {
-            payloadList.add(DataModel.TitleAndText(title = name, text = launchUiModel.name))
+        if (launchUiModel.mission?.name?.isNotEmpty() == true) {
+            payloadList.add(DataModel.TitleAndText(title = name, text = launchUiModel.mission.name))
         }
-        if (launchUiModel.customers.isNotEmpty()) {
+        if (launchUiModel.payload?.customers?.isNotEmpty() == true) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = customer,
-                    text = launchUiModel.customers[0]
+                    text = launchUiModel.payload.customers[0]
                 )
             )
         }
-        if (launchUiModel.manufacturer.isNotEmpty()) {
+        if (launchUiModel.payload?.manufacturer?.isEmpty() != true) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = manufacture,
-                    text = launchUiModel.manufacturer
+                    text = launchUiModel.payload?.manufacturer
                 )
             )
         }
-        if (launchUiModel.mass != 0.0) {
+        if (launchUiModel.payload?.mass != 0.0) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = mass,
-                    text = launchUiModel.mass.toString()
+                    text = launchUiModel.payload?.mass.toString()
                 )
             )
         }
-        if (launchUiModel.nationality.isNotEmpty()) {
+        if (launchUiModel.payload?.nationality?.isNotEmpty() == true) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = nationality,
-                    text = launchUiModel.nationality
+                    text = launchUiModel.payload.nationality
                 )
             )
         }
-        if (launchUiModel.orbit.isNotEmpty()) {
-            payloadList.add(DataModel.TitleAndText(title = orbit, text = launchUiModel.orbit))
+        if (launchUiModel.payload?.orbit?.isNotEmpty() ==true) {
+            payloadList.add(DataModel.TitleAndText(title = orbit, text = launchUiModel.payload.orbit))
         }
         if (payloadList.isNotEmpty()) {
             payloadList.add(0, DataModel.OneWord(word = payloadName))
@@ -88,33 +90,33 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
 
 
     private fun addLaunchDetails() {
-        if (launchUiModel.details.isNotEmpty()) {
-            recycleViewModel.add(DataModel.Details(details = launchUiModel.details))
+        if (launchUiModel.mission?.details?.isNotEmpty()==true) {
+            recycleViewModel.add(DataModel.Details(details = launchUiModel.mission.details))
         }
     }
 
     private fun addLaunchEvent() {
 
         var listIsEmpty = true
-        val date = if (launchUiModel.date.isNotEmpty()) {
+        val date = if (launchUiModel.mission?.date?.isNotEmpty() == true) {
             listIsEmpty = false
-            launchUiModel.date
+            launchUiModel.mission.date
         } else {
             null
         }
-        val rocket = if (launchUiModel.rocketName.isNotEmpty()) {
+        val rocket = if (launchUiModel.mission?.rocketName?.isNotEmpty() == true) {
             listIsEmpty = false
-            launchUiModel.rocketName
+            launchUiModel.mission.rocketName
         } else {
             null
         }
-        val place = if (launchUiModel.place.isNotEmpty()) {
+        val place = if (launchUiModel.mission?.place?.isNotEmpty() == true) {
             listIsEmpty = false
-            launchUiModel.place
+            launchUiModel.mission.place
         } else {
             null
         }
-        val reused = launchUiModel.reused
+        val reused = launchUiModel.payload?.reused
         if (reused == null) {
             listIsEmpty = false
         }
@@ -130,9 +132,9 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
 
     private fun addPicture() {
         val data: DataModel.Picture = DataModel.Picture(
-            pictureUrl = launchUiModel.picture,
-            badgeUrl = launchUiModel.badge,
-            success = launchUiModel.success,
+            pictureUrl = launchUiModel.linkInfo?.picture,
+            badgeUrl = launchUiModel.linkInfo?.badge,
+            success = launchUiModel.mission?.success,
             number = launchUiModel.number
         )
         if (!data.pictureUrl.isNullOrEmpty() || !data.badgeUrl.isNullOrEmpty()) {

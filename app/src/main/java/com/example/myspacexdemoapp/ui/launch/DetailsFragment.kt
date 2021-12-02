@@ -41,9 +41,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
                 }
                 is LaunchDetailsViewState.Success -> {
-                    val dataset = Mapper(launchUiModel = state.model).launchUiModelToDataModel()
+                    val dataset = Mapper(launchUiModel = state.model!!).launchUiModelToDataModel()
                     adapter.setItems(dataset)
-                    activity?.title = state.model.name
+                    activity?.title = state.model.mission?.name
                     mySwipeRefreshLayout?.isRefreshing = false
                 }
                 is LaunchDetailsViewState.Loading -> {
