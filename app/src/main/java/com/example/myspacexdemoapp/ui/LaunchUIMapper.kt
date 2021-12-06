@@ -2,19 +2,19 @@ package com.example.myspacexdemoapp.ui
 
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
-class Mapper(private val launchUiModel: LaunchUiModel) {
+class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
 
     private val recycleViewModel: MutableList<DataModel> = mutableListOf()
 
     companion object {
-        const val payloadName = "Payload #1"
-        const val name = "Name"
-        const val customer = "Customer"
-        const val manufacture = "Manufacture"
-        const val mass = "Mass"
-        const val nationality = "Nationalities"
-        const val orbit = "Orbit"
-        const val gallery = "Gallery"
+        const val PAYLOAD_NAME= "Payload #1"
+        const val NAME = "Name"
+        const val CUSTOMER = "Customer"
+        const val MANUFACTURE = "Manufacture"
+        const val MASS = "Mass"
+        const val NATIONALITY = "Nationalities"
+        const val ORBIT = "Orbit"
+        const val GALLERY = "Gallery"
     }
 
     fun launchUiModelToDataModel(): MutableList<DataModel> {
@@ -35,7 +35,7 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
                 }
             )
             if (!dataModel.pictures.isNullOrEmpty()) {
-                recycleViewModel.add(DataModel.OneWord(word = gallery))
+                recycleViewModel.add(DataModel.SingleString(word = GALLERY))
                 recycleViewModel.add(dataModel)
             }
         }
@@ -44,12 +44,12 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     private fun addPayload() {
         val payloadList = mutableListOf<DataModel>()
         if (launchUiModel.mission?.name?.isNotEmpty() == true) {
-            payloadList.add(DataModel.TitleAndText(title = name, text = launchUiModel.mission.name))
+            payloadList.add(DataModel.TitleAndText(title = NAME, text = launchUiModel.mission.name))
         }
         if (launchUiModel.payload?.customers?.isNotEmpty() == true) {
             payloadList.add(
                 DataModel.TitleAndText(
-                    title = customer,
+                    title = CUSTOMER,
                     text = launchUiModel.payload.customers[0]
                 )
             )
@@ -57,7 +57,7 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
         if (launchUiModel.payload?.manufacturer?.isEmpty() != true) {
             payloadList.add(
                 DataModel.TitleAndText(
-                    title = manufacture,
+                    title = MANUFACTURE,
                     text = launchUiModel.payload?.manufacturer
                 )
             )
@@ -65,7 +65,7 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
         if (launchUiModel.payload?.mass != 0.0) {
             payloadList.add(
                 DataModel.TitleAndText(
-                    title = mass,
+                    title = MASS,
                     text = launchUiModel.payload?.mass.toString()
                 )
             )
@@ -73,7 +73,7 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
         if (launchUiModel.payload?.nationality?.isNotEmpty() == true) {
             payloadList.add(
                 DataModel.TitleAndText(
-                    title = nationality,
+                    title = NATIONALITY,
                     text = launchUiModel.payload.nationality
                 )
             )
@@ -81,13 +81,13 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
         if (launchUiModel.payload?.orbit?.isNotEmpty() == true) {
             payloadList.add(
                 DataModel.TitleAndText(
-                    title = orbit,
+                    title = ORBIT,
                     text = launchUiModel.payload.orbit
                 )
             )
         }
         if (payloadList.isNotEmpty()) {
-            payloadList.add(0, DataModel.OneWord(word = payloadName))
+            payloadList.add(0, DataModel.SingleString(word = PAYLOAD_NAME))
             recycleViewModel.addAll(payloadList)
         }
     }
@@ -132,7 +132,7 @@ class Mapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addPicture() {
-        val data: DataModel.Picture = DataModel.Picture(
+        val data: DataModel.MainInfo = DataModel.MainInfo(
             pictureUrl = launchUiModel.linkInfo?.picture,
             badgeUrl = launchUiModel.linkInfo?.badge,
             success = launchUiModel.mission?.success,

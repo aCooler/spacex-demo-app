@@ -1,13 +1,12 @@
 package com.example.myspacexdemoapp.ui
 
 sealed class DataModel {
-    data class Picture(
+    data class MainInfo(
         val number: String?,
         val pictureUrl: String?,
         val badgeUrl: String?,
         val success: Boolean?
-    ) :
-        DataModel()
+    ) : DataModel()
 
     data class LaunchEvent(
         val rocket: String?,
@@ -22,7 +21,7 @@ sealed class DataModel {
     ) :
         DataModel()
 
-    data class OneWord(
+    data class SingleString(
         val word: String?,
     ) :
         DataModel()

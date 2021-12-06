@@ -12,7 +12,7 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.Mapper
+import com.example.myspacexdemoapp.ui.LaunchUIMapper
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
@@ -41,7 +41,7 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
                 }
                 is LaunchDetailsViewState.Success -> {
-                    val dataset = Mapper(launchUiModel = state.model!!).launchUiModelToDataModel()
+                    val dataset = LaunchUIMapper(launchUiModel = state.model!!).launchUiModelToDataModel()
                     adapter.setItems(dataset)
                     activity?.title = state.model.mission?.name
                     mySwipeRefreshLayout?.isRefreshing = false

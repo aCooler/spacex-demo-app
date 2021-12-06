@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui.launch.holders
+package com.example.myspacexdemoapp.ui.launch.adapters
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

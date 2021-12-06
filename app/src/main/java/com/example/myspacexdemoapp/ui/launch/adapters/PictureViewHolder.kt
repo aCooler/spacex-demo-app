@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui.launch.holders
+package com.example.myspacexdemoapp.ui.launch.adapters
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -19,7 +19,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val successIcon: ImageView = view.findViewById(R.id.success_icon)
     private val badge: ImageView = view.findViewById(R.id.badge)
 
-    fun onBindView(model: DataModel.Picture) {
+    fun onBindView(model: DataModel.MainInfo) {
         itemView.setOnClickListener {}
         number.text = String.format(
             itemView.context.getString(R.string.number),
@@ -46,7 +46,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         success.text = makeSuccess(model)
     }
 
-    private fun makeSuccess(model: DataModel.Picture): CharSequence {
+    private fun makeSuccess(model: DataModel.MainInfo): CharSequence {
         return when (model.success) {
             true -> {
                 val green = ContextCompat.getColor(itemView.context, R.color.success_green)
