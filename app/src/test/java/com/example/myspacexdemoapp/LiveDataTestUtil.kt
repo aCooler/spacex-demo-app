@@ -5,7 +5,6 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
@@ -22,7 +21,6 @@ fun <T> LiveData<T>.getOrAwaitValue(
         }
     }
     this.observeForever(observer)
-
     try {
         afterObserve.invoke()
 
@@ -30,7 +28,6 @@ fun <T> LiveData<T>.getOrAwaitValue(
         if (!latch.await(time, timeUnit)) {
             throw TimeoutException("LiveData value was never set.")
         }
-
     } finally {
         this.removeObserver(observer)
     }
