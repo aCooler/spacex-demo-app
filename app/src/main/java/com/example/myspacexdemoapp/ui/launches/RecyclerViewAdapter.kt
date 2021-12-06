@@ -96,8 +96,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (id: String) -> Unit) {
-        fun onClick(id: String) = clickListener(id)
+    class OnClickListener(val clickListener: (id: String?) -> Unit) {
+        fun onClick(id: String?) = clickListener(id)
     }
 
     fun setItems(strings: List<LaunchUiModel>) {

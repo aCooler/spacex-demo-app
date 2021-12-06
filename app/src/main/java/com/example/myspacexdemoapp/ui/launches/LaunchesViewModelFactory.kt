@@ -16,5 +16,4 @@ class LaunchesViewModelFactory(private val spaceXApi: SpaceXApi) : ViewModelProv
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }

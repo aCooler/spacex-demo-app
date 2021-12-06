@@ -52,12 +52,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })
     }
-    fun openDetailsFragment(id: String) {
-        requireActivity().supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            val detailsFragment: Fragment = DetailsFragment(id)
-            addToBackStack("details_fragment")
-            replace(R.id.fragment_container, detailsFragment)
+    private fun openDetailsFragment(id: String?) {
+        if (!id.isNullOrEmpty()) {
+            requireActivity().supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                val detailsFragment: Fragment = DetailsFragment(id)
+                addToBackStack("details_fragment")
+                replace(R.id.fragment_container, detailsFragment)
+            }
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
     }

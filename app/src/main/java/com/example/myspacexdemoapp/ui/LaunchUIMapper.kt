@@ -7,7 +7,7 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
     private val recycleViewModel: MutableList<DataModel> = mutableListOf()
 
     companion object {
-        const val PAYLOAD_NAME= "Payload #1"
+        const val PAYLOAD_NAME = "Payload #1"
         const val NAME = "Name"
         const val CUSTOMER = "Customer"
         const val MANUFACTURE = "Manufacture"
@@ -43,18 +43,18 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
 
     private fun addPayload() {
         val payloadList = mutableListOf<DataModel>()
-        if (launchUiModel.mission?.name?.isNotEmpty() == true) {
-            payloadList.add(DataModel.TitleAndText(title = NAME, text = launchUiModel.mission.name))
+        if (!launchUiModel.mission?.name.isNullOrEmpty()) {
+            payloadList.add(DataModel.TitleAndText(title = NAME, text = launchUiModel.mission?.name))
         }
-        if (launchUiModel.payload?.customers?.isNotEmpty() == true) {
+        if (!launchUiModel.payload?.customers.isNullOrEmpty()) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = CUSTOMER,
-                    text = launchUiModel.payload.customers[0]
+                    text = launchUiModel.payload?.customers?.get(0)
                 )
             )
         }
-        if (launchUiModel.payload?.manufacturer?.isEmpty() != true) {
+        if (!launchUiModel.payload?.manufacturer.isNullOrEmpty()) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = MANUFACTURE,
@@ -62,31 +62,31 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
                 )
             )
         }
-        if (launchUiModel.payload?.mass != 0.0) {
+        if (launchUiModel.payload?.mass != 0.0 && launchUiModel.payload?.mass != null) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = MASS,
-                    text = launchUiModel.payload?.mass.toString()
+                    text = launchUiModel.payload.mass.toString()
                 )
             )
         }
-        if (launchUiModel.payload?.nationality?.isNotEmpty() == true) {
+        if (!launchUiModel.payload?.nationality.isNullOrEmpty()) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = NATIONALITY,
-                    text = launchUiModel.payload.nationality
+                    text = launchUiModel.payload?.nationality
                 )
             )
         }
-        if (launchUiModel.payload?.orbit?.isNotEmpty() == true) {
+        if (!launchUiModel.payload?.orbit.isNullOrEmpty()) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = ORBIT,
-                    text = launchUiModel.payload.orbit
+                    text = launchUiModel.payload?.orbit
                 )
             )
         }
-        if (payloadList.isNotEmpty()) {
+        if (!payloadList.isNullOrEmpty()) {
             payloadList.add(0, DataModel.SingleString(word = PAYLOAD_NAME))
             recycleViewModel.addAll(payloadList)
         }

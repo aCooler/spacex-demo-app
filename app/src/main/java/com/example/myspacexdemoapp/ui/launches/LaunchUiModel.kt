@@ -1,33 +1,33 @@
 package com.example.myspacexdemoapp.ui.launches
 
 data class LaunchUiModel(
-    val number: String = "",
-    val mission: Mission? = null,
-    val payload: Payload? = null,
-    val linkInfo: LinkInfo? = null
+    val number: String?,
+    val mission: Mission?,
+    val payload: Payload?,
+    val linkInfo: LinkInfo?
 )
 
 data class Mission(
-    val name: String = "",
-    val date: String = "",
-    val rocketName: String = "",
-    val place: String = "",
-    val success: Boolean = true,
-    val details: String = "",
+    val name: String?,
+    val date: String?,
+    val rocketName: String?,
+    val place: String?,
+    val success: Boolean?,
+    val details: String?,
 )
 
 data class Payload(
-    val orbit: String = "",
-    val nationality: String = "",
-    val manufacturer: String = "",
-    val customers: List<String> = emptyList(),
-    val mass: Double = 0.0,
+    val orbit: String?,
+    val nationality: String?,
+    val manufacturer: String?,
+    val customers: List<String>?,
+    val mass: Double?,
     val reused: Boolean?,
 )
 
 data class LinkInfo(
-    val badge: String = "",
-    val picture: String = "",
-    val pictures: List<String> = emptyList(),
-    val video: String = "",
+    val badge: String?,
+    val picture: String?,
+    val pictures: List<String>?,
+    val video: String?,
 )

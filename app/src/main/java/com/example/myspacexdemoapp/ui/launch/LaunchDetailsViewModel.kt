@@ -39,39 +39,37 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private fun getLinkInfo(response: Response<GetLaunchQuery.Data>?): LinkInfo {
         return LinkInfo(
             badge = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.mission_patch() ?: "",
+                ?.mission_patch(),
             picture = response?.data?.launch()?.links()?.fragments()?.linkInfo()
                 ?.flickr_images().let { if (it!!.isNotEmpty()) it[0] else "" },
             pictures = response?.data?.launch()?.links()?.fragments()?.linkInfo()
                 ?.flickr_images()
                 .let { if (it!!.isNotEmpty()) it else emptyList() },
-            video = response?.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link()
-                ?: "",
+            video = response?.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link(),
         )
     }
+
     private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {
         return Mission(
-            name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name()
-                ?: "",
+            name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name(),
             date = response?.data?.launch()?.fragments()?.missionDetails()
                 ?.launch_date_utc().toString(),
             rocketName = response?.data?.launch()?.rocket()?.fragments()?.rocketFields()
-                ?.rocket_name() ?: "",
-            place = response?.data?.launch()?.launch_site()?.site_name_long() ?: "",
-            success = response?.data?.launch()?.fragments()?.missionDetails()?.launch_success()
-                ?: true,
-            details = response?.data?.launch()?.details() ?: ""
+                ?.rocket_name(),
+            place = response?.data?.launch()?.launch_site()?.site_name_long(),
+            success = response?.data?.launch()?.fragments()?.missionDetails()?.launch_success(),
+            details = response?.data?.launch()?.details()
         )
     }
 
     private fun getPayload(response: Response<GetLaunchQuery.Data>): Payload {
         return Payload(
-            orbit = response.data?.payload()?.orbit() ?: "",
-            nationality = response.data?.payload()?.nationality() ?: "",
-            manufacturer = response.data?.payload()?.manufacturer() ?: "",
+            orbit = response.data?.payload()?.orbit(),
+            nationality = response.data?.payload()?.nationality(),
+            manufacturer = response.data?.payload()?.manufacturer(),
             customers = response.data?.payload()?.customers() ?: emptyList(),
-            mass = response.data?.payload()?.payload_mass_kg() ?: 0.0,
-            reused = response.data?.payload()?.reused() ?: false,
+            mass = response.data?.payload()?.payload_mass_kg(),
+            reused = response.data?.payload()?.reused(),
         )
     }
 }

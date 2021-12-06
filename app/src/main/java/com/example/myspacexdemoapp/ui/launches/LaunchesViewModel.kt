@@ -23,9 +23,10 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                         LaunchesViewState.Success(
                             response.data?.launches()?.map {
                                 LaunchUiModel(
-                                    number = it.id() ?: "",
+                                    number = it.id(),
                                     mission = getMission(it),
                                     linkInfo = getLinkInfo(it),
+                                    payload = null,
                                 )
                             }
                         )
@@ -36,20 +37,20 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
     }
 
-    private fun getMission(it: GetLaunchesQuery.Launch): Mission? {
+    private fun getMission(it: GetLaunchesQuery.Launch): Mission {
         return Mission(
-            name = it.fragments().missionDetails().mission_name() ?: "",
+            name = it.fragments().missionDetails().mission_name(),
             date = it.fragments().missionDetails().launch_date_utc().toString(),
-            rocketName = it.rocket()?.fragments()?.rocketFields()?.rocket_name()
-                ?: "",
-            place = it.launch_site()?.site_name_long() ?: "",
-            success = it.fragments().missionDetails().launch_success() ?: true,
+            rocketName = it.rocket()?.fragments()?.rocketFields()?.rocket_name(),
+            place = it.launch_site()?.site_name_long(),
+            success = it.fragments().missionDetails().launch_success(),
+            details = null,
         )
     }
 
-    private fun getLinkInfo(it: GetLaunchesQuery.Launch): LinkInfo? {
+    private fun getLinkInfo(it: GetLaunchesQuery.Launch): LinkInfo {
         return LinkInfo(
-            badge = it.links()?.mission_patch() ?: "",
+            badge = it.links()?.mission_patch(),
             picture = it.links()?.flickr_images().let { pictures ->
                 if (pictures!!.isNotEmpty()) {
                     pictures[0]
@@ -63,7 +64,8 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 } else {
                     emptyList<String>()
                 }
-            }
+            },
+            video = null,
         )
     }
 }
