@@ -10,10 +10,10 @@ import io.reactivex.rxjava3.core.Observable
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-open class SpaceXApi(private var apolloClient: ApolloClient) : ISpaceXApi {
+class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 
     override fun getLaunches(): Observable<Response<GetLaunchesQuery.Data>> {
-        var query = GetLaunchesQuery()
+        val query = GetLaunchesQuery()
         return apolloClient.rxQuery(query)
     }
 

@@ -15,7 +15,7 @@ class SpaceXApiTest : TestCase() {
 
     @Mock
     var spaceXApi: SpaceXApi = SpaceXApi(apolloClient)
-
+//codefreeze 24
     @Test
     fun getLaunches() {
         spaceXApi.getLaunches()
