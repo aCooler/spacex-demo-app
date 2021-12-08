@@ -27,6 +27,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                                     mission = getMission(it),
                                     linkInfo = getLinkInfo(it),
                                 )
+
                             }
                         )
                     )
@@ -44,6 +45,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 ?: "",
             place = it.launch_site()?.site_name_long() ?: "",
             success = it.fragments().missionDetails().launch_success() ?: true,
+            details = it.details() ?: ""
         )
     }
 
@@ -51,17 +53,17 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
         return LinkInfo(
             badge = it.links()?.mission_patch() ?: "",
             picture = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures[0]
-                } else {
+                if (pictures.isNullOrEmpty()) {
                     ""
+                } else {
+                     pictures[0]
                 }
             },
             pictures = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures
-                } else {
+                if (pictures.isNullOrEmpty()) {
                     emptyList<String>()
+                } else {
+                    pictures
                 }
             }
         )
