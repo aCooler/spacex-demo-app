@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SpaceXApiTest : TestCase() {
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
+
     @Test
     fun getLaunches() {
         val queryCaptor: ArgumentCaptor<GetLaunchesQuery> =
@@ -23,6 +24,7 @@ class SpaceXApiTest : TestCase() {
         verify(apolloClient).query(queryCaptor.capture())
         assertEquals(query, queryCaptor.value)
     }
+
     @Test
     fun getLaunchById() {
         val queryCaptor: ArgumentCaptor<GetLaunchQuery> =
