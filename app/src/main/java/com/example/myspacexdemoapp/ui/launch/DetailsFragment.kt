@@ -12,7 +12,7 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.LaunchUIMapper
+import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {

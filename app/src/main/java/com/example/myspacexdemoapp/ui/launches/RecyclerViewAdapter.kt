@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
@@ -48,23 +49,14 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             viewHolder.itemView.context.getString(R.string.number),
             items[position].number
         )
-        if (!items[position].linkInfo?.picture.isNullOrEmpty()) {
-            Glide.with(viewHolder.itemView)
-                .load(items[position].linkInfo?.picture)
-                .load(items[position].linkInfo?.picture)
-                .placeholder(R.drawable.sky)
-                .into(
-                    viewHolder.picture
-                )
-        }
-        if (!items[position].linkInfo?.badge.isNullOrEmpty()) {
-            Glide.with(viewHolder.itemView)
-                .load(items[position].linkInfo?.badge)
-                .into(
-                    viewHolder.badge
-                )
-            viewHolder.badge.visibility = View.VISIBLE
-        }
+        Glide.with(viewHolder.itemView)
+            .load(items[position].linkInfo.picture)
+            .placeholder(R.drawable.sky)
+            .into(viewHolder.picture)
+        Glide.with(viewHolder.itemView)
+            .load(items[position].linkInfo.badge)
+            .into(viewHolder.badge)
+        viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
 
         viewHolder.success.text = makeSuccess(viewHolder, position)
     }

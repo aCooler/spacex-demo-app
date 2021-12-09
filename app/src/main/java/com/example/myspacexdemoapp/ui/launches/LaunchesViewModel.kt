@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
 import com.example.spacexdemoapp.GetLaunchesQuery
 
 class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
@@ -22,10 +23,11 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                     _launchesMutableLiveData.postValue(
                         LaunchesViewState.Success(
                             response.data?.launches()?.map {
+                                val linkInfo = it.links()?.toLinksInfo() ?: LinkInfo.EMPTY
                                 LaunchUiModel(
                                     number = it.id(),
                                     mission = getMission(it),
-                                    linkInfo = getLinkInfo(it),
+                                    linkInfo = linkInfo,
                                     payload = null,
                                 )
                             }
@@ -45,27 +47,6 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             place = it.launch_site()?.site_name_long(),
             success = it.fragments().missionDetails().launch_success(),
             details = null,
-        )
-    }
-
-    private fun getLinkInfo(it: GetLaunchesQuery.Launch): LinkInfo {
-        return LinkInfo(
-            badge = it.links()?.mission_patch(),
-            picture = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures[0]
-                } else {
-                    ""
-                }
-            },
-            pictures = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures
-                } else {
-                    emptyList<String>()
-                }
-            },
-            video = null,
         )
     }
 }
