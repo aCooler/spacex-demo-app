@@ -9,6 +9,7 @@ import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
 import com.example.myspacexdemoapp.ui.launches.Mission
 import com.example.myspacexdemoapp.ui.launches.Payload
+import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
 import com.example.spacexdemoapp.GetLaunchQuery
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
@@ -21,32 +22,21 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
             .subscribe({ response ->
+                val linkInfo = response.data?.launch()?.links()?.toLinksInfo() ?: LinkInfo.EMPTY
+
                 _launchMutableLiveData.postValue(
                     LaunchDetailsViewState.Success(
                         LaunchUiModel(
                             number = id,
                             mission = getMission(response),
                             payload = getPayload(response),
-                            linkInfo = getLinkInfo(response)
+                            linkInfo = linkInfo
                         ),
                     )
                 )
             }, { throwable ->
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
-    }
-
-    private fun getLinkInfo(response: Response<GetLaunchQuery.Data>?): LinkInfo {
-        return LinkInfo(
-            badge = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.mission_patch(),
-            picture = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.flickr_images().let { if (it!!.isNotEmpty()) it[0] else "" },
-            pictures = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.flickr_images()
-                .let { if (it!!.isNotEmpty()) it else emptyList() },
-            video = response?.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link(),
-        )
     }
 
     private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {

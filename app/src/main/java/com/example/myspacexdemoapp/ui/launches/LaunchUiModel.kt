@@ -4,7 +4,7 @@ data class LaunchUiModel(
     val number: String?,
     val mission: Mission?,
     val payload: Payload?,
-    val linkInfo: LinkInfo?
+    val linkInfo: LinkInfo
 )
 
 data class Mission(
@@ -26,8 +26,19 @@ data class Payload(
 )
 
 data class LinkInfo(
-    val badge: String?,
-    val picture: String?,
-    val pictures: List<String>?,
-    val video: String?,
-)
+    val badge: String,
+    val picture: String,
+    val pictures: List<String>,
+    val video: String = "",
+) {
+
+    companion object {
+
+        val EMPTY = LinkInfo(
+            badge = "",
+            picture = "",
+            pictures = emptyList(),
+            video = "",
+        )
+    }
+}

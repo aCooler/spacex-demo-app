@@ -1,5 +1,6 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.mappers
 
+import com.example.myspacexdemoapp.ui.DataModel
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
 class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
