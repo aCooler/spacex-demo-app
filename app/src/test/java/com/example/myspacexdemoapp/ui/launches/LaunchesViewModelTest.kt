@@ -13,10 +13,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -31,7 +31,7 @@ class LaunchesViewModelTest : TestCase() {
     }
 
     @Test
-    fun `when launch initialized then success is retrieved`() {
+    fun `when launch by id initialized then success is retrieved`() {
         val mockResponse: Response<GetLaunchesQuery.Data> =
             mock(Response::class.java) as Response<GetLaunchesQuery.Data>
         val mockData =
@@ -60,7 +60,7 @@ class LaunchesViewModelTest : TestCase() {
     }
 
     @Test
-    fun `when launch initialized then error is retrieved`() {
+    fun `when launch by id initialized then error is retrieved`() {
         `when`(spaceXApi.getLaunches()).thenReturn(
             Observable.error(
                 Throwable()
