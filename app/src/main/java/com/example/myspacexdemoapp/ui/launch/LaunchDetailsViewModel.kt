@@ -41,14 +41,27 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             badge = response?.data?.launch()?.links()?.fragments()?.linkInfo()
                 ?.mission_patch() ?: "",
             picture = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.flickr_images().let { if (it!!.isNotEmpty()) it[0] else "" },
+                ?.flickr_images().let { pictures ->
+                    if (pictures.isNullOrEmpty()) {
+                        ""
+                    } else {
+                        pictures?.get(0) ?: ""
+                    }
+                },
             pictures = response?.data?.launch()?.links()?.fragments()?.linkInfo()
                 ?.flickr_images()
-                .let { if (it!!.isNotEmpty()) it else emptyList() },
+                .let { pictures ->
+                    if (pictures.isNullOrEmpty()) {
+                        emptyList()
+                    } else {
+                        pictures
+                    }
+                },
             video = response?.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link()
                 ?: "",
         )
     }
+
     private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {
         return Mission(
             name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name()

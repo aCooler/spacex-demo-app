@@ -11,7 +11,6 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
 
-    //
     fun getLaunches() {
         spaceXApi.getLaunches()
             .doOnSubscribe {
@@ -44,6 +43,7 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 ?: "",
             place = it.launch_site()?.site_name_long() ?: "",
             success = it.fragments().missionDetails().launch_success() ?: true,
+            details = it.details() ?: ""
         )
     }
 
@@ -51,17 +51,17 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
         return LinkInfo(
             badge = it.links()?.mission_patch() ?: "",
             picture = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures[0]
-                } else {
+                if (pictures.isNullOrEmpty()) {
                     ""
+                } else {
+                    pictures?.get(0) ?: ""
                 }
             },
             pictures = it.links()?.flickr_images().let { pictures ->
-                if (pictures!!.isNotEmpty()) {
-                    pictures
+                if (pictures.isNullOrEmpty()) {
+                    emptyList()
                 } else {
-                    emptyList<String>()
+                    pictures
                 }
             }
         )

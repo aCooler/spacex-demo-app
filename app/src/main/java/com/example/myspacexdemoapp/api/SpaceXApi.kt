@@ -24,4 +24,3 @@ interface ISpaceXApi {
     fun getLaunches(): Observable<Response<GetLaunchesQuery.Data>>
     fun getLaunchById(id: String): Observable<Response<GetLaunchQuery.Data>>
 }
-
