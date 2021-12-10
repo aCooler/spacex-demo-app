@@ -3,14 +3,12 @@ package com.example.myspacexdemoapp.ui.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apollographql.apollo.api.Response
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
-import com.example.myspacexdemoapp.ui.launches.Mission
-import com.example.myspacexdemoapp.ui.launches.Payload
 import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
-import com.example.spacexdemoapp.GetLaunchQuery
+import com.example.myspacexdemoapp.ui.mappers.toMission
+import com.example.myspacexdemoapp.ui.mappers.toPayload
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
@@ -23,13 +21,15 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
             .subscribe({ response ->
                 val linkInfo = response.data?.launch()?.links()?.toLinksInfo() ?: LinkInfo.EMPTY
+                val payload = toPayload(response)
+                val mission = toMission(response)
 
                 _launchMutableLiveData.postValue(
                     LaunchDetailsViewState.Success(
                         LaunchUiModel(
                             number = id,
-                            mission = getMission(response),
-                            payload = getPayload(response),
+                            mission = mission,
+                            payload = payload,
                             linkInfo = linkInfo
                         ),
                     )
@@ -39,27 +39,5 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             })
     }
 
-    private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {
-        return Mission(
-            name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name(),
-            date = response?.data?.launch()?.fragments()?.missionDetails()
-                ?.launch_date_utc().toString(),
-            rocketName = response?.data?.launch()?.rocket()?.fragments()?.rocketFields()
-                ?.rocket_name(),
-            place = response?.data?.launch()?.launch_site()?.site_name_long(),
-            success = response?.data?.launch()?.fragments()?.missionDetails()?.launch_success(),
-            details = response?.data?.launch()?.details()
-        )
-    }
 
-    private fun getPayload(response: Response<GetLaunchQuery.Data>): Payload {
-        return Payload(
-            orbit = response.data?.payload()?.orbit(),
-            nationality = response.data?.payload()?.nationality(),
-            manufacturer = response.data?.payload()?.manufacturer(),
-            customers = response.data?.payload()?.customers() ?: emptyList(),
-            mass = response.data?.payload()?.payload_mass_kg(),
-            reused = response.data?.payload()?.reused(),
-        )
-    }
 }

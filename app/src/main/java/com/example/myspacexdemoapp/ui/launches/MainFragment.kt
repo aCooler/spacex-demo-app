@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui.launches
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -41,17 +42,26 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             when (state) {
                 is LaunchesViewState.Error -> {
                     Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage(getString(R.string.error))
+                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .show()
                 }
                 is LaunchesViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
                     mySwipeRefreshLayout?.isRefreshing = false
+
                 }
                 is LaunchesViewState.Loading -> {
+
                     mySwipeRefreshLayout?.isRefreshing = true
                 }
             }
         })
     }
+
     private fun openDetailsFragment(id: String?) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
@@ -63,4 +73,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+
 }
+

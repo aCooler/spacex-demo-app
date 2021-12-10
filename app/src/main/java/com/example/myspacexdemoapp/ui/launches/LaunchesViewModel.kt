@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
-import com.example.spacexdemoapp.GetLaunchesQuery
+import com.example.myspacexdemoapp.ui.mappers.toMission
 
 class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
 
@@ -20,33 +20,24 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
             .subscribe(
                 { response ->
-                    _launchesMutableLiveData.postValue(
-                        LaunchesViewState.Success(
-                            response.data?.launches()?.map {
-                                val linkInfo = it.links()?.toLinksInfo() ?: LinkInfo.EMPTY
-                                LaunchUiModel(
-                                    number = it.id(),
-                                    mission = getMission(it),
-                                    linkInfo = linkInfo,
-                                    payload = null,
-                                )
-                            }
+                    with(_launchesMutableLiveData) {
+                        postValue(
+                            LaunchesViewState.Success(
+                                response.data?.launches()?.map {
+                                    LaunchUiModel(
+                                        number = it.id() ?: LaunchUiModel.EMPTY.number,
+                                        mission = it.toMission(),
+                                        linkInfo = it.links()?.toLinksInfo() ?: LinkInfo.EMPTY,
+                                    )
+                                } ?: emptyList()
+                            )
                         )
-                    )
+                    }
                 }
             ) { throwable ->
                 _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
             }
     }
 
-    private fun getMission(it: GetLaunchesQuery.Launch): Mission {
-        return Mission(
-            name = it.fragments().missionDetails().mission_name(),
-            date = it.fragments().missionDetails().launch_date_utc().toString(),
-            rocketName = it.rocket()?.fragments()?.rocketFields()?.rocket_name(),
-            place = it.launch_site()?.site_name_long(),
-            success = it.fragments().missionDetails().launch_success(),
-            details = null,
-        )
-    }
+
 }

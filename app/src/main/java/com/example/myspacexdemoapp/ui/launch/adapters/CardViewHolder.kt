@@ -19,19 +19,19 @@ class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val placeIcon: ImageView = view.findViewById(R.id.place_icon)
 
     fun onBindView(model: DataModel.LaunchEvent) {
-        if (model.date.isNullOrEmpty()) {
+        if (model.date?.isEmpty() == true) {
             date.visibility = View.GONE
             dateIcon.visibility = View.GONE
         } else {
-            date.text = model.date.toDateString()
+            date.text = model.date?.toDateString()
         }
-        if (model.place.isNullOrEmpty()) {
+        if (model.place?.isEmpty() == true) {
             place.visibility = View.GONE
             placeIcon.visibility = View.GONE
         } else {
             place.text = model.place
         }
-        if (model.rocket.isNullOrEmpty()) {
+        if (model.rocket?.isEmpty() == true) {
             rocketName.visibility = View.GONE
             rocketNameIcon.visibility = View.GONE
         } else {

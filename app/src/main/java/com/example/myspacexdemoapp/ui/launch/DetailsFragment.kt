@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui.launch
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,8 +13,8 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
+import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
 
@@ -39,9 +40,16 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             when (state) {
                 is LaunchDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage(getString(R.string.error))
+                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .show()
                 }
                 is LaunchDetailsViewState.Success -> {
-                    val dataset = LaunchUIMapper(launchUiModel = state.model!!).launchUiModelToDataModel()
+                    val dataset =
+                        LaunchUIMapper(launchUiModel = state.model!!).launchUiModelToDataModel()
                     adapter.setItems(dataset)
                     activity?.title = state.model.mission?.name
                     mySwipeRefreshLayout?.isRefreshing = false

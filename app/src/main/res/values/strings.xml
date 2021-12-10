@@ -9,4 +9,6 @@
     <string name="number_dummy">№ 137</string>
     <string name="reused">Reused</string>
     <string name="notreused">Not reused</string>
+    <string name="error">Error when processing response</string>
+    <string name="ok">OK</string>
 </resources>

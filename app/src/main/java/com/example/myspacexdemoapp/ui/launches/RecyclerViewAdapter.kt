@@ -41,32 +41,41 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         viewHolder.itemView.setOnClickListener {
             onClickListener.onClick(items[position].number)
         }
-        viewHolder.place.text = items[position].mission?.place
-        viewHolder.rocketName.text = items[position].mission?.rocketName
-        viewHolder.missionName.text = items[position].mission?.name
-        viewHolder.date.text = items[position].mission?.date?.toDateString()
-        viewHolder.number.text = String.format(
-            viewHolder.itemView.context.getString(R.string.number),
-            items[position].number
-        )
-        Glide.with(viewHolder.itemView)
-            .load(items[position].linkInfo.picture)
-            .placeholder(R.drawable.sky)
-            .into(viewHolder.picture)
-        Glide.with(viewHolder.itemView)
-            .load(items[position].linkInfo.badge)
-            .into(viewHolder.badge)
-        viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
+        if (items[position].mission != Mission.EMPTY) {
+            viewHolder.place.text = items[position].mission?.place
+            viewHolder.rocketName.text = items[position].mission?.rocketName
+            viewHolder.missionName.text = items[position].mission?.name
+            viewHolder.date.text = items[position].mission?.date?.toDateString()
+            viewHolder.success.text = makeSuccess(viewHolder, position)
+        }
+        if (items[position].number != LaunchUiModel.EMPTY.number) {
+            viewHolder.number.text = String.format(
+                viewHolder.itemView.context.getString(R.string.number),
+                items[position].number
+            )
+        }
+        if (items[position].linkInfo != LinkInfo.EMPTY) {
+            Glide.with(viewHolder.itemView)
+                .load(items[position].linkInfo.picture)
+                .placeholder(R.drawable.sky)
+                .into(viewHolder.picture)
+            Glide.with(viewHolder.itemView)
+                .load(items[position].linkInfo.badge)
+                .into(viewHolder.badge)
+            viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
+        }
 
-        viewHolder.success.text = makeSuccess(viewHolder, position)
+
     }
 
     private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
         return when (items[position].mission?.success) {
             true -> {
-                val green = ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
+                val green =
+                    ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
                 viewHolder.success.setTextColor(green)
-                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_check)
+                val drawable: Drawable? =
+                    ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_check)
                 drawable?.colorFilter =
                     PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 viewHolder.successImage.setImageDrawable(
@@ -76,7 +85,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             }
             else -> {
                 val red = ContextCompat.getColor(viewHolder.itemView.context, R.color.failed_red)
-                val drawable: Drawable? = ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_report)
+                val drawable: Drawable? =
+                    ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_report)
                 drawable?.colorFilter =
                     PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 viewHolder.successImage.setImageDrawable(

@@ -53,6 +53,7 @@
             android:layout_width="@dimen/badge_size"
             android:layout_height="@dimen/badge_size"
             android:background="@drawable/circle"
+            android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintTop_toBottomOf="@id/top_guideline" />
 
