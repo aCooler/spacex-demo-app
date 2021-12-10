@@ -34,7 +34,7 @@ fun GetLaunchesQuery.Launch.toMission(): Mission {
             ?: Mission.EMPTY.rocketName,
         place = launch_site()?.site_name_long() ?: Mission.EMPTY.place,
         success = fragments().missionDetails().launch_success() ?: Mission.EMPTY.success,
-        details = Mission.EMPTY.details,
+        details = details() ?: Mission.EMPTY.details,
     )
 }
 
