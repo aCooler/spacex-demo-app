@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
+import com.example.myspacexdemoapp.ui.launches.Mission
+import com.example.myspacexdemoapp.ui.launches.Payload
 import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
 import com.example.myspacexdemoapp.ui.mappers.toMission
 import com.example.myspacexdemoapp.ui.mappers.toPayload
@@ -21,9 +23,8 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
             .subscribe({ response ->
                 val linkInfo = response.data?.launch()?.links()?.toLinksInfo() ?: LinkInfo.EMPTY
-                val payload = toPayload(response)
-                val mission = toMission(response)
-
+                val payload = response.data?.payload()?.toPayload() ?: Payload.EMPTY
+                val mission = response.data?.launch()?.toMission() ?: Mission.EMPTY
                 _launchMutableLiveData.postValue(
                     LaunchDetailsViewState.Success(
                         LaunchUiModel(
@@ -38,6 +39,4 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
     }
-
-
 }

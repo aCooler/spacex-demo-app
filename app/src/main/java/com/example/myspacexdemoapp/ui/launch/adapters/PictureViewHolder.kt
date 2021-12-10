@@ -26,7 +26,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             model.number
         )
 
-        if (!model.pictureUrl.isNullOrEmpty()) {
+        if (model.pictureUrl.isNotEmpty()) {
             Glide.with(itemView)
                 .load(model.pictureUrl)
                 .placeholder(R.drawable.sky)
@@ -34,7 +34,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     picture
                 )
         }
-        if (!model.badgeUrl.isNullOrEmpty()) {
+        if (model.badgeUrl.isNotEmpty()) {
             Glide.with(itemView)
                 .load(model.badgeUrl)
                 .into(

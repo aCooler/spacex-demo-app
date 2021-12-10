@@ -42,10 +42,10 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             onClickListener.onClick(items[position].number)
         }
         if (items[position].mission != Mission.EMPTY) {
-            viewHolder.place.text = items[position].mission?.place
-            viewHolder.rocketName.text = items[position].mission?.rocketName
-            viewHolder.missionName.text = items[position].mission?.name
-            viewHolder.date.text = items[position].mission?.date?.toDateString()
+            viewHolder.place.text = items[position].mission.place
+            viewHolder.rocketName.text = items[position].mission.rocketName
+            viewHolder.missionName.text = items[position].mission.name
+            viewHolder.date.text = items[position].mission.date.toDateString()
             viewHolder.success.text = makeSuccess(viewHolder, position)
         }
         if (items[position].number != LaunchUiModel.EMPTY.number) {
@@ -64,12 +64,10 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
                 .into(viewHolder.badge)
             viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
         }
-
-
     }
 
     private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
-        return when (items[position].mission?.success) {
+        return when (items[position].mission.success) {
             true -> {
                 val green =
                     ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)

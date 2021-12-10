@@ -11,6 +11,6 @@ class GalleryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val adapter = CategoryAdapter()
     fun onBindView(model: DataModel.Gallery) {
         pager.adapter = adapter
-        adapter.setItem(model.pictures ?: emptyList())
+        adapter.setItem(model.pictures)
     }
 }

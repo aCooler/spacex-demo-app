@@ -6,15 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
 import com.example.myspacexdemoapp.ui.mappers.toMission
+import io.reactivex.rxjava3.disposables.Disposable
 
 class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
 
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
+    private var disposable: Disposable? = null
 
-    //
     fun getLaunches() {
-        spaceXApi.getLaunches()
+        disposable = spaceXApi.getLaunches()
             .doOnSubscribe {
                 _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
             }
@@ -39,5 +40,8 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
             }
     }
 
-
+    override fun onCleared() {
+        disposable?.dispose()
+        super.onCleared()
+    }
 }

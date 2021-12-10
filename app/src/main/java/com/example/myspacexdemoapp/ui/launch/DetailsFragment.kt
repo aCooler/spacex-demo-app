@@ -41,7 +41,8 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                 is LaunchDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
                     AlertDialog.Builder(requireActivity())
-                        .setMessage(getString(R.string.error))
+                        .setMessage(state.error.message)
+                        .setTitle(getString(R.string.error))
                         .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                             dialog.cancel()
                         }
@@ -49,9 +50,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                 }
                 is LaunchDetailsViewState.Success -> {
                     val dataset =
-                        LaunchUIMapper(launchUiModel = state.model!!).launchUiModelToDataModel()
+                        LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
-                    activity?.title = state.model.mission?.name
+                    activity?.title = state.model.mission.name
                     mySwipeRefreshLayout?.isRefreshing = false
                 }
                 is LaunchDetailsViewState.Loading -> {

@@ -43,7 +43,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is LaunchesViewState.Error -> {
                     Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
                     AlertDialog.Builder(requireActivity())
-                        .setMessage(getString(R.string.error))
+                        .setMessage(state.error.message)
+                        .setTitle(getString(R.string.error))
                         .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                             dialog.cancel()
                         }
@@ -52,10 +53,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is LaunchesViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
                     mySwipeRefreshLayout?.isRefreshing = false
-
                 }
                 is LaunchesViewState.Loading -> {
-
                     mySwipeRefreshLayout?.isRefreshing = true
                 }
             }
@@ -73,7 +72,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-
 }
-

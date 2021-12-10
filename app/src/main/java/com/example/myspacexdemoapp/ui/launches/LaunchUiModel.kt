@@ -15,7 +15,6 @@ data class LaunchUiModel(
             payload = Payload.EMPTY,
             linkInfo = LinkInfo.EMPTY,
         )
-
     }
 }
 
@@ -38,7 +37,6 @@ data class Mission(
             success = false,
             details = "",
         )
-
     }
 }
 
@@ -78,6 +76,5 @@ data class LinkInfo(
             pictures = emptyList(),
             video = "",
         )
-
     }
 }
