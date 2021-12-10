@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.toDateString
+import com.example.myspacexdemoapp.toDateString
 import com.example.myspacexdemoapp.ui.DataModel
 
 class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {

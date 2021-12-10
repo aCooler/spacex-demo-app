@@ -3,12 +3,9 @@ package com.example.myspacexdemoapp.api
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.rx3.rxQuery
-import com.example.myspacexdemoapp.BuildConfig
 import com.example.spacexdemoapp.GetLaunchQuery
 import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 
