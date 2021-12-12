@@ -1,7 +1,5 @@
 package com.example.myspacexdemoapp.ui.launch.adapters
 
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -53,8 +51,6 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 success.setTextColor(green)
                 val drawable: Drawable? =
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_check)
-                drawable?.colorFilter =
-                    PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
                 successIcon.setImageDrawable(
                     drawable
 
@@ -65,8 +61,6 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 val red = ContextCompat.getColor(itemView.context, R.color.failed_red)
                 val drawable: Drawable? =
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_report)
-                drawable?.colorFilter =
-                    PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
                 successIcon.setImageDrawable(
                     drawable
                 )
