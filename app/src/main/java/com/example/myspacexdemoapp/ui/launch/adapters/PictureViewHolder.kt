@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.setColor
 import com.example.myspacexdemoapp.ui.DataModel
 
 class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,9 +52,9 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 success.setTextColor(green)
                 val drawable: Drawable? =
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_check)
+                drawable?.setColor(green)
                 successIcon.setImageDrawable(
                     drawable
-
                 )
                 itemView.context.getString(R.string.success)
             }
@@ -61,6 +62,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 val red = ContextCompat.getColor(itemView.context, R.color.failed_red)
                 val drawable: Drawable? =
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_report)
+                drawable?.setColor(red)
                 successIcon.setImageDrawable(
                     drawable
                 )
