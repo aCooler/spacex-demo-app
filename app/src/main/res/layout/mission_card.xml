@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/basic_background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/date_icon"
+        android:layout_width="12sp"
+        android:layout_height="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/date"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/date"
+        app:srcCompat="@drawable/ic_calendar" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/card_date_style"
+        app:layout_constraintBottom_toTopOf="@+id/rocket_name"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/date_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="16 Nov 2021 at 2:41 AM" />
+
+
+    <ImageView
+        android:id="@+id/rocket_name_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/rocket_name"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/rocket_name"
+        app:srcCompat="@drawable/ic_rocket_launch" />
+
+    <TextView
+        android:id="@+id/rocket_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/place"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/rocket_name_icon"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        tools:text="Falcon 9"
+        style="@style/card_rocket_name" />
+
+    <ImageView
+        android:id="@+id/place_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/dummy_text"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/place"
+        app:srcCompat="@drawable/ic_room" />
+
+    <TextView
+        android:id="@+id/place"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/reused"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/place_icon"
+        app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+        tools:text="Cape Canaveral Space Force Station Space Launch Complex 40"
+        style="@style/card_place" />
+
+    <TextView
+        android:id="@+id/dummy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/place"
+        app:layout_constraintEnd_toStartOf="@+id/place"
+        style="@style/card_reused" />
+
+    <ImageView
+        android:id="@+id/reused_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/reused"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/reused"
+        app:srcCompat="@drawable/reused" />
+
+    <TextView
+        android:id="@+id/reused"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/reused_icon"
+        app:layout_constraintTop_toBottomOf="@+id/place"
+        tools:text="Reused"
+        style="@style/card_reused" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

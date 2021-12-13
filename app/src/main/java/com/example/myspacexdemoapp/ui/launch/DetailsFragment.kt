@@ -1,11 +1,10 @@
-package com.example.myspacexdemoapp.ui.launches
+package com.example.myspacexdemoapp.ui.launch
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,34 +13,33 @@ import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.launch.DetailsFragment
+import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
+import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 
-class MainFragment : Fragment(R.layout.main_fragment) {
-    private lateinit var launchesViewModel: LaunchesViewModel
+class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
+
+    private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        launchesViewModel = ViewModelProvider(
-            requireActivity(),
-            viewModelFactory
-        ).get(LaunchesViewModel::class.java)
+        viewModel =
+            ViewModelProvider(
+                requireActivity(),
+                viewModelFactory
+            ).get(LaunchDetailsViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
-        val adapter =
-            RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
+        val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-
         val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh)
-        mySwipeRefreshLayout?.setOnRefreshListener {
-            launchesViewModel.getLaunches()
-        }
-        launchesViewModel.getLaunches()
-        launchesViewModel.launchesLiveData.observe(this, { state ->
+        viewModel.getLaunch(launchId)
+        viewModel.launchLiveData.observe(this, { state ->
             when (state) {
-                is LaunchesViewState.Error -> {
-                    Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
+                is LaunchDetailsViewState.Error -> {
+                    Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
                     AlertDialog.Builder(requireActivity())
                         .setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
@@ -50,26 +48,20 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                         }
                         .show()
                 }
-                is LaunchesViewState.Success -> {
-                    adapter.setItems(state.model ?: listOf())
+                is LaunchDetailsViewState.Success -> {
+                    val dataset =
+                        LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
+                    adapter.setItems(dataset)
+                    activity?.title = state.model.mission.name
                     mySwipeRefreshLayout?.isRefreshing = false
                 }
-                is LaunchesViewState.Loading -> {
+                is LaunchDetailsViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true
                 }
             }
         })
-    }
-
-    private fun openDetailsFragment(id: String?) {
-        if (!id.isNullOrEmpty()) {
-            requireActivity().supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                val detailsFragment: Fragment = DetailsFragment(id)
-                addToBackStack("details_fragment")
-                replace(R.id.fragment_container, detailsFragment)
-            }
+        mySwipeRefreshLayout?.setOnRefreshListener {
+            viewModel.getLaunch(launchId)
         }
-        requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

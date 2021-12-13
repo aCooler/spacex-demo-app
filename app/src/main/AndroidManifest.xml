@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Spacexdemoapp">
         <activity
-            android:name="com.example.myspacexdemoapp.ui.launch.DetailActivity"
-            android:exported="false" />
-        <activity
             android:name="com.example.myspacexdemoapp.ui.MainActivity"
             android:exported="true">
             <intent-filter>

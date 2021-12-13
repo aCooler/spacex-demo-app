@@ -3,13 +3,14 @@ package com.example.myspacexdemoapp.ui.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apollographql.apollo.api.Response
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
 import com.example.myspacexdemoapp.ui.launches.Mission
 import com.example.myspacexdemoapp.ui.launches.Payload
-import com.example.spacexdemoapp.GetLaunchQuery
+import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
+import com.example.myspacexdemoapp.ui.mappers.toMission
+import com.example.myspacexdemoapp.ui.mappers.toPayload
 
 class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
@@ -21,70 +22,21 @@ class LaunchDetailsViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
             .subscribe({ response ->
+                val linkInfo = response.data?.launch()?.links()?.toLinksInfo() ?: LinkInfo.EMPTY
+                val payload = response.data?.payload()?.toPayload() ?: Payload.EMPTY
+                val mission = response.data?.launch()?.toMission() ?: Mission.EMPTY
                 _launchMutableLiveData.postValue(
                     LaunchDetailsViewState.Success(
                         LaunchUiModel(
                             number = id,
-                            mission = getMission(response),
-                            payload = getPayload(response),
-                            linkInfo = getLinkInfo(response)
+                            mission = mission,
+                            payload = payload,
+                            linkInfo = linkInfo
                         ),
                     )
                 )
             }, { throwable ->
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
             })
-    }
-
-    private fun getLinkInfo(response: Response<GetLaunchQuery.Data>?): LinkInfo {
-        return LinkInfo(
-            badge = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.mission_patch() ?: "",
-            picture = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.flickr_images().let { pictures ->
-                    if (pictures.isNullOrEmpty()) {
-                        ""
-                    } else {
-                        pictures?.get(0) ?: ""
-                    }
-                },
-            pictures = response?.data?.launch()?.links()?.fragments()?.linkInfo()
-                ?.flickr_images()
-                .let { pictures ->
-                    if (pictures.isNullOrEmpty()) {
-                        emptyList()
-                    } else {
-                        pictures
-                    }
-                },
-            video = response?.data?.launch()?.links()?.fragments()?.linkInfo()?.video_link()
-                ?: "",
-        )
-    }
-
-    private fun getMission(response: Response<GetLaunchQuery.Data>?): Mission {
-        return Mission(
-            name = response?.data?.launch()?.fragments()?.missionDetails()?.mission_name()
-                ?: "",
-            date = response?.data?.launch()?.fragments()?.missionDetails()
-                ?.launch_date_utc().toString(),
-            rocketName = response?.data?.launch()?.rocket()?.fragments()?.rocketFields()
-                ?.rocket_name() ?: "",
-            place = response?.data?.launch()?.launch_site()?.site_name_long() ?: "",
-            success = response?.data?.launch()?.fragments()?.missionDetails()?.launch_success()
-                ?: true,
-            details = response?.data?.launch()?.details() ?: ""
-        )
-    }
-
-    private fun getPayload(response: Response<GetLaunchQuery.Data>): Payload {
-        return Payload(
-            orbit = response.data?.payload()?.orbit() ?: "",
-            nationality = response.data?.payload()?.nationality() ?: "",
-            manufacturer = response.data?.payload()?.manufacturer() ?: "",
-            customers = response.data?.payload()?.customers() ?: emptyList(),
-            mass = response.data?.payload()?.payload_mass_kg() ?: 0.0,
-            reused = response.data?.payload()?.reused() ?: false,
-        )
     }
 }

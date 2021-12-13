@@ -1,128 +1,100 @@
-package com.example.myspacexdemoapp.ui
+package com.example.myspacexdemoapp.ui.launches
 
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.setColor
 import com.example.myspacexdemoapp.toDateString
-import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 
-class RecyclerViewAdapter :
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-    private var items: List<LaunchUiModel> = listOf()
+class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
+    RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
+    private var items: List<LaunchUiModel> = emptyList()
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val place: TextView
-        val rocketName: TextView
-        val successText: TextView
-        val missionName: TextView
-        val date: TextView
-        val number: TextView
-        val picture: ImageView
-        val badge: ImageView
-        val successIcon: ImageView
-
-        init {
-            place = view.findViewById(R.id.place)
-            rocketName = view.findViewById(R.id.rocket_name)
-            missionName = view.findViewById(R.id.mission_name)
-            date = view.findViewById(R.id.date)
-            successText = view.findViewById(R.id.success)
-            number = view.findViewById(R.id.number)
-            picture = view.findViewById(R.id.launch_image)
-            badge = view.findViewById(R.id.badge)
-            successIcon = view.findViewById(R.id.success_icon)
-        }
+    class MainListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val place: TextView = view.findViewById(R.id.place)
+        val rocketName: TextView = view.findViewById(R.id.rocket_name)
+        val success: TextView = view.findViewById(R.id.success)
+        val successImage: ImageView = view.findViewById(R.id.success_icon)
+        val missionName: TextView = view.findViewById(R.id.mission_name)
+        val date: TextView = view.findViewById(R.id.date)
+        val number: TextView = view.findViewById(R.id.number)
+        val picture: ImageView = view.findViewById(R.id.launch_image)
+        val badge: ImageView = view.findViewById(R.id.badge)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MainListViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.launch_card, viewGroup, false)
-
-        return ViewHolder(view)
+            .inflate(R.layout.main_list_card, viewGroup, false)
+        return MainListViewHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.place.text = items[position].mission?.place
-        viewHolder.rocketName.text = items[position].mission?.rocketName
-        viewHolder.missionName.text = items[position].mission?.name
-        viewHolder.date.text = items[position].mission?.date?.toDateString() ?: ""
-        viewHolder.number.text = String.format(
-            viewHolder.itemView.context.getString(R.string.number),
-            items[position].number
-        )
-
-        viewHolder.place.text = items[position].mission?.place
-        viewHolder.rocketName.text = items[position].mission?.rocketName
-        viewHolder.missionName.text = items[position].mission?.name
-        viewHolder.date.text = items[position].mission?.date?.toDateString()
-        viewHolder.number.text = String.format(
-            viewHolder.itemView.context.getString(R.string.number),
-            items[position].number
-        )
-
-        if (items[position].linkInfo?.picture?.isNotEmpty() ?: false) {
-            Glide.with(viewHolder.itemView)
-                .load(items[position].linkInfo?.picture)
-                .into(
-                    viewHolder.picture
-                )
+    override fun onBindViewHolder(viewHolder: MainListViewHolder, position: Int) {
+        viewHolder.itemView.setOnClickListener {
+            onClickListener.onClick(items[position].number)
         }
-
-        if (items[position].linkInfo?.badge?.isNotEmpty() ?: false) {
-            Glide.with(viewHolder.itemView)
-                .load(items[position].linkInfo?.badge)
-                .into(
-                    viewHolder.badge
-                )
-            viewHolder.badge.visibility = View.VISIBLE
+        if (items[position].mission != Mission.EMPTY) {
+            viewHolder.place.text = items[position].mission.place
+            viewHolder.rocketName.text = items[position].mission.rocketName
+            viewHolder.missionName.text = items[position].mission.name
+            viewHolder.date.text = items[position].mission.date.toDateString()
+            viewHolder.success.text = makeSuccess(viewHolder, position)
         }
-
-        viewHolder.successText.text = makeSucess(items[position], viewHolder)
+        if (items[position].number != LaunchUiModel.EMPTY.number) {
+            viewHolder.number.text = String.format(
+                viewHolder.itemView.context.getString(R.string.number),
+                items[position].number
+            )
+        }
+        if (items[position].linkInfo != LinkInfo.EMPTY) {
+            Glide.with(viewHolder.itemView)
+                .load(items[position].linkInfo.picture)
+                .placeholder(R.drawable.sky)
+                .into(viewHolder.picture)
+            Glide.with(viewHolder.itemView)
+                .load(items[position].linkInfo.badge)
+                .into(viewHolder.badge)
+            viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
+        }
     }
 
-    private fun makeSucess(model: LaunchUiModel, holder: ViewHolder): CharSequence? {
-        return when (model.mission?.success) {
+    private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
+        return when (items[position].mission.success) {
             true -> {
-                val green = holder.itemView.context.resources.getColor(R.color.success_green)
-                holder.successText.setTextColor(green)
+                val green =
+                    ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
+                viewHolder.success.setTextColor(green)
                 val drawable: Drawable? =
-                    holder.itemView.context!!.resources.getDrawable(
-                        R.drawable.ic_check,
-                        holder.itemView.context!!.theme
-                    )
-
-                drawable?.colorFilter =
-                    PorterDuffColorFilter(green, PorterDuff.Mode.SRC_IN)
-                holder.successIcon.setImageDrawable(
+                    ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_check)
+                drawable?.setColor(green)
+                viewHolder.successImage.setImageDrawable(
                     drawable
-
                 )
-                holder.itemView.context.getString(R.string.success)
+                viewHolder.itemView.context.getString(R.string.success)
             }
             else -> {
-                val red = holder.itemView.context.resources.getColor(R.color.failed_red)
+                val red = ContextCompat.getColor(viewHolder.itemView.context, R.color.failed_red)
                 val drawable: Drawable? =
-                    holder.itemView.context!!.resources.getDrawable(
-                        R.drawable.ic_report,
-                        holder.itemView.context!!.theme
-                    )
-                drawable?.colorFilter =
-                    PorterDuffColorFilter(red, PorterDuff.Mode.SRC_IN)
-                holder.successIcon.setImageDrawable(
+                    ContextCompat.getDrawable(viewHolder.itemView.context, R.drawable.ic_report)
+                drawable?.setColor(red)
+                viewHolder.successImage.setImageDrawable(
                     drawable
                 )
-                holder.successText.setTextColor(red)
-                holder.itemView.context.getString(R.string.failed)
+                viewHolder.success.setTextColor(red)
+                viewHolder.itemView.context.getString(R.string.failed)
             }
         }
+    }
+
+    class OnClickListener(val clickListener: (id: String?) -> Unit) {
+        fun onClick(id: String?) = clickListener(id)
     }
 
     fun setItems(strings: List<LaunchUiModel>) {
