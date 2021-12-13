@@ -20,8 +20,16 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
 
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
+    lateinit var alertDialog: AlertDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        alertDialog = AlertDialog.Builder(requireActivity())
+            .setMessage("Error")
+            .setTitle(getString(R.string.error))
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                dialog.cancel()
+            }.create()
+            alertDialog.show()
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
@@ -40,28 +48,20 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             when (state) {
                 is LaunchDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
-                    AlertDialog.Builder(requireActivity())
+                    alertDialog = AlertDialog.Builder(requireActivity())
                         .setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
                         .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                             dialog.cancel()
-                        }
-                        .show()
+                        }.create()
+                        alertDialog.show()
                 }
                 is LaunchDetailsViewState.Success -> {
-
                     val dataset =
                         LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
                     activity?.title = state.model.mission.name
                     mySwipeRefreshLayout?.isRefreshing = false
-                    AlertDialog.Builder(requireActivity())
-                        .setMessage("Error")
-                        .setTitle(getString(R.string.error))
-                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                            dialog.cancel()
-                        }
-                        .show()
                 }
                 is LaunchDetailsViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true
