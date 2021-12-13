@@ -49,11 +49,19 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                         .show()
                 }
                 is LaunchDetailsViewState.Success -> {
+
                     val dataset =
                         LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
                     activity?.title = state.model.mission.name
                     mySwipeRefreshLayout?.isRefreshing = false
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("Error")
+                        .setTitle(getString(R.string.error))
+                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .show()
                 }
                 is LaunchDetailsViewState.Loading -> {
                     mySwipeRefreshLayout?.isRefreshing = true

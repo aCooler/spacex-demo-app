@@ -7,6 +7,18 @@ plugins {
 }
 
 android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
+
     compileSdk 31
 
     defaultConfig {
@@ -96,16 +108,42 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'androidx.test:core:1.4.0'
-    testImplementation 'org.mockito:mockito-core:4.1.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    // AndroidX Test - JVM testing
-    testImplementation "androidx.test.ext:junit-ktx:1.1.2"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "androidx.test:core-ktx:1.3.0"
-    testImplementation "org.robolectric:robolectric:4.5.1"
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
 
+    androidTestImplementation("io.mockk:mockk-android:1.12.1")
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    testImplementation "org.koin:koin-test:2.0.1"
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'org.robolectric:shadows-multidex:4.3.1'
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    testImplementation 'androidx.test:core:1.3.0'
+
+    debugImplementation("androidx.fragment:fragment-testing:1.4.0")
+    implementation "androidx.arch.core:core-testing:2.1.0"
+
+/*    // Testing-only dependencies
+    //androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion
+    androidTestImplementation 'androidx.test:core-ktx:' + rootProject.coreVersion
+    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
+    androidTestImplementation 'androidx.test.ext:junit-ktx:' + rootProject.extJUnitVersion
+    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion
+    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
+
+    testImplementation 'androidx.test:core:' + rootProject.coreVersion;
+    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
+    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
+    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
+    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
+
+    */
 }
-
