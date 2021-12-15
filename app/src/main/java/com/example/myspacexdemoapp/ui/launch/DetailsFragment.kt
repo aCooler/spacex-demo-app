@@ -24,7 +24,6 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
     lateinit var alertDialog: AlertDialog
     lateinit var apolloClient : ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
            apolloClient =  ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
         viewModel =
