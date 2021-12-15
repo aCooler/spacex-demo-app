@@ -16,34 +16,28 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 
+
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
 
     private lateinit var viewModel: LaunchDetailsViewModel
-    private lateinit var viewModelFactory: LaunchesViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var alertDialog: AlertDialog
-
+    lateinit var apolloClient : ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        alertDialog = AlertDialog.Builder(requireActivity())
-            .setMessage("Error")
-            .setTitle(getString(R.string.error))
-            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                dialog.cancel()
-            }.create()
-            alertDialog.show()
-        val apolloClient =
-            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
+
+           apolloClient =  ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
         viewModel =
             ViewModelProvider(
                 requireActivity(),
                 viewModelFactory
             ).get(LaunchDetailsViewModel::class.java)
-        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
+        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh)
-        viewModel.getLaunch(launchId)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh_details)
+        //viewModel.getLaunch(launchId)
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
@@ -60,7 +54,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
                     val dataset =
                         LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
-                    activity?.title = state.model.mission.name
+                    //activity?.title = state.model.mission.name
+/*                    var toolbar: Toolbar = requireActivity().findViewById(R.id.toolbar_details)
+                    toolbar.title = state.model.mission.name*/
                     mySwipeRefreshLayout?.isRefreshing = false
                 }
                 is LaunchDetailsViewState.Loading -> {
