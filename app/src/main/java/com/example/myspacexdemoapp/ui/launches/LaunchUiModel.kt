@@ -20,7 +20,7 @@ data class LaunchUiModel(
 
 data class Mission(
     val name: String,
-    val date: String,
+    val date: String ,
     val rocketName: String,
     val place: String,
     val success: Boolean,
