@@ -36,7 +36,7 @@ android {
                 "\"yyyy-MM-dd'T'HH:mm:ss\"")
         buildConfigField("String",
                 "DATE_STRING_TO",
-                "\"MMM dd , yyyy HH:mm a\"");
+                "\"MMM dd , yyyy HH:mm a\"")
         buildConfigField("String",
                 "SPACEX_ENDPOINT",
                 "\"https://api.spacex.land/graphql/\"")
@@ -124,9 +124,6 @@ dependencies {
     testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.robolectric:robolectric:4.3.1'
-    testImplementation 'org.robolectric:shadows-multidex:4.3.1'
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation 'androidx.test:core:1.3.0'
 
     debugImplementation("androidx.fragment:fragment-testing:1.4.0")
@@ -134,22 +131,4 @@ dependencies {
     androidTestImplementation('androidx.test:rules:1.4.0')
 
 
-/*    // Testing-only dependencies
-    //androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion
-    androidTestImplementation 'androidx.test:core-ktx:' + rootProject.coreVersion
-    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
-    androidTestImplementation 'androidx.test.ext:junit-ktx:' + rootProject.extJUnitVersion
-    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion
-    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
-
-    testImplementation 'androidx.test:core:' + rootProject.coreVersion;
-    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
-    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
-
-    */
 }
