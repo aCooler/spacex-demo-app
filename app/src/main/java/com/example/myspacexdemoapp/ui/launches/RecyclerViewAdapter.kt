@@ -56,6 +56,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         if (items[position].linkInfo != LinkInfo.EMPTY) {
             Glide.with(viewHolder.itemView)
                 .load(items[position].linkInfo.picture)
+                .centerCrop()
                 .placeholder(R.drawable.sky)
                 .into(viewHolder.picture)
             Glide.with(viewHolder.itemView)
