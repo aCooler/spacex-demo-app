@@ -72,7 +72,6 @@ class MainFragmentTest {
         }
     }
 
-
     @Test
     fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
         val mainFragment = MainFragment()
@@ -106,7 +105,6 @@ class MainFragmentTest {
                     ViewMatchers.hasDescendant(ViewMatchers.withText(number))
                 )
             )
-
         }
     }
 
@@ -155,7 +153,6 @@ class MainFragmentTest {
             assertEquals(view.adapter?.itemCount, 0)
         }
     }
-
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
