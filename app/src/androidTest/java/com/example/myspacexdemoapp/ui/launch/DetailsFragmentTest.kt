@@ -13,8 +13,10 @@ import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
@@ -56,9 +58,9 @@ class DetailsFragmentTest {
         }.onFragment {
             assertNotNull(it.alertDialog)
             assert(it.alertDialog.isShowing)
-            it.alertDialog.dismiss()
-            it.parentFragmentManager.executePendingTransactions()
+
         }
+        onView(withText("Error")).check(matches(ViewMatchers.isDisplayed()))
     }
 
     fun atPosition(position: Int, itemMatcher: Matcher<View?>): Matcher<View?> {
@@ -144,12 +146,12 @@ class DetailsFragmentTest {
                         pictures = emptyList()
                     ),
                     payload = Payload.EMPTY,
-                    mission = Mission.EMPTY
+                    mission = Mission.EMPTY.copy(name = "Antares")
                 )
             )
         )
-        onView(withId(R.id.swipe_refresh_details))
-            .perform(withCustomConstraints(swipeDown(), isDisplayingAtLeast(85)))
+//        onView(withId(R.id.swipe_refresh_details))
+//            .perform(withCustomConstraints(swipeDown(), isDisplayingAtLeast(85)))
         onView(withId(R.id.launches_details_list)).check(matches(ViewMatchers.isDisplayed()))
         verify(exactly = 2) { observer.onChanged(capture(list)) }
         val state = list.last() as LaunchDetailsViewState.Success
@@ -157,11 +159,12 @@ class DetailsFragmentTest {
             if (view !is RecyclerView) {
                 throw e!!
             }
+            matches(atPosition(0, hasDescendant(withText(state.model.number))))
 //                    onView(withId(R.id.launches_details_list))
 //                        .check(matches(atPosition(0, hasDescendant(withText(state.model.number)))))
 
         }
-        assert(list.last() is LaunchDetailsViewState.Success)
+        //assert(list.last() is LaunchDetailsViewState.Success)
 
     }
 
