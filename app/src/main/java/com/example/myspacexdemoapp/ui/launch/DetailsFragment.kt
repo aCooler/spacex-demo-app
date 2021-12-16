@@ -20,7 +20,7 @@ import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
 
     private lateinit var viewModel: LaunchDetailsViewModel
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModelFactory: LaunchesViewModelFactory
 
     lateinit var apolloClient: ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

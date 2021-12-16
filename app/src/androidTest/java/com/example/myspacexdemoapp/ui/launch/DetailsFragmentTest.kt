@@ -12,20 +12,18 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
 import com.example.myspacexdemoapp.ui.launches.Mission
 import com.example.myspacexdemoapp.ui.launches.Payload
 import com.example.myspacexdemoapp.util.TestUtil.atPosition
-import com.example.myspacexdemoapp.util.TestUtil.factoryFor
 import com.example.myspacexdemoapp.util.TestUtil.isRefreshing
 import com.example.myspacexdemoapp.util.TestUtil.withTextColor
 import io.mockk.every
 import io.mockk.mockkClass
 import junit.framework.TestCase.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,20 +34,20 @@ class DetailsFragmentTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    var apolloClient: ApolloClient = mockkClass(ApolloClient::class)
-    var spaceXApi: SpaceXApi = mockkClass(SpaceXApi(apolloClient)::class)
-    var viewModel: LaunchDetailsViewModel = mockkClass(LaunchDetailsViewModel(spaceXApi)::class)
+    private var viewModel: LaunchDetailsViewModel = mockkClass(LaunchDetailsViewModel::class)
+    private val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
+    private lateinit var detailsFragment : DetailsFragment
+
+    @Before
+    fun init(){
+        detailsFragment = DetailsFragment("9")
+    }
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         val message = "Test for empty list"
         liveData.postValue(
@@ -62,14 +60,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_loading_retrieved_than_progress_is_showed() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchDetailsViewState.Loading
@@ -81,14 +74,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(LaunchDetailsViewState.Loading)
         val number = "889"
@@ -110,14 +98,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchDetailsViewState.Success(
@@ -140,14 +123,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchDetailsViewState.Success(
@@ -170,14 +148,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_title_is_checked() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchDetailsViewState.Success(
@@ -198,14 +171,9 @@ class DetailsFragmentTest {
 
     @Test
     fun when_error_retrieved_than_list_is_empty() {
-        val detailsFragment = DetailsFragment("9")
-        detailsFragment.viewModelFactory = factoryFor(viewModel)
-        val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer {
             detailsFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchDetailsViewState.Success(

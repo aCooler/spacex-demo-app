@@ -10,16 +10,14 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.util.TestUtil.atPosition
-import com.example.myspacexdemoapp.util.TestUtil.factoryFor
 import com.example.myspacexdemoapp.util.TestUtil.isRefreshing
 import com.example.myspacexdemoapp.util.TestUtil.withTextColor
 import io.mockk.every
 import io.mockk.mockkClass
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,19 +27,21 @@ import org.junit.runner.RunWith
 class MainFragmentTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    var apolloClient: ApolloClient = mockkClass(ApolloClient::class)
-    var spaceXApi: SpaceXApi = mockkClass(SpaceXApi(apolloClient)::class)
-    var viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel(spaceXApi)::class)
+    var viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
+    private lateinit var mainFragment: MainFragment
+    private lateinit var liveData: MutableLiveData<LaunchesViewState>
+
+    @Before
+    fun init() {
+        mainFragment = MainFragment()
+        liveData = MutableLiveData()
+    }
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchesViewState.Error(error = Throwable(message = "Test for empty list"))
@@ -61,8 +61,6 @@ class MainFragmentTest {
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchesViewState.Loading
@@ -79,8 +77,6 @@ class MainFragmentTest {
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         val number = "889"
         liveData.postValue(
@@ -97,7 +93,6 @@ class MainFragmentTest {
                 )
             )
         )
-
         onView(withId(R.id.launches_list)).check { _, _ ->
             matches(
                 atPosition(
@@ -115,8 +110,6 @@ class MainFragmentTest {
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         LaunchesViewState.Success(
             listOf(
@@ -126,7 +119,6 @@ class MainFragmentTest {
                         .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
                     payload = Payload.EMPTY,
                     mission = Mission.EMPTY
-
                 )
             )
         )
@@ -139,13 +131,10 @@ class MainFragmentTest {
     @Test
     fun when_error_retrieved_than_list_is_empty() {
         val mainFragment = MainFragment()
-        mainFragment.viewModelFactory = factoryFor(viewModel)
         val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         LaunchesViewState.Error(Throwable())
         onView(withId(R.id.launches_list)).check { view, _ ->
@@ -157,13 +146,10 @@ class MainFragmentTest {
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
         val mainFragment = MainFragment()
-        mainFragment.viewModelFactory = factoryFor(viewModel)
         val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchesViewState.Success(
@@ -198,13 +184,10 @@ class MainFragmentTest {
 
     fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
         val mainFragment = MainFragment()
-        mainFragment.viewModelFactory = factoryFor(viewModel)
         val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
         every { viewModel.launchesLiveData } returns liveData
         launchFragmentInContainer {
             mainFragment
-        }.onFragment { fragment ->
-            fragment.viewModelFactory = factoryFor(viewModel)
         }
         liveData.postValue(
             LaunchesViewState.Success(

@@ -18,7 +18,7 @@ import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var launchesViewModel: LaunchesViewModel
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: LaunchesViewModelFactory
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
