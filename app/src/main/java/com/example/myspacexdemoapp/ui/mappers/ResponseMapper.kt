@@ -18,7 +18,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
 fun GetLaunchQuery.Launch.toMission(): Mission =
     Mission(
         name = fragments().missionDetails().mission_name() ?: Mission.EMPTY.name,
-        date = fragments().missionDetails().launch_date_utc().toString(),
+        date = fragments().missionDetails().launch_date_utc()?.toString() ?: "",
         rocketName = rocket()?.fragments()?.rocketFields()?.rocket_name()
             ?: Mission.EMPTY.rocketName,
         place = launch_site()?.site_name_long() ?: Mission.EMPTY.place,
@@ -29,7 +29,7 @@ fun GetLaunchQuery.Launch.toMission(): Mission =
 fun GetLaunchesQuery.Launch.toMission(): Mission {
     return Mission(
         name = fragments().missionDetails().mission_name() ?: Mission.EMPTY.name,
-        date = fragments().missionDetails().launch_date_utc().toString(),
+        date = fragments().missionDetails().launch_date_utc()?.toString() ?: "",
         rocketName = rocket()?.fragments()?.rocketFields()?.rocket_name()
             ?: Mission.EMPTY.rocketName,
         place = launch_site()?.site_name_long() ?: Mission.EMPTY.place,

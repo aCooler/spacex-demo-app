@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,43 +18,56 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 
-class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
+class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
+    private lateinit var apolloClient: ApolloClient
+
+    companion object {
+        private const val IDKEY = "id"
+        fun newInstance(launchId: String): DetailsFragment {
+            return DetailsFragment().apply {
+                arguments = bundleOf(IDKEY to launchId)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val apolloClient =
-            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
+        apolloClient = ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
         viewModel =
             ViewModelProvider(
                 requireActivity(),
                 viewModelFactory
             ).get(LaunchDetailsViewModel::class.java)
-        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
+        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh)
-        viewModel.getLaunch(launchId)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? =
+            getView()?.findViewById(R.id.swipe_refresh_details)
+        if (arguments?.getString(IDKEY) != null) {
+            viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
+        }
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
-                    AlertDialog.Builder(requireActivity())
-                        .setMessage(state.error.message)
+                    val alertDialog = AlertDialog.Builder(requireActivity())
+                    alertDialog.setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
                         .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                             dialog.cancel()
-                        }
-                        .show()
+                        }.create()
+                    alertDialog.show()
                 }
                 is LaunchDetailsViewState.Success -> {
                     val dataset =
                         LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
-                    activity?.title = state.model.mission.name
+                    val toolbar: Toolbar = requireActivity().findViewById(R.id.toolbar_details)
+                    toolbar.title = state.model.mission.name
                     mySwipeRefreshLayout?.isRefreshing = false
                 }
                 is LaunchDetailsViewState.Loading -> {
@@ -61,7 +76,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            viewModel.getLaunch(launchId)
+            if (arguments?.getString(IDKEY) != null) {
+                viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
+            }
         }
     }
 }

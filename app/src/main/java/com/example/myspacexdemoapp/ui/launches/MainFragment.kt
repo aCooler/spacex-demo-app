@@ -18,7 +18,7 @@ import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var launchesViewModel: LaunchesViewModel
-    private lateinit var viewModelFactory: LaunchesViewModelFactory
+    lateinit var viewModelFactory: LaunchesViewModelFactory
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val apolloClient =
             ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
@@ -65,7 +65,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                val detailsFragment: Fragment = DetailsFragment(id)
+                val detailsFragment: Fragment = DetailsFragment.newInstance(id)
                 addToBackStack("details_fragment")
                 replace(R.id.fragment_container, detailsFragment)
             }

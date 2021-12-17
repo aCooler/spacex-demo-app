@@ -28,6 +28,7 @@ class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         if (model.pictureUrl.isNotEmpty()) {
             Glide.with(itemView)
                 .load(model.pictureUrl)
+                .centerCrop()
                 .placeholder(R.drawable.sky)
                 .into(
                     picture
