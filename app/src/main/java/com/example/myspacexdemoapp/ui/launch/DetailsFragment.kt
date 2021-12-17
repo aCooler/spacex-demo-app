@@ -1,37 +1,54 @@
 package com.example.myspacexdemoapp.ui.launch
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
+import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
+import javax.inject.Inject
+
+
+
 
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
 
-    private lateinit var viewModel: LaunchDetailsViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity().application as MyApp).appComponent?.inject(this)
+    }
+
+
+    @Inject
+    lateinit var viewModel: LaunchDetailsViewModel
+
+
     private lateinit var viewModelFactory: LaunchesViewModelFactory
+
+
 
     lateinit var apolloClient: ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         apolloClient = ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        viewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            ).get(LaunchDetailsViewModel::class.java)
+//        viewModel =
+//            ViewModelProvider(
+//                requireActivity(),
+//                viewModelFactory
+//            ).get(LaunchDetailsViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter

@@ -1,32 +1,41 @@
 package com.example.myspacexdemoapp.ui.launches
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.apollographql.apollo.ApolloClient
-import com.example.myspacexdemoapp.BuildConfig
+import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
+import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.main_fragment) {
-    private lateinit var launchesViewModel: LaunchesViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity().application as MyApp).appComponent?.injectMain(this)
+    }
+
+
+
+    @Inject
+    lateinit var launchesViewModel: LaunchesViewModel
     lateinit var viewModelFactory: LaunchesViewModelFactory
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val apolloClient =
-            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        launchesViewModel = ViewModelProvider(
-            requireActivity(),
-            viewModelFactory
-        ).get(LaunchesViewModel::class.java)
+//        val apolloClient =
+//            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
+        //viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
+//        launchesViewModel = ViewModelProvider(
+//            requireActivity(),
+//            viewModelFactory
+//        ).get(LaunchesViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
             RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
