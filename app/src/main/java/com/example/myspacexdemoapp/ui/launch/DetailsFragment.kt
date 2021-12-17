@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,12 +24,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private lateinit var viewModelFactory: LaunchesViewModelFactory
     private lateinit var apolloClient: ApolloClient
     companion object {
-        private const val idKey = "id"
-        fun newInstance(position: String): DetailsFragment {
+        private const val IDKEY = "id"
+        fun newInstance(launchId: String): DetailsFragment {
             return DetailsFragment().apply {
-                arguments.apply {
-                    this?.putString(idKey, position)
-                }
+                arguments  = bundleOf(IDKEY to launchId)
             }
         }
     }
@@ -47,8 +46,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         val mySwipeRefreshLayout: SwipeRefreshLayout? =
             getView()?.findViewById(R.id.swipe_refresh_details)
-        if (arguments?.getString(idKey) != null) {
-            viewModel.getLaunch(arguments?.getString(idKey) ?: "")
+        if (arguments?.getString(IDKEY) != null) {
+            viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
         }
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
@@ -76,8 +75,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            if (arguments?.getString(idKey) != null) {
-                viewModel.getLaunch(arguments?.getString(idKey) ?: "")
+            if (arguments?.getString(IDKEY) != null) {
+                viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
             }
         }
     }

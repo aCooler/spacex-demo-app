@@ -34,7 +34,7 @@ class DetailsFragmentTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private var viewModel = mockkClass(LaunchDetailsViewModel::class)
+    private val viewModel = mockkClass(LaunchDetailsViewModel::class)
     private val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
 
     @Before

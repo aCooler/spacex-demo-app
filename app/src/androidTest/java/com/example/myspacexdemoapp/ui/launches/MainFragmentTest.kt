@@ -27,7 +27,7 @@ import org.junit.runner.RunWith
 class MainFragmentTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private var viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
+    private val viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
     private var liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
 
     @Before
