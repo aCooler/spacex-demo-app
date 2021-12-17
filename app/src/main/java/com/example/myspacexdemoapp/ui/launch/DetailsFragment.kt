@@ -23,11 +23,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
     private lateinit var apolloClient: ApolloClient
+
     companion object {
         private const val IDKEY = "id"
         fun newInstance(launchId: String): DetailsFragment {
             return DetailsFragment().apply {
-                arguments  = bundleOf(IDKEY to launchId)
+                arguments = bundleOf(IDKEY to launchId)
             }
         }
     }
