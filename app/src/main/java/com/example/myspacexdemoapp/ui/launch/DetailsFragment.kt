@@ -10,43 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.apollographql.apollo.ApolloClient
-import com.example.myspacexdemoapp.BuildConfig
+import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
-
-
-
 class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
-
-    override fun onAttach(context: Context) {
-       // (requireActivity().application as MyApp).appComponent?.inject(this)
-        super.onAttach(context)
-    }
-
 
     @Inject
     lateinit var viewModel: LaunchDetailsViewModel
 
-
-    private lateinit var viewModelFactory: LaunchesViewModelFactory
-
-
-
-    lateinit var apolloClient: ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        apolloClient = ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-//        viewModel =
-//            ViewModelProvider(
-//                requireActivity(),
-//                viewModelFactory
-//            ).get(LaunchDetailsViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
@@ -81,5 +55,10 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
         mySwipeRefreshLayout?.setOnRefreshListener {
             viewModel.getLaunch(launchId)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        (requireActivity().application as MyApp).appComponent?.inject(this)
+        super.onAttach(context)
     }
 }

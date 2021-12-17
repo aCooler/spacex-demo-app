@@ -36,10 +36,10 @@ class DetailsFragmentTest {
     val instantExecutorRule = InstantTaskExecutorRule()
     private var viewModel: LaunchDetailsViewModel = mockkClass(LaunchDetailsViewModel::class)
     private val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
-    private lateinit var detailsFragment : DetailsFragment
+    private lateinit var detailsFragment: DetailsFragment
 
     @Before
-    fun init(){
+    fun init() {
         detailsFragment = DetailsFragment("9")
     }
 

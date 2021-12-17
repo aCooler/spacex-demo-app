@@ -10,30 +10,16 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
-    override fun onAttach(context: Context) {
-        //(requireActivity().application as MyApp).appComponent?.injectMain(this)
-        super.onAttach(context)
-    }
-
-
-
     @Inject
     lateinit var launchesViewModel: LaunchesViewModel
-    lateinit var viewModelFactory: LaunchesViewModelFactory
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val apolloClient =
-//            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-//        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-//        launchesViewModel = ViewModelProvider(
-//            requireActivity(),
-//            viewModelFactory
-//        ).get(LaunchesViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
             RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
@@ -78,5 +64,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onAttach(context: Context) {
+        (requireActivity().application as MyApp).appComponent?.injectMain(this)
+        super.onAttach(context)
     }
 }

@@ -5,7 +5,6 @@ import com.example.myspacexdemoapp.ui.launches.MainFragment
 import dagger.Component
 import javax.inject.Singleton
 
-
 @Singleton
 @Component(modules = [AppModule::class, NetModule::class, ViewModelModule::class])
 interface AppComponent {
