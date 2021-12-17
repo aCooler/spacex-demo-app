@@ -1,6 +1,7 @@
 package com.example.myspacexdemoapp.di
 
 import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 class AppModule(var mApplication: Application) {
     @Provides
     @Singleton
-    fun providesApplication(): Application {
+    fun providesContext(): Context {
         return mApplication
     }
 }

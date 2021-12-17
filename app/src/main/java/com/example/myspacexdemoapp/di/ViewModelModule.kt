@@ -7,10 +7,8 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-
 @Module
 class ViewModelModule {
-
     @Provides
     @Singleton
     fun provideLaunchesViewModel(spaceXApi: SpaceXApi): LaunchesViewModel {
@@ -22,7 +20,4 @@ class ViewModelModule {
     fun provideLaunchDetailsViewModel(spaceXApi: SpaceXApi): LaunchDetailsViewModel {
         return LaunchDetailsViewModel(spaceXApi)
     }
-
-
-
 }

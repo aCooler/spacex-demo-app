@@ -10,7 +10,6 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 import javax.inject.Inject
@@ -18,9 +17,8 @@ import javax.inject.Inject
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onAttach(context: Context) {
+        //(requireActivity().application as MyApp).appComponent?.injectMain(this)
         super.onAttach(context)
-
-        (requireActivity().application as MyApp).appComponent?.injectMain(this)
     }
 
 
