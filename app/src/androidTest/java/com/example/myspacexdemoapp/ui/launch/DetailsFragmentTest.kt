@@ -34,21 +34,17 @@ class DetailsFragmentTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private var viewModel: LaunchDetailsViewModel = mockkClass(LaunchDetailsViewModel::class)
+    private val viewModel = mockkClass(LaunchDetailsViewModel::class)
     private val liveData: MutableLiveData<LaunchDetailsViewState> = MutableLiveData()
-    private lateinit var detailsFragment: DetailsFragment
 
     @Before
     fun init() {
-        detailsFragment = DetailsFragment("9")
+        every { viewModel.launchLiveData } returns liveData
+        launchFragmentInContainer<DetailsFragment>()
     }
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         val message = "Test for empty list"
         liveData.postValue(
             LaunchDetailsViewState.Error(error = Throwable(message = message))
@@ -60,10 +56,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_loading_retrieved_than_progress_is_showed() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(
             LaunchDetailsViewState.Loading
         )
@@ -74,10 +66,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(LaunchDetailsViewState.Loading)
         val number = "889"
         liveData.postValue(
@@ -98,10 +86,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(
             LaunchDetailsViewState.Success(
                 model = LaunchUiModel(
@@ -123,10 +107,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(
             LaunchDetailsViewState.Success(
                 model = LaunchUiModel(
@@ -148,10 +128,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_success_retrieved_than_title_is_checked() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(
             LaunchDetailsViewState.Success(
                 model = LaunchUiModel(
@@ -171,10 +147,6 @@ class DetailsFragmentTest {
 
     @Test
     fun when_error_retrieved_than_list_is_empty() {
-        every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer {
-            detailsFragment
-        }
         liveData.postValue(
             LaunchDetailsViewState.Success(
                 model = LaunchUiModel(

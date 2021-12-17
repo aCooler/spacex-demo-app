@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,18 +16,30 @@ import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
-class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
+class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     @Inject
     lateinit var viewModel: LaunchDetailsViewModel
+
+    companion object {
+        private const val IDKEY = "id"
+        fun newInstance(launchId: String): DetailsFragment {
+            return DetailsFragment().apply {
+                arguments = bundleOf(IDKEY to launchId)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh_details)
-        // viewModel.getLaunch(launchId)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? =
+            getView()?.findViewById(R.id.swipe_refresh_details)
+        if (arguments?.getString(IDKEY) != null) {
+            viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
+        }
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
@@ -53,7 +66,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            viewModel.getLaunch(launchId)
+            if (arguments?.getString(IDKEY) != null) {
+                viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
+            }
         }
     }
 

@@ -54,9 +54,9 @@ class LaunchDetailsViewModelTest : TestCase() {
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
         assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Success)
         val actualState = argumentCaptor.allValues.last() as LaunchDetailsViewState.Success
-        assertEquals(actualState.model?.mission?.rocketName, "AC")
-        assertEquals(actualState.model?.mission?.details, "My details")
-        assertEquals(actualState.model?.mission?.name, "My mission name")
+        assertEquals(actualState.model.mission.rocketName, "AC")
+        assertEquals(actualState.model.mission.details, "My details")
+        assertEquals(actualState.model.mission.name, "My mission name")
     }
 
     @Test
