@@ -27,26 +27,21 @@ import org.junit.runner.RunWith
 class MainFragmentTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    var viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
-    private lateinit var mainFragment: MainFragment
-    private lateinit var liveData: MutableLiveData<LaunchesViewState>
+    private var viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
+    private var liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
 
     @Before
     fun init() {
-        mainFragment = MainFragment()
-        liveData = MutableLiveData()
+        launchFragmentInContainer<MainFragment>()
+        every { viewModel.launchesLiveData } returns liveData
     }
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
-        liveData.postValue(
-            LaunchesViewState.Error(error = Throwable(message = "Test for empty list"))
-        )
         val message = "Test for empty list"
+        liveData.postValue(
+            LaunchesViewState.Error(error = Throwable(message = message))
+        )
         onView(withId(R.id.toolbar))
             .check(matches(ViewMatchers.isDisplayed()))
         onView(ViewMatchers.withText(message)).check { _, _ ->
@@ -56,12 +51,6 @@ class MainFragmentTest {
 
     @Test
     fun when_loading_retrieved_than_progress_is_showed() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         liveData.postValue(
             LaunchesViewState.Loading
         )
@@ -72,12 +61,6 @@ class MainFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         val number = "889"
         liveData.postValue(
             LaunchesViewState.Success(
@@ -105,12 +88,6 @@ class MainFragmentTest {
 
     @Test
     fun when_success_retrieved_than_title_is_checked() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         LaunchesViewState.Success(
             listOf(
                 LaunchUiModel(
@@ -130,12 +107,6 @@ class MainFragmentTest {
 
     @Test
     fun when_error_retrieved_than_list_is_empty() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         LaunchesViewState.Error(Throwable())
         onView(withId(R.id.launches_list)).check { view, _ ->
             view as RecyclerView
@@ -145,12 +116,6 @@ class MainFragmentTest {
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         liveData.postValue(
             LaunchesViewState.Success(
                 listOf(
@@ -183,12 +148,6 @@ class MainFragmentTest {
     }
 
     fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
-        val mainFragment = MainFragment()
-        val liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
-        every { viewModel.launchesLiveData } returns liveData
-        launchFragmentInContainer {
-            mainFragment
-        }
         liveData.postValue(
             LaunchesViewState.Success(
                 listOf(

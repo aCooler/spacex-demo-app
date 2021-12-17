@@ -65,7 +65,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                val detailsFragment: Fragment = DetailsFragment(id)
+                val detailsFragment: Fragment = DetailsFragment.newInstance(id)
                 addToBackStack("details_fragment")
                 replace(R.id.fragment_container, detailsFragment)
             }

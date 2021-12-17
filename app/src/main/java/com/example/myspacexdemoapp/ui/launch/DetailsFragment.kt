@@ -17,14 +17,23 @@ import com.example.myspacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 
-class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_fragment) {
+class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var viewModelFactory: LaunchesViewModelFactory
+    private lateinit var apolloClient: ApolloClient
+    companion object {
+        private const val idKey = "id"
+        fun newInstance(position: String): DetailsFragment {
+            return DetailsFragment().apply {
+                arguments.apply {
+                    this?.putString(idKey, position)
+                }
+            }
+        }
+    }
 
-    lateinit var apolloClient: ApolloClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         apolloClient = ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
         viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
         viewModel =
@@ -36,8 +45,11 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? = getView()?.findViewById(R.id.swipe_refresh_details)
-        // viewModel.getLaunch(launchId)
+        val mySwipeRefreshLayout: SwipeRefreshLayout? =
+            getView()?.findViewById(R.id.swipe_refresh_details)
+        if (arguments?.getString(idKey) != null) {
+            viewModel.getLaunch(arguments?.getString(idKey) ?: "")
+        }
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
@@ -64,7 +76,9 @@ class DetailsFragment(private val launchId: String) : Fragment(R.layout.details_
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            viewModel.getLaunch(launchId)
+            if (arguments?.getString(idKey) != null) {
+                viewModel.getLaunch(arguments?.getString(idKey) ?: "")
+            }
         }
     }
 }
