@@ -13,10 +13,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -54,9 +54,9 @@ class LaunchDetailsViewModelTest : TestCase() {
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
         assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Success)
         val actualState = argumentCaptor.allValues.last() as LaunchDetailsViewState.Success
-        assertEquals(actualState.model?.mission?.rocketName, "AC")
-        assertEquals(actualState.model?.mission?.details, "My details")
-        assertEquals(actualState.model?.mission?.name, "My mission name")
+        assertEquals(actualState.model.mission.rocketName, "AC")
+        assertEquals(actualState.model.mission.details, "My details")
+        assertEquals(actualState.model.mission.name, "My mission name")
     }
 
     @Test
