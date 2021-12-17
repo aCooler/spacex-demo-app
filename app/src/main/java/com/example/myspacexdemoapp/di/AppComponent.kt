@@ -7,7 +7,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AppModule::class, NetModule::class])
+@Component(modules = [AppModule::class, NetModule::class,ViewModelModule::class])
 interface AppComponent {
     fun inject(detailsFragment: DetailsFragment)
 

@@ -31,7 +31,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        val apolloClient =
 //            ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-        //viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
+//        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
 //        launchesViewModel = ViewModelProvider(
 //            requireActivity(),
 //            viewModelFactory
