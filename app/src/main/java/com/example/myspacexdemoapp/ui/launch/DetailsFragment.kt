@@ -1,28 +1,25 @@
 package com.example.myspacexdemoapp.ui.launch
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.apollographql.apollo.ApolloClient
-import com.example.myspacexdemoapp.BuildConfig
+import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.api.SpaceXApi
-import com.example.myspacexdemoapp.ui.launches.LaunchesViewModelFactory
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
+import javax.inject.Inject
 
 class DetailsFragment : Fragment(R.layout.details_fragment) {
 
-    private lateinit var viewModel: LaunchDetailsViewModel
-    private lateinit var viewModelFactory: LaunchesViewModelFactory
-    private lateinit var apolloClient: ApolloClient
+    @Inject
+    lateinit var viewModel: LaunchDetailsViewModel
 
     companion object {
         private const val IDKEY = "id"
@@ -34,13 +31,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        apolloClient = ApolloClient.builder().serverUrl(BuildConfig.SPACEX_ENDPOINT).build()
-        viewModelFactory = LaunchesViewModelFactory(SpaceXApi(apolloClient))
-        viewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            ).get(LaunchDetailsViewModel::class.java)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
@@ -80,5 +70,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        (requireActivity().application as MyApp).appComponent?.inject(this)
+        super.onAttach(context)
     }
 }
