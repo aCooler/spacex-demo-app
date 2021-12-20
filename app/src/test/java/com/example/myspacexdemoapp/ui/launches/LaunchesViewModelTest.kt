@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.spacexdemoapp.GetLaunchesQuery
 import io.reactivex.rxjava3.core.Observable
 import junit.framework.TestCase
@@ -25,7 +25,7 @@ class LaunchesViewModelTest : TestCase() {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
-    private val spaceXApi = mock(SpaceXApi(apolloClient)::class.java)
+    private val spaceXApi = mock(com.example.spacexdemoapp.api.SpaceXApi(apolloClient)::class.java)
     private val viewModel by lazy {
         LaunchesViewModel(spaceXApi)
     }

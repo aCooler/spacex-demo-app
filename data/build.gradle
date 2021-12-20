@@ -9,24 +9,12 @@ plugins {
 
 android {
     compileSdk 31
-
     defaultConfig {
-        applicationId "com.example.spacexdemoapp.app"
         minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String",
-                "DATE_STRING_FROM",
-                "\"yyyy-MM-dd'T'HH:mm:ss\"")
-        buildConfigField("String",
-                "DATE_STRING_TO",
-                "\"MMM dd , yyyy HH:mm a\"")
-        buildConfigField("String",
-                "SPACEX_ENDPOINT",
-                "\"https://api.spacex.land/graphql/\"")
-
     }
 
     buildTypes {
@@ -44,45 +32,10 @@ android {
     }
 }
 
-detekt {
-    buildUponDefaultConfig = true
-    ignoreFailures = false
-    setSource(files(projectDir))
-    baseline = file("$rootDir/app/detekt-baseline.xml")
-    config.setFrom(rootProject.file("config/detekt/detekt.yml"))
-    reports {
-        xml {
-            enabled = true
-            destination = file("build/reports/detekt/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("build/reports/detekt/detekt.html")
-        }
-    }
-}
-
-ktlint {
-    version = "0.43.0"
-    debug = true
-    verbose = true
-    outputToConsole = true
-    ignoreFailures = true
-    enableExperimentalRules = false
-    additionalEditorconfigFile = file("/some/additional/.editorconfig")
-    kotlinScriptAdditionalPaths {
-        include fileTree("scripts/")
-    }
-    filter {
-        exclude("**/generated/**")
-        include("**/kotlin/**")
-    }
-}
-
 dependencies {
+
     implementation "com.google.dagger:dagger-android:2.40.1"
     implementation "com.google.dagger:dagger-android-support:2.40.1"
-    implementation project(path: ':data')
     kapt "com.google.dagger:dagger-compiler:2.40.1"
     kapt "com.google.dagger:dagger-android-processor:2.40.1"
     implementation "androidx.fragment:fragment-ktx:1.4.0"
@@ -94,7 +47,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.40.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.40.1'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-   kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation group: 'com.apollographql.apollo', name: 'apollo-runtime', version: '2.5.11'
@@ -106,11 +59,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
-
-
-
     androidTestImplementation("io.mockk:mockk-android:1.12.1")
-
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     testImplementation("org.mockito:mockito-core:+")

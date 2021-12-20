@@ -1,6 +1,6 @@
 package com.example.myspacexdemoapp.di
 
-import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
 import dagger.Module
@@ -11,13 +11,13 @@ import javax.inject.Singleton
 class ViewModelModule {
     @Provides
     @Singleton
-    fun provideLaunchesViewModel(spaceXApi: SpaceXApi): LaunchesViewModel {
+    fun provideLaunchesViewModel(spaceXApi: com.example.spacexdemoapp.api.SpaceXApi): LaunchesViewModel {
         return LaunchesViewModel(spaceXApi)
     }
 
     @Provides
     @Singleton
-    fun provideLaunchDetailsViewModel(spaceXApi: SpaceXApi): LaunchDetailsViewModel {
+    fun provideLaunchDetailsViewModel(spaceXApi: com.example.spacexdemoapp.api.SpaceXApi): LaunchDetailsViewModel {
         return LaunchDetailsViewModel(spaceXApi)
     }
 }
