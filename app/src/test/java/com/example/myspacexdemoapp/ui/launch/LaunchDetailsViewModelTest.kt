@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.spacexdemoapp.GetLaunchQuery
 import io.reactivex.rxjava3.core.Observable
 import junit.framework.TestCase
@@ -13,10 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
