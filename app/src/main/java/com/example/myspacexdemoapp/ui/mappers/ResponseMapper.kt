@@ -6,6 +6,7 @@ import com.example.myspacexdemoapp.ui.launches.Payload
 import com.example.spacexdemoapp.GetLaunchQuery
 import com.example.spacexdemoapp.GetLaunchesQuery
 
+
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch() ?: LinkInfo.EMPTY.badge,
     picture = when {
