@@ -19,6 +19,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     @Inject
     lateinit var launchesViewModel: LaunchesViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_list)
         val adapter =
@@ -67,7 +68,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
     override fun onAttach(context: Context) {
-        (requireActivity().application as MyApp).appComponent?.injectMain(this)
+        (requireActivity().application as MyApp).appComponent?.inject(this)
         super.onAttach(context)
     }
 }
