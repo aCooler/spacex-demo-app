@@ -1,6 +1,5 @@
 package com.example.myspacexdemoapp.di
 
-import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
 import dagger.Module
