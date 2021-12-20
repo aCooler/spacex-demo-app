@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.spacexdemoapp.GetLaunchQuery
 import io.reactivex.rxjava3.core.Observable
 import junit.framework.TestCase

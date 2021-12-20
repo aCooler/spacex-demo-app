@@ -3,12 +3,12 @@ package com.example.myspacexdemoapp.ui.launches
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
 import com.example.myspacexdemoapp.ui.mappers.toMission
+import com.example.spacexdemoapp.api.SpaceXApi
 import io.reactivex.rxjava3.disposables.Disposable
 
-class LaunchesViewModel(private val spaceXApi: com.example.spacexdemoapp.api.SpaceXApi) : ViewModel() {
+class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
 
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
