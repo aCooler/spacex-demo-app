@@ -47,7 +47,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     val alertDialog = AlertDialog.Builder(requireActivity())
                     alertDialog.setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
-                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                        .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                             dialog.cancel()
                         }.create()
                     alertDialog.show()

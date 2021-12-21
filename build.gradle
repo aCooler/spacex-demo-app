@@ -1,5 +1,27 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = '1.5.31'
+    ext.dagger = '2.40.1'
+    ext.fragment = '1.4.0'
+    ext.rxbinding4 = '4.0.0'
+    ext.apollo_version = '2.5.11'
+    ext.swiperefreshlayout = '1.1.0'
+    ext.glide = '4.12.0'
+    ext.rxjava = '3.0.0'
+    ext.core = '1.3.0'
+    ext.core_ktx = '1.7.0'
+    ext.appcompat = '1.4.0'
+    ext.material = '1.4.0'
+    ext.constraintlayout = '2.1.+'
+    ext.cardview = '1.0.0'
+    ext.espresso = '3.4.0'
+    ext.mockk = '1.12.1'
+    ext.junit_android = '1.1.+'
+    ext.junit = '4.13.2'
+    ext.robolectric = '4.7.3'
+    ext.test = '1.4.0'
+    ext.mockito = '+'
+    ext.arch = '2.1.0'
     repositories {
         google()
         mavenCentral()
@@ -16,6 +38,50 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+/*
+
+implementation "com.google.dagger:dagger-android:2.40.1"
+implementation "com.google.dagger:dagger-android-support:2.40.1"
+implementation project(path: ':data')
+kapt "com.google.dagger:dagger-compiler:2.40.1"
+kapt "com.google.dagger:dagger-android-processor:2.40.1"
+implementation "androidx.fragment:fragment-ktx:1.4.0"
+implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+implementation 'com.apollographql.apollo:apollo-rx3-support:2.5.11'
+implementation 'com.google.dagger:dagger:2.40.1'
+implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+annotationProcessor 'com.google.dagger:dagger-compiler:2.40.1'
+annotationProcessor 'com.google.dagger:dagger-android-processor:2.40.1'
+implementation 'com.github.bumptech.glide:glide:4.12.0'
+kapt 'com.github.bumptech.glide:compiler:4.12.0'
+implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+implementation group: 'com.apollographql.apollo', name: 'apollo-runtime', version: '2.5.11'
+implementation 'androidx.core:core-ktx:1.7.0'
+implementation 'androidx.appcompat:appcompat:1.3.1'
+implementation 'com.google.android.material:material:1.4.0'
+implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+implementation 'com.google.android.material:material:1.3.0'
+implementation 'androidx.cardview:cardview:1.0.0'
+implementation 'androidx.core:core-ktx:1.3.2'
+implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
+
+
+androidTestImplementation("io.mockk:mockk-android:1.12.1")
+
+androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+testImplementation("org.mockito:mockito-core:+")
+testImplementation 'junit:junit:4.13'
+testImplementation 'org.robolectric:robolectric:4.3.1'
+testImplementation 'androidx.test:core:1.3.0'
+testImplementation "org.mockito:mockito-android:+"
+debugImplementation("androidx.fragment:fragment-testing:1.4.0")
+implementation "androidx.arch.core:core-testing:2.1.0"
+androidTestImplementation('androidx.test:rules:1.4.0')
+
+*/
 
 task clean(type: Delete) {
     delete rootProject.buildDir
