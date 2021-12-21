@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
         classpath "com.apollographql.apollo:apollo-gradle-plugin:2.5.11"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0-RC2"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:10.1.0"

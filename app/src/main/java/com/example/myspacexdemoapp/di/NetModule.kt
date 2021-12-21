@@ -2,7 +2,7 @@ package com.example.myspacexdemoapp.di
 
 import com.apollographql.apollo.ApolloClient
 import com.example.myspacexdemoapp.BuildConfig
-import com.example.myspacexdemoapp.api.SpaceXApi
+import com.example.spacexdemoapp.api.SpaceXApi
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

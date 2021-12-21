@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.api
+package com.example.spacexdemoapp.api
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
