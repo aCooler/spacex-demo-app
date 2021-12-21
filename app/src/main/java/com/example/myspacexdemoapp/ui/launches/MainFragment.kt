@@ -39,7 +39,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                     AlertDialog.Builder(requireActivity())
                         .setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
-                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                        .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                             dialog.cancel()
                         }
                         .show()
