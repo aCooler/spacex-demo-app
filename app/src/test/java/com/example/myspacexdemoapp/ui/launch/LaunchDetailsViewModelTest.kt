@@ -1,5 +1,4 @@
 package com.example.myspacexdemoapp.ui.launch
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.apollographql.apollo3.ApolloClient
@@ -22,7 +21,6 @@ import java.lang.reflect.Field
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
-
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
@@ -45,7 +43,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
         privateField1.isAccessible = true
         privateField1[mockResponse] = mockData
-
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
             Flowable.just(
                 mockResponse

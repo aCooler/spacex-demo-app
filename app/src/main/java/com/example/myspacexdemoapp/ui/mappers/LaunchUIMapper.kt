@@ -52,7 +52,7 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = CUSTOMER,
-                    text = launchUiModel.payload.customers[0]  ?: Payload.EMPTY.manufacturer
+                    text = launchUiModel.payload.customers[0] ?: Payload.EMPTY.manufacturer
                 )
             )
         }
