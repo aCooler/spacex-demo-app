@@ -1,6 +1,5 @@
 package com.example.spacexdemoapp.api
 
-
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.rx3.rxFlowable
