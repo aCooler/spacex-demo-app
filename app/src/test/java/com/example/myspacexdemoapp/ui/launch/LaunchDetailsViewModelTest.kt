@@ -68,10 +68,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         privateField1.isAccessible = true
         privateField1[mockResponse] = mockData
 
-        val privateField: Field = GetLaunchQuery.Data::class.java.getDeclaredField("launch")
-        privateField.isAccessible = true
-        privateField[mockData] = mockLaunch
-
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
             Flowable.just(
                 mockResponse

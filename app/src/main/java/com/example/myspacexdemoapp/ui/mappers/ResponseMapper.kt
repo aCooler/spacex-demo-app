@@ -15,12 +15,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     pictures = flickr_images ?: LinkInfo.EMPTY.pictures
 )
 
-fun GetLaunchQuery.Launch.toMission(): Mission {
-    val rocket1 = this
-    val rkt = this.rocket
-    val rckflds=this.rocket?.rocketFields
-    val rcktnm = this.rocket?.rocketFields?.rocket_name
-    val mission =
+fun GetLaunchQuery.Launch.toMission(): Mission = (
     Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
         date = missionDetails.launch_date_utc?.toString() ?: "",
@@ -30,8 +25,7 @@ fun GetLaunchQuery.Launch.toMission(): Mission {
         success = missionDetails.launch_success ?: Mission.EMPTY.success,
         details = details ?: Mission.EMPTY.details
     )
-    return mission
-}
+)
 
 fun GetLaunchesQuery.Launch.toMission(): Mission {
     return Mission(
