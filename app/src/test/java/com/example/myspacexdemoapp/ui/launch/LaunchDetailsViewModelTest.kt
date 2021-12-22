@@ -80,10 +80,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         privateField1[mockResponse] = mockData
 
 
-        val privateField: Field = GetLaunchQuery.Data::class.java.getDeclaredField("launch")
-        privateField.isAccessible = true
-        privateField[mockData] = mockLaunch
-
 
 
         //`when`(mockResponse.data).thenReturn(mockData)
