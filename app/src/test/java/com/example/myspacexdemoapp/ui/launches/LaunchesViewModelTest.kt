@@ -18,6 +18,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchesQuery
+import java.lang.reflect.Field
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchesViewModelTest : TestCase() {
@@ -40,7 +41,10 @@ class LaunchesViewModelTest : TestCase() {
         `when`(mockData.launches).thenReturn(
             mockLaunches
         )
-        `when`(mockResponse.data).thenReturn(mockData)
+        val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
+        privateField1.isAccessible = true
+        privateField1[mockResponse] = mockData
+        //`when`(mockResponse.data).thenReturn(mockData)
         `when`(spaceXApi.getLaunches()).thenReturn(
             Flowable.just(
                 mockResponse
