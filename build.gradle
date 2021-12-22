@@ -4,7 +4,7 @@ buildscript {
     ext.dagger = '2.40.1'
     ext.fragment = '1.4.0'
     ext.rxbinding4 = '4.0.0'
-    ext.apollo_version = '2.5.11'
+    ext.apollo_version = '3.0.0'
     ext.swiperefreshlayout = '1.1.0'
     ext.glide = '4.12.0'
     ext.rxjava = '3.0.0'
@@ -22,6 +22,7 @@ buildscript {
     ext.test = '1.4.0'
     ext.mockito = '+'
     ext.arch = '2.1.0'
+    ext.nav_version = "2.3.5"
     repositories {
         google()
         mavenCentral()

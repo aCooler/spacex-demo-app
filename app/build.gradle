@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.apollographql.apollo'
     id 'io.gitlab.arturbosch.detekt'
     id 'org.jlleitschuh.gradle.ktlint'
     id 'kotlin-kapt'
@@ -91,13 +90,14 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment"
     implementation "com.jakewharton.rxbinding4:rxbinding-core:$rxbinding4"
     implementation "com.jakewharton.rxbinding4:rxbinding:$rxbinding4"
-    implementation "com.apollographql.apollo:apollo-rx3-support:$apollo_version"
+    implementation "com.apollographql.apollo3:apollo-rx3-support:$apollo_version"
+    implementation("com.apollographql.apollo3:apollo-api:$apollo_version")
+    implementation group: 'com.apollographql.apollo3', name: 'apollo-runtime', version: "$apollo_version"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout"
     implementation "com.github.bumptech.glide:glide:$glide"
     kapt "com.github.bumptech.glide:compiler:$glide"
     implementation "io.reactivex.rxjava3:rxandroid:$rxjava"
     implementation "io.reactivex.rxjava3:rxjava:$rxjava"
-    implementation group: 'com.apollographql.apollo', name: 'apollo-runtime', version: "$apollo_version"
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "com.google.android.material:material:$material"
@@ -115,4 +115,6 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:$fragment")
     implementation "androidx.arch.core:core-testing:$arch"
     androidTestImplementation("androidx.test:rules:$test")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 }

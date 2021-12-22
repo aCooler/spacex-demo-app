@@ -22,9 +22,9 @@ class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.ap
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
             .subscribe({ response ->
-                val linkInfo = response.data?.launch()?.links()?.toLinksInfo() ?: LinkInfo.EMPTY
-                val payload = response.data?.payload()?.toPayload() ?: Payload.EMPTY
-                val mission = response.data?.launch()?.toMission() ?: Mission.EMPTY
+                val linkInfo = response.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
+                val payload = response.data?.payload?.toPayload() ?: Payload.EMPTY
+                val mission = response.data?.launch?.toMission() ?: Mission.EMPTY
                 _launchMutableLiveData.postValue(
                     LaunchDetailsViewState.Success(
                         LaunchUiModel(

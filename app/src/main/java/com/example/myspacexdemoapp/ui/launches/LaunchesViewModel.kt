@@ -24,11 +24,11 @@ class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
                     with(_launchesMutableLiveData) {
                         postValue(
                             LaunchesViewState.Success(
-                                response.data?.launches()?.map {
+                                response.data?.launches?.map {
                                     LaunchUiModel(
-                                        number = it.id() ?: LaunchUiModel.EMPTY.number,
-                                        mission = it.toMission(),
-                                        linkInfo = it.links()?.toLinksInfo() ?: LinkInfo.EMPTY,
+                                        number = it?.id ?: LaunchUiModel.EMPTY.number,
+                                        mission = it?.toMission() ?: Mission.EMPTY,
+                                        linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
                                     )
                                 } ?: emptyList()
                             )
