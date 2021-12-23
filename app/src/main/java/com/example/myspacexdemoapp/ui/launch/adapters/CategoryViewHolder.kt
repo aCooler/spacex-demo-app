@@ -1,20 +1,20 @@
 package com.example.myspacexdemoapp.ui.launch.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.ViewPagerItemBinding
 
-class CategoryViewHolder constructor(itemView: View) :
-    RecyclerView.ViewHolder(itemView) {
-    private val viewPagerItem: ImageView = itemView.findViewById(R.id.view_pager_image)
+class CategoryViewHolder constructor(private val binding: ViewPagerItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    private val viewPagerItem: ImageView = binding.viewPagerImage
 
     constructor(parent: ViewGroup) : this(
-        itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.view_pager_item, parent, false)
+        ViewPagerItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     fun bind(imageUrl: String) {

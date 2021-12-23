@@ -2,7 +2,6 @@ package com.example.myspacexdemoapp.ui.launches
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.MainListCardBinding
 import com.example.myspacexdemoapp.setColor
 import com.example.myspacexdemoapp.toDateString
 
@@ -18,22 +18,23 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
     private var items: List<LaunchUiModel> = emptyList()
 
-    class MainListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val place: TextView = view.findViewById(R.id.place)
-        val rocketName: TextView = view.findViewById(R.id.rocket_name)
-        val success: TextView = view.findViewById(R.id.success)
-        val successImage: ImageView = view.findViewById(R.id.success_icon)
-        val missionName: TextView = view.findViewById(R.id.mission_name)
-        val date: TextView = view.findViewById(R.id.date)
-        val number: TextView = view.findViewById(R.id.number)
-        val picture: ImageView = view.findViewById(R.id.launch_image)
-        val badge: ImageView = view.findViewById(R.id.badge)
+    class MainListViewHolder(private val binding: MainListCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        val place: TextView = binding.place
+        val rocketName: TextView = binding.rocketName
+        val success: TextView = binding.success
+        val successImage: ImageView = binding.successIcon
+        val missionName: TextView = binding.missionName
+        val date: TextView = binding.date
+        val number: TextView = binding.number
+        val picture: ImageView = binding.launchImage
+        val badge: ImageView = binding.badge
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MainListViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.main_list_card, viewGroup, false)
-        return MainListViewHolder(view)
+
+        return MainListViewHolder(MainListCardBinding.bind(view))
     }
 
     override fun onBindViewHolder(viewHolder: MainListViewHolder, position: Int) {
