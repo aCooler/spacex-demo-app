@@ -14,6 +14,7 @@ import spacexdemoapp.GetLaunchesQuery
 @RunWith(MockitoJUnitRunner::class)
 class SpaceXApiTest : TestCase() {
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
+    fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
 
     @Test
     fun getLaunches() {
@@ -21,7 +22,7 @@ class SpaceXApiTest : TestCase() {
             ArgumentCaptor.forClass(GetLaunchesQuery::class.java)
         val query = GetLaunchesQuery()
         apolloClient.query(query)
-        verify(apolloClient).query(queryCaptor.capture())
+        verify(apolloClient).query(capture(queryCaptor))
         assertEquals(query, queryCaptor.value)
     }
 
@@ -31,7 +32,7 @@ class SpaceXApiTest : TestCase() {
             ArgumentCaptor.forClass(GetLaunchQuery::class.java)
         val query = GetLaunchQuery("9")
         apolloClient.query(query)
-        verify(apolloClient).query(queryCaptor.capture())
+        verify(apolloClient).query(capture(queryCaptor))
         assertEquals(query, queryCaptor.value)
     }
 }

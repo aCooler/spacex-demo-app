@@ -19,8 +19,7 @@ fun GetLaunchQuery.Launch.toMission(): Mission =
     Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
         date = missionDetails.launch_date_utc?.toString() ?: "",
-        rocketName = rocket?.rocketFields?.rocket_name
-            ?: Mission.EMPTY.rocketName,
+        rocketName = rocket?.rocketFields?.rocket_name ?: Mission.EMPTY.rocketName,
         place = launch_site?.site_name_long ?: Mission.EMPTY.place,
         success = missionDetails.launch_success ?: Mission.EMPTY.success,
         details = details ?: Mission.EMPTY.details

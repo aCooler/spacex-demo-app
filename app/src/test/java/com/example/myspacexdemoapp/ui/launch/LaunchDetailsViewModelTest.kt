@@ -14,17 +14,14 @@ import org.mockito.Answers
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.spy
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
-import spacexdemoapp.fragment.RocketFields
 import java.lang.reflect.Field
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
-
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
@@ -43,7 +40,7 @@ class LaunchDetailsViewModelTest : TestCase() {
         `when`(mockData.launch).thenReturn(
             mockLaunch
         )
-
+        // `when`(mockResponse.data).thenReturn(mockData)
         val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
         privateField1.isAccessible = true
         privateField1[mockResponse] = mockData
@@ -72,7 +69,6 @@ class LaunchDetailsViewModelTest : TestCase() {
                 Throwable()
             )
         )
-
         val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
         viewModel.getLaunch("9")
@@ -92,21 +88,6 @@ class LaunchDetailsViewModelTest : TestCase() {
                 missionDetails.mission_name
             ).thenReturn("My mission name")
         }
-
-        var mockRocket =
-            mock(GetLaunchQuery.Rocket::class.java, Answers.RETURNS_DEEP_STUBS)
-
-        var mockRocketFields =
-            spy(RocketFields(rocket_name = "AC", rocket_type = null))
-
-        val privateField3: Field = GetLaunchQuery.Launch::class.java.getDeclaredField("rocket")
-        privateField3.isAccessible = true
-        privateField3[mockLaunch] = mockRocket
-
-        val privateField2: Field = GetLaunchQuery.Rocket::class.java.getDeclaredField("rocketFields")
-        privateField2.isAccessible = true
-        privateField2[mockRocket] = mockRocketFields
-
         return mockLaunch
     }
 }
