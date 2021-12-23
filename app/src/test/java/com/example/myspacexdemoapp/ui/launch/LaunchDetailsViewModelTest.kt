@@ -22,10 +22,6 @@ import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.fragment.RocketFields
 import java.lang.reflect.Field
 
-
-
-
-
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
 
@@ -37,37 +33,10 @@ class LaunchDetailsViewModelTest : TestCase() {
         LaunchDetailsViewModel(spaceXApi)
     }
 
-//    @Test
-//    fun test() {
-//        // Data is an extension function that will build a SimpleQuery.Data model
-//        val data = SimpleQuery.Data {
-//            // Specify values for fields that you want to control
-//            hero = droidHero {
-//                name = "R2D2"
-//                friends = listOf(
-//                    friend {
-//                        name = "Luke"
-//                    }
-//                )
-//                // leave other fields untouched, and they will be returned with mocked data
-//                // planet = ...
-//            }
-//        }
-//
-//        // Use the returned data
-//    }
-
-
     @Test
     fun `when get launches initialized then success is retrieved`() {
-//
-//
-//
-//        val data1 = GetLaunchQuery.Data(payload = null, launch = null)
-//
-//        val response1 = ApolloResponse.Builder(data = data1, operation = Operation<Any>, requestUuid = null)
         var mockResponse: ApolloResponse<GetLaunchQuery.Data> =
-            spy(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
+            mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
         var mockData =
             mock(GetLaunchQuery.Data::class.java)
         var mockLaunch = getLaunch()
@@ -78,11 +47,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
         privateField1.isAccessible = true
         privateField1[mockResponse] = mockData
-
-
-
-
-        //`when`(mockResponse.data).thenReturn(mockData)
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
             Flowable.just(
                 mockResponse
@@ -97,8 +61,8 @@ class LaunchDetailsViewModelTest : TestCase() {
         assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Success)
         val actualState = argumentCaptor.allValues.last() as LaunchDetailsViewState.Success
         assertEquals(actualState.model.mission.rocketName, "AC")
-        //assertEquals(actualState.model.mission.details, "My details")
-        //assertEquals(actualState.model.mission.name, "My mission name")
+        assertEquals(actualState.model.mission.details, "My details")
+        assertEquals(actualState.model.mission.name, "My mission name")
     }
 
     @Test
@@ -122,11 +86,11 @@ class LaunchDetailsViewModelTest : TestCase() {
         var mockLaunch =
             mock(GetLaunchQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
         mockLaunch.apply {
-//            `when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
-//            `when`(details).thenReturn("My details")
-//            `when`(
-//                missionDetails.mission_name
-//            ).thenReturn("My mission name")
+            `when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
+            `when`(details).thenReturn("My details")
+            `when`(
+                missionDetails.mission_name
+            ).thenReturn("My mission name")
         }
 
         var mockRocket =
@@ -142,10 +106,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         val privateField2: Field = GetLaunchQuery.Rocket::class.java.getDeclaredField("rocketFields")
         privateField2.isAccessible = true
         privateField2[mockRocket] = mockRocketFields
-
-//        val privateField1: Field = RocketFields::class.java.getDeclaredField("rocket_name")
-//        privateField1.isAccessible = true
-//        privateField1[mockRocketFields] = "AC"
 
         return mockLaunch
     }

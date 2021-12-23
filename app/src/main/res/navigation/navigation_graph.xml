@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/main_fragment">
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.example.myspacexdemoapp.ui.launches.MainFragment"
+        android:label="fragment_my_home"
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/action_myHomeFragment_to_myDetailsFragment"
+            app:destination="@id/details_fragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.example.myspacexdemoapp.ui.launch.DetailsFragment"
+        android:label="fragment_my_details"
+        tools:layout="@layout/details_fragment">
+
+        <argument
+            android:name="launchId"
+            app:argType="string"
+            />
+
+        <action
+            android:id="@+id/action_myDetailsFragment_to_myHomeFragment"
+            app:popUpTo="@id/main_fragment" />
+    </fragment>
+</navigation>

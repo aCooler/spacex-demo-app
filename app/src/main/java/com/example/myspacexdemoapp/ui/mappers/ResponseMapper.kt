@@ -15,7 +15,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     pictures = flickr_images ?: LinkInfo.EMPTY.pictures
 )
 
-fun GetLaunchQuery.Launch.toMission(): Mission = (
+fun GetLaunchQuery.Launch.toMission(): Mission =
     Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
         date = missionDetails.launch_date_utc?.toString() ?: "",
@@ -25,7 +25,6 @@ fun GetLaunchQuery.Launch.toMission(): Mission = (
         success = missionDetails.launch_success ?: Mission.EMPTY.success,
         details = details ?: Mission.EMPTY.details
     )
-)
 
 fun GetLaunchesQuery.Launch.toMission(): Mission {
     return Mission(
