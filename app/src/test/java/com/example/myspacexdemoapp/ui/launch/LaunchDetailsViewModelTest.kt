@@ -40,7 +40,6 @@ class LaunchDetailsViewModelTest : TestCase() {
         `when`(mockData.launch).thenReturn(
             mockLaunch
         )
-        // `when`(mockResponse.data).thenReturn(mockData)
         val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
         privateField1.isAccessible = true
         privateField1[mockResponse] = mockData
