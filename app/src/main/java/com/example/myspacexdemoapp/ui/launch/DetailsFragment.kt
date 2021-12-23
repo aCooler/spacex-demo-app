@@ -21,15 +21,14 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     lateinit var viewModel: LaunchDetailsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.init(arguments)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         val mySwipeRefreshLayout: SwipeRefreshLayout? =
             getView()?.findViewById(R.id.swipe_refresh_details)
-        if (DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId.isNotEmpty()) {
-            viewModel.getLaunch(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
-        }
+        viewModel.getLaunchUI()
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
@@ -56,9 +55,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            if (DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId.isNotEmpty()) {
-                viewModel.getLaunch(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
-            }
+            viewModel.getLaunchUI()
         }
     }
 

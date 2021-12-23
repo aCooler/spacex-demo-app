@@ -24,6 +24,7 @@
         <argument
             android:name="launchId"
             app:argType="string"
+            app:nullable="false"
             />
 
         <action
