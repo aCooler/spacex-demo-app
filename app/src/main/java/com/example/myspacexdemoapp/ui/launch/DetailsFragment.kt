@@ -5,12 +5,9 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.DetailsFragmentBinding
@@ -24,9 +21,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.init(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
-
         val binding = DetailsFragmentBinding.bind(view)
-        fragmentBlankBinding = bindingval recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
+        fragmentBlankBinding = binding
         val adapter = DetailsRecyclerViewAdapter()
         binding.launchesDetailsList.adapter = adapter
         binding.launchesDetailsList.layoutManager = LinearLayoutManager(activity)
