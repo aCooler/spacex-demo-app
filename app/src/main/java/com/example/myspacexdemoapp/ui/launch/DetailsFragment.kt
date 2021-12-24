@@ -17,29 +17,18 @@ import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
 class DetailsFragment : Fragment(R.layout.details_fragment) {
-
     @Inject
     lateinit var viewModel: LaunchDetailsViewModel
 
-    companion object {
-        private const val IDKEY = "id"
-        fun newInstance(launchId: String): DetailsFragment {
-            return DetailsFragment().apply {
-                arguments = bundleOf(IDKEY to launchId)
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.init(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         val mySwipeRefreshLayout: SwipeRefreshLayout? =
             getView()?.findViewById(R.id.swipe_refresh_details)
-        if (arguments?.getString(IDKEY) != null) {
-            viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
-        }
+        viewModel.getLaunchUI()
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
@@ -66,9 +55,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             }
         })
         mySwipeRefreshLayout?.setOnRefreshListener {
-            if (arguments?.getString(IDKEY) != null) {
-                viewModel.getLaunch(arguments?.getString(IDKEY) ?: "")
-            }
+            viewModel.getLaunchUI()
         }
     }
 

@@ -7,12 +7,13 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.ui.launch.DetailsFragment
+import com.example.myspacexdemoapp.ui.launch.DetailsFragmentArgs
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -58,10 +59,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun openDetailsFragment(id: String?) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                val detailsFragment: Fragment = DetailsFragment.newInstance(id)
-                addToBackStack("details_fragment")
-                replace(R.id.fragment_container, detailsFragment)
+                findNavController().navigate(R.id.action_myHomeFragment_to_myDetailsFragment, DetailsFragmentArgs(launchId = id).toBundle(), null)
             }
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)

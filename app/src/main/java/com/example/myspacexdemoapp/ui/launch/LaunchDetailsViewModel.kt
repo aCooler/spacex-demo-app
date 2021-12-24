@@ -15,6 +15,19 @@ class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.ap
     ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
+    private var id: String? = null
+
+    fun init(launchId: String) {
+        if (launchId.isNotEmpty()) {
+            id = launchId
+        }
+    }
+
+    fun getLaunchUI() {
+        if (!id.isNullOrEmpty()) {
+            getLaunch(id ?: "")
+        }
+    }
 
     fun getLaunch(id: String) {
         spaceXApi.getLaunchById(id)
