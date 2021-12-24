@@ -1,6 +1,5 @@
 package com.example.myspacexdemoapp.ui.launch
 
-import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,12 +17,9 @@ class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.ap
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
     private var id: String? = null
 
-    fun init(bundle: Bundle?) {
-        if (bundle != null) {
-            val args = DetailsFragmentArgs.fromBundle(bundle)
-            if (args.launchId.isNotEmpty()) {
-                id = args.launchId
-            }
+    fun init(launchId: String) {
+        if (launchId.isNotEmpty()) {
+            id = launchId
         }
     }
 
