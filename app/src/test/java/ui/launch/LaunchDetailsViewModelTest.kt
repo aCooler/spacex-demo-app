@@ -2,11 +2,10 @@ package com.example.myspacexdemoapp.ui.launch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.Response
-import com.example.spacexdemoapp.GetLaunchQuery
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.ApolloResponse
 import com.example.spacexdemoapp.api.SpaceXApi
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
@@ -18,10 +17,11 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import spacexdemoapp.GetLaunchQuery
+import java.util.UUID
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
-
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
@@ -32,17 +32,22 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then success is retrieved`() {
-        val mockResponse: Response<GetLaunchQuery.Data> =
-            mock(Response::class.java) as Response<GetLaunchQuery.Data>
-        val mockData =
+        mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
+        var mockData =
             mock(GetLaunchQuery.Data::class.java)
-        val mockLaunch = getLaunch()
-        `when`(mockData.launch()).thenReturn(
+        var mockLaunch = getLaunch()
+        `when`(mockData.launch).thenReturn(
             mockLaunch
         )
-        `when`(mockResponse.data).thenReturn(mockData)
+
+        val mockResponse =
+            ApolloResponse.Builder(
+                operation = GetLaunchQuery("9"),
+                requestUuid = UUID.randomUUID(),
+                data = mockData
+            ).build()
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
-            Observable.just(
+            Flowable.just(
                 mockResponse
             )
         )
@@ -62,7 +67,7 @@ class LaunchDetailsViewModelTest : TestCase() {
     @Test
     fun `when get launches initialized then error is retrieved`() {
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
-            Observable.error(
+            Flowable.error(
                 Throwable()
             )
         )
@@ -76,13 +81,13 @@ class LaunchDetailsViewModelTest : TestCase() {
     }
 
     private fun getLaunch(): GetLaunchQuery.Launch {
-        val mockLaunch =
+        var mockLaunch =
             mock(GetLaunchQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
         mockLaunch.apply {
-            `when`(mockLaunch.rocket()?.fragments()?.rocketFields()?.rocket_name()).thenReturn("AC")
-            `when`(mockLaunch.details()).thenReturn("My details")
+            `when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
+            `when`(details).thenReturn("My details")
             `when`(
-                mockLaunch.fragments().missionDetails().mission_name()
+                missionDetails.mission_name
             ).thenReturn("My mission name")
         }
         return mockLaunch

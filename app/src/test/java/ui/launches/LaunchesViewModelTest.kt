@@ -2,11 +2,10 @@ package com.example.myspacexdemoapp.ui.launches
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.Response
-import com.example.spacexdemoapp.GetLaunchesQuery
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.ApolloResponse
 import com.example.spacexdemoapp.api.SpaceXApi
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
@@ -18,6 +17,8 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import spacexdemoapp.GetLaunchesQuery
+import java.util.UUID
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchesViewModelTest : TestCase() {
@@ -32,17 +33,20 @@ class LaunchesViewModelTest : TestCase() {
 
     @Test
     fun `when launch by id initialized then success is retrieved`() {
-        val mockResponse: Response<GetLaunchesQuery.Data> =
-            mock(Response::class.java) as Response<GetLaunchesQuery.Data>
         val mockData =
             mock(GetLaunchesQuery.Data::class.java)
         val mockLaunches = getLaunches()
-        `when`(mockData.launches()).thenReturn(
+        `when`(mockData.launches).thenReturn(
             mockLaunches
         )
-        `when`(mockResponse.data).thenReturn(mockData)
+        val mockResponse =
+            ApolloResponse.Builder(
+                operation = GetLaunchesQuery(),
+                requestUuid = UUID.randomUUID(),
+                data = mockData
+            ).build()
         `when`(spaceXApi.getLaunches()).thenReturn(
-            Observable.just(
+            Flowable.just(
                 mockResponse
             )
         )
@@ -62,7 +66,7 @@ class LaunchesViewModelTest : TestCase() {
     @Test
     fun `when launch by id initialized then error is retrieved`() {
         `when`(spaceXApi.getLaunches()).thenReturn(
-            Observable.error(
+            Flowable.error(
                 Throwable()
             )
         )
@@ -79,10 +83,10 @@ class LaunchesViewModelTest : TestCase() {
         val mockLaunch =
             mock(GetLaunchesQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
         mockLaunch.apply {
-            `when`(mockLaunch.id()).thenReturn("1111")
-            `when`(mockLaunch.details()).thenReturn("My details")
+            `when`(mockLaunch.id).thenReturn("1111")
+            `when`(mockLaunch.details).thenReturn("My details")
             `when`(
-                mockLaunch.fragments().missionDetails().mission_name()
+                mockLaunch.missionDetails.mission_name
             ).thenReturn("My mission name")
         }
         return listOf(mockLaunch)

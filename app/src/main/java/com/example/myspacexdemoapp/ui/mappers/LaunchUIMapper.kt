@@ -2,6 +2,7 @@ package com.example.myspacexdemoapp.ui.mappers
 
 import com.example.myspacexdemoapp.ui.DataModel
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
+import com.example.myspacexdemoapp.ui.launches.Payload
 
 class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
 
@@ -30,7 +31,7 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
     private fun addGallery() {
         launchUiModel.linkInfo.pictures.let { list ->
             val dataModel = DataModel.Gallery(
-                list.filter
+                list.filterNotNull().filter
                 {
                     it.isNotBlank()
                 }
@@ -51,7 +52,7 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
             payloadList.add(
                 DataModel.TitleAndText(
                     title = CUSTOMER,
-                    text = launchUiModel.payload.customers.get(0)
+                    text = launchUiModel.payload.customers[0] ?: Payload.EMPTY.manufacturer
                 )
             )
         }

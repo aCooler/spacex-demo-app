@@ -44,7 +44,7 @@ data class Payload(
     val orbit: String,
     val nationality: String,
     val manufacturer: String,
-    val customers: List<String>,
+    val customers: List<String?>,
     val mass: Double,
     val reused: Boolean,
 ) {
@@ -64,7 +64,7 @@ data class Payload(
 data class LinkInfo(
     val badge: String,
     val picture: String,
-    val pictures: List<String>,
+    val pictures: List<String?>,
     val video: String = "",
 ) {
 
