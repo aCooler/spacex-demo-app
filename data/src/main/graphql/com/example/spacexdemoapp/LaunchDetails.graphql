@@ -29,7 +29,7 @@ query GetLaunch($id:ID!) {
             apoapsis_km
             arg_of_pericenter
             eccentricity
-            epoch
+#            epoch
             inclination_deg
             lifespan_years
             longitude
@@ -84,7 +84,7 @@ fragment RocketFields on LaunchRocket {
 }
 
 fragment MissionDetails on Launch{
-    launch_date_utc
+#    launch_date_utc
     mission_name
     launch_success
 }

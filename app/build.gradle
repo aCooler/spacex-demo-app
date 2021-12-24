@@ -118,4 +118,5 @@ dependencies {
     androidTestImplementation("androidx.test:rules:$test")
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
 }

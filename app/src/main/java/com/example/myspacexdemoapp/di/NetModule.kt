@@ -1,11 +1,14 @@
 package com.example.myspacexdemoapp.di
 
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.adapter.DateAdapter
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.spacexdemoapp.api.SpaceXApi
 import dagger.Module
 import dagger.Provides
+import spacexdemoapp.type.Date
 import javax.inject.Singleton
+
 
 @Module
 class NetModule {
@@ -14,6 +17,7 @@ class NetModule {
     @Singleton
     fun provideApolloClient(): ApolloClient {
         val client = ApolloClient.Builder().serverUrl(BuildConfig.SPACEX_ENDPOINT)
+            .addCustomScalarAdapter(Date.type, DateAdapter)
         return client.build()
     }
 

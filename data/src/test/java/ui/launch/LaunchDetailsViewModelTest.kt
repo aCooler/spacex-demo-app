@@ -10,7 +10,6 @@ import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Answers
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
@@ -18,7 +17,8 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
-import java.lang.reflect.Field
+import spacexdemoapp.test.GetLaunchQuery_TestBuilder.Data
+import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
@@ -32,18 +32,21 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then success is retrieved`() {
-        var mockResponse: ApolloResponse<GetLaunchQuery.Data> =
-            mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
-        var mockData =
-            mock(GetLaunchQuery.Data::class.java)
-        var mockLaunch = getLaunch()
-        `when`(mockData.launch).thenReturn(
-            mockLaunch
-        )
-        // `when`(mockResponse.data).thenReturn(mockData)
-        val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
-        privateField1.isAccessible = true
-        privateField1[mockResponse] = mockData
+        val data = GetLaunchQuery.Data {
+            launch = launch {
+                details = "My details"
+                rocket = rocket {
+                    rocket_name = "AC"
+                }
+                mission_name = "My mission name"
+            }
+        }
+        val mockResponse =
+            ApolloResponse.Builder(
+                operation = GetLaunchQuery("9"),
+                requestUuid = UUID.randomUUID(),
+                data = data
+            ).build()
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
             Flowable.just(
                 mockResponse
@@ -76,18 +79,5 @@ class LaunchDetailsViewModelTest : TestCase() {
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
         assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Error)
-    }
-
-    private fun getLaunch(): GetLaunchQuery.Launch {
-        var mockLaunch =
-            mock(GetLaunchQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
-        mockLaunch.apply {
-            `when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
-            `when`(details).thenReturn("My details")
-            `when`(
-                missionDetails.mission_name
-            ).thenReturn("My mission name")
-        }
-        return mockLaunch
     }
 }

@@ -14,7 +14,7 @@ import spacexdemoapp.GetLaunchesQuery
 @RunWith(MockitoJUnitRunner::class)
 class SpaceXApiTest : TestCase() {
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
-    fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
+    private fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
 
     @Test
     fun getLaunches() {
