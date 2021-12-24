@@ -4,7 +4,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 fun String.toDateString(): String? {
     if (this.isEmpty()) {
