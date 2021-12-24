@@ -58,9 +58,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun openDetailsFragment(id: String?) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
-                findNavController().navigate(R.id.action_myHomeFragment_to_myDetailsFragment,
+                findNavController().navigate(
+                    R.id.action_myHomeFragment_to_myDetailsFragment,
                     DetailsFragmentArgs(launchId = id).toBundle(),
-                    null)
+                    null
+                )
             }
         }
         requireActivity().actionBar?.setDisplayHomeAsUpEnabled(true)

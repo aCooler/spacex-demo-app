@@ -18,7 +18,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     lateinit var viewModel: LaunchDetailsViewModel
     private var fragmentBlankBinding: DetailsFragmentBinding? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.init(arguments)
         val binding = DetailsFragmentBinding.bind(view)
