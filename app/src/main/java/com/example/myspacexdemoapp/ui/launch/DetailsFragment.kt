@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     lateinit var viewModel: LaunchDetailsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.init(arguments)
+        viewModel.init(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
         val adapter = DetailsRecyclerViewAdapter()
         recyclerView?.adapter = adapter
