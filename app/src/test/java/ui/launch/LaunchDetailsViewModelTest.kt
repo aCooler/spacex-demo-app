@@ -18,7 +18,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
-import java.lang.reflect.Field
+import java.util.UUID
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
@@ -32,18 +32,20 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then success is retrieved`() {
-        var mockResponse: ApolloResponse<GetLaunchQuery.Data> =
-            mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
+        mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
         var mockData =
             mock(GetLaunchQuery.Data::class.java)
         var mockLaunch = getLaunch()
         `when`(mockData.launch).thenReturn(
             mockLaunch
         )
-        // `when`(mockResponse.data).thenReturn(mockData)
-        val privateField1: Field = ApolloResponse::class.java.getDeclaredField("data")
-        privateField1.isAccessible = true
-        privateField1[mockResponse] = mockData
+
+        val mockResponse =
+            ApolloResponse.Builder(
+                operation = GetLaunchQuery("9"),
+                requestUuid = UUID.randomUUID(),
+                data = mockData
+            ).build()
         `when`(spaceXApi.getLaunchById("9")).thenReturn(
             Flowable.just(
                 mockResponse
