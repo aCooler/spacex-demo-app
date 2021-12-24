@@ -18,7 +18,7 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.test.GetLaunchQuery_TestBuilder.Data
-import java.util.*
+import java.util.UUID
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {

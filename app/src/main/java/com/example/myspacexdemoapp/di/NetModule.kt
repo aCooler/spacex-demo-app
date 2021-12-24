@@ -9,7 +9,6 @@ import dagger.Provides
 import spacexdemoapp.type.Date
 import javax.inject.Singleton
 
-
 @Module
 class NetModule {
 
