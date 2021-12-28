@@ -4,6 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.DetailsBinding
+import com.example.myspacexdemoapp.databinding.GalleryBinding
+import com.example.myspacexdemoapp.databinding.MissionCardBinding
+import com.example.myspacexdemoapp.databinding.PictureBinding
+import com.example.myspacexdemoapp.databinding.RowBinding
+import com.example.myspacexdemoapp.databinding.SingleBinding
 import com.example.myspacexdemoapp.ui.DataModel
 import com.example.myspacexdemoapp.ui.launch.adapters.CardViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.DetailsViewHolder
@@ -46,13 +52,13 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.picture -> PictureViewHolder(view)
-            R.layout.mission_card -> CardViewHolder(view)
-            R.layout.details -> DetailsViewHolder(view)
-            R.layout.single -> SingleViewHolder(view)
-            R.layout.gallery -> GalleryViewHolder(view)
-            R.layout.row -> RowViewHolder(view)
-            else -> CardViewHolder(view)
+            R.layout.picture -> PictureViewHolder(PictureBinding.bind(view))
+            R.layout.mission_card -> CardViewHolder(MissionCardBinding.bind(view))
+            R.layout.details -> DetailsViewHolder(DetailsBinding.bind(view))
+            R.layout.single -> SingleViewHolder(SingleBinding.bind(view))
+            R.layout.gallery -> GalleryViewHolder(GalleryBinding.bind(view))
+            R.layout.row -> RowViewHolder(RowBinding.bind(view))
+            else -> CardViewHolder(MissionCardBinding.bind(view))
         }
     }
 }

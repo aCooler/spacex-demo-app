@@ -1,13 +1,12 @@
 package com.example.myspacexdemoapp.ui.launch.adapters
 
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.DetailsBinding
 import com.example.myspacexdemoapp.ui.DataModel
 
-class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val details: TextView = view.findViewById(R.id.details)
+class DetailsViewHolder(private val binding: DetailsBinding) : RecyclerView.ViewHolder(binding.root) {
+    val details: TextView = binding.details
     fun onBindView(model: DataModel.Details) {
         details.text = model.details
     }
