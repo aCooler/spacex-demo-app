@@ -29,9 +29,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding.launchesList.adapter = adapter
         binding.launchesList.layoutManager = LinearLayoutManager(activity)
         binding.swipeRefresh.setOnRefreshListener {
-            suspend { launchesViewModel.getLaunches() }
+            launchesViewModel.getLaunches()
         }
-        suspend { launchesViewModel.getLaunches() }
+        launchesViewModel.getLaunches()
         launchesViewModel . launchesLiveData . observe (this, { state ->
             when (state) {
                 is LaunchesViewState.Error -> {

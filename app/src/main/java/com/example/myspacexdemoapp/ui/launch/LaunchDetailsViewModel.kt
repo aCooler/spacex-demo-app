@@ -3,7 +3,7 @@ package com.example.myspacexdemoapp.ui.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.domain.SpaceXRepository
+import com.example.domain.GetLaunchDetailsUseCase
 import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
 import com.example.myspacexdemoapp.ui.launches.LinkInfo
 import com.example.myspacexdemoapp.ui.launches.Mission
@@ -13,7 +13,7 @@ import com.example.myspacexdemoapp.ui.mappers.toMission
 import com.example.myspacexdemoapp.ui.mappers.toPayload
 import javax.inject.Inject
 
-class LaunchDetailsViewModel @Inject constructor(private val spaceXRepository: SpaceXRepository) :
+class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchDetailsUseCase) :
     ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
@@ -27,12 +27,12 @@ class LaunchDetailsViewModel @Inject constructor(private val spaceXRepository: S
 
     fun getLaunchUI() {
         if (!id.isNullOrEmpty()) {
-            suspend { getLaunch(id ?: "") }
+            getLaunch(id ?: "")
         }
     }
 
-    suspend fun getLaunch(id: String) {
-        spaceXRepository.getLaunchById(id)
+    fun getLaunch(id: String) {
+        useCase.invoke(id)
             .doOnSubscribe {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }

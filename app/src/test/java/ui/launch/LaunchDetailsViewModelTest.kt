@@ -1,10 +1,11 @@
-package com.example.myspacexdemoapp.ui.launch
+package ui.launch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
-import com.example.spacexdemoapp.api.SpaceXApi
+import com.example.domain.GetLaunchDetailsUseCase
+import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
+import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewState
 import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import org.junit.Rule
@@ -12,10 +13,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
 import java.util.UUID
@@ -24,10 +25,9 @@ import java.util.UUID
 class LaunchDetailsViewModelTest : TestCase() {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
-    private val spaceXApi = mock(SpaceXApi(apolloClient)::class.java)
+    private val useCase = mock(GetLaunchDetailsUseCase::class.java)
     private val viewModel by lazy {
-        LaunchDetailsViewModel(spaceXApi)
+        LaunchDetailsViewModel(useCase)
     }
 
     @Test
@@ -46,7 +46,7 @@ class LaunchDetailsViewModelTest : TestCase() {
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
-        `when`(spaceXApi.getLaunchById("9")).thenReturn(
+        `when`(useCase.invoke("9")).thenReturn(
             Flowable.just(
                 mockResponse
             )
@@ -66,7 +66,7 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then error is retrieved`() {
-        `when`(spaceXApi.getLaunchById("9")).thenReturn(
+        `when`(useCase.invoke("9")).thenReturn(
             Flowable.error(
                 Throwable()
             )

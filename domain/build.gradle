@@ -40,36 +40,9 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger"
-    implementation "androidx.fragment:fragment-ktx:$fragment"
-    implementation "com.jakewharton.rxbinding4:rxbinding-core:$rxbinding4"
-    implementation "com.jakewharton.rxbinding4:rxbinding:$rxbinding4"
     implementation "com.apollographql.apollo3:apollo-rx3-support:$apollo_version"
     implementation("com.apollographql.apollo3:apollo-api:$apollo_version")
     implementation group: 'com.apollographql.apollo3', name: 'apollo-runtime', version: "$apollo_version"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout"
-    implementation "com.github.bumptech.glide:glide:$glide"
-    kapt "com.github.bumptech.glide:compiler:$glide"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxjava"
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava"
-    implementation "androidx.core:core-ktx:$core_ktx"
-    implementation "androidx.appcompat:appcompat:$appcompat"
-    implementation "com.google.android.material:material:$material"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
-    implementation "androidx.cardview:cardview:$cardview"
-    implementation "androidx.test.espresso:espresso-idling-resource:$espresso"
-    androidTestImplementation("io.mockk:mockk-android:$mockk")
-    androidTestImplementation "androidx.test.ext:junit:$junit_android"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
-    testImplementation("org.mockito:mockito-core:$mockito")
-    testImplementation "junit:junit:$junit"
-    testImplementation "org.robolectric:robolectric:$robolectric"
-    testImplementation "androidx.test:core:$core"
-    testImplementation "org.mockito:mockito-android:$mockito"
-    debugImplementation("androidx.fragment:fragment-testing:$fragment")
-    implementation "androidx.arch.core:core-testing:$arch"
-    androidTestImplementation("androidx.test:rules:$test")
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
 
     implementation 'androidx.core:core-ktx:1.7.0'

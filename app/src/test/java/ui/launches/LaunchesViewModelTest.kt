@@ -1,10 +1,11 @@
-package com.example.myspacexdemoapp.ui.launches
+package ui.launches
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
-import com.example.spacexdemoapp.api.SpaceXApi
+import com.example.domain.GetLaunchesUseCase
+import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
+import com.example.myspacexdemoapp.ui.launches.LaunchesViewState
 import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import org.junit.Rule
@@ -12,10 +13,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchesQuery
 import java.util.UUID
@@ -25,10 +26,9 @@ class LaunchesViewModelTest : TestCase() {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
-    private val spaceXApi = mock(SpaceXApi(apolloClient)::class.java)
+    private val useCase = mock(GetLaunchesUseCase::class.java)
     private val viewModel by lazy {
-        LaunchesViewModel(spaceXApi)
+        LaunchesViewModel(useCase = useCase)
     }
 
     @Test
@@ -45,7 +45,7 @@ class LaunchesViewModelTest : TestCase() {
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
-        `when`(spaceXApi.getLaunches()).thenReturn(
+        `when`(useCase.invoke()).thenReturn(
             Flowable.just(
                 mockResponse
             )
@@ -65,7 +65,7 @@ class LaunchesViewModelTest : TestCase() {
 
     @Test
     fun `when launch by id initialized then error is retrieved`() {
-        `when`(spaceXApi.getLaunches()).thenReturn(
+        `when`(useCase.invoke()).thenReturn(
             Flowable.error(
                 Throwable()
             )

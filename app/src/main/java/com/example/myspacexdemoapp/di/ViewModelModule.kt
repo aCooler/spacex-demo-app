@@ -1,10 +1,9 @@
 package com.example.myspacexdemoapp.di
 
-import com.example.domain.SpaceXRepository
-import com.example.domain.SpaceXRepositoryImpl
+import com.example.domain.GetLaunchDetailsUseCase
+import com.example.domain.GetLaunchesUseCase
 import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
-import com.example.spacexdemoapp.api.SpaceXApi
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,19 +13,15 @@ class ViewModelModule{
 
     @Provides
     @Singleton
-    fun provideLaunchesViewModel(spaceXRepository: SpaceXRepository): LaunchDetailsViewModel  {
-        return LaunchDetailsViewModel(spaceXRepository)
+    fun provideLaunchDetailsViewModel(useCase: GetLaunchDetailsUseCase): LaunchDetailsViewModel  {
+        return LaunchDetailsViewModel(useCase)
     }
 
     @Provides
     @Singleton
-    fun provideLaunchDetailsViewModel(spaceXRepository: SpaceXRepository): LaunchesViewModel {
-        return LaunchesViewModel(spaceXRepository)
+    fun provideLaunchesViewModel(useCase: GetLaunchesUseCase): LaunchesViewModel {
+        return LaunchesViewModel(useCase)
     }
 
-    @Provides
-    @Singleton
-    fun provideSpaceXRespository(spaceXApi: SpaceXApi): SpaceXRepository {
-        return SpaceXRepositoryImpl(spaceXApi = spaceXApi)
-    }
+
 }
