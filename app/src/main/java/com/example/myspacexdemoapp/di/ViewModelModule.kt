@@ -9,11 +9,11 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ViewModelModule{
+class ViewModelModule {
 
     @Provides
     @Singleton
-    fun provideLaunchDetailsViewModel(useCase: GetLaunchDetailsUseCase): LaunchDetailsViewModel  {
+    fun provideLaunchDetailsViewModel(useCase: GetLaunchDetailsUseCase): LaunchDetailsViewModel{
         return LaunchDetailsViewModel(useCase)
     }
 
@@ -22,6 +22,4 @@ class ViewModelModule{
     fun provideLaunchesViewModel(useCase: GetLaunchesUseCase): LaunchesViewModel {
         return LaunchesViewModel(useCase)
     }
-
-
 }

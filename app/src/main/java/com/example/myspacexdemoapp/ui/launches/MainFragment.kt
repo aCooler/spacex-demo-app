@@ -32,7 +32,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             launchesViewModel.getLaunches()
         }
         launchesViewModel.getLaunches()
-        launchesViewModel . launchesLiveData . observe (this, { state ->
+        launchesViewModel.launchesLiveData.observe(this, { state ->
             when (state) {
                 is LaunchesViewState.Error -> {
                     Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
