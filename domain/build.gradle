@@ -1,32 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'io.gitlab.arturbosch.detekt'
     id 'org.jlleitschuh.gradle.ktlint'
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     compileSdk 31
-
     defaultConfig {
-        applicationId "com.example.spacexdemoapp.app"
         minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String",
-                "DATE_STRING_FROM",
-                "\"EEE MMM dd HH:mm:ss zzz yyyy\"")
-        buildConfigField("String",
-                "DATE_STRING_TO",
-                "\"MMM dd , yyyy HH:mm a\"")
-        buildConfigField("String",
-                "SPACEX_ENDPOINT",
-                "\"https://api.spacex.land/graphql/\"")
-
     }
 
     buildTypes {
@@ -44,46 +31,10 @@ android {
     }
 }
 
-detekt {
-    buildUponDefaultConfig = true
-    ignoreFailures = false
-    setSource(files(projectDir))
-    baseline = file("$rootDir/app/detekt-baseline.xml")
-    config.setFrom(rootProject.file("config/detekt/detekt.yml"))
-    reports {
-        xml {
-            enabled = true
-            destination = file("build/reports/detekt/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("build/reports/detekt/detekt.html")
-        }
-    }
-}
-
-ktlint {
-    version = "0.43.0"
-    debug = true
-    verbose = true
-    outputToConsole = true
-    ignoreFailures = true
-    enableExperimentalRules = false
-    additionalEditorconfigFile = file("/some/additional/.editorconfig")
-    kotlinScriptAdditionalPaths {
-        include fileTree("scripts/")
-    }
-    filter {
-        exclude("**/generated/**")
-        include("**/kotlin/**")
-    }
-}
-
 dependencies {
     implementation project(path: ':data')
     implementation "com.google.dagger:dagger-android:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"
-    implementation project(path: ':domain')
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
     implementation "com.google.dagger:dagger:$dagger"
@@ -120,4 +71,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

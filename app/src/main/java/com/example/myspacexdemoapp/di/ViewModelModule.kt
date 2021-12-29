@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.di
 
+import com.example.domain.SpaceXRepository
 import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
 import dagger.Module
@@ -7,16 +8,17 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ViewModelModule {
+class ViewModelModule{
+
     @Provides
     @Singleton
-    fun provideLaunchesViewModel(spaceXApi: com.example.spacexdemoapp.api.SpaceXApi): LaunchesViewModel {
-        return LaunchesViewModel(spaceXApi)
+    fun provideLaunchesViewModel(spaceXRepository: SpaceXRepository): LaunchDetailsViewModel  {
+        return LaunchDetailsViewModel(spaceXRepository)
     }
 
     @Provides
     @Singleton
-    fun provideLaunchDetailsViewModel(spaceXApi: com.example.spacexdemoapp.api.SpaceXApi): LaunchDetailsViewModel {
-        return LaunchDetailsViewModel(spaceXApi)
+    fun provideLaunchDetailsViewModel(spaceXRepository: SpaceXRepository): LaunchesViewModel {
+        return LaunchesViewModel(spaceXRepository)
     }
 }
