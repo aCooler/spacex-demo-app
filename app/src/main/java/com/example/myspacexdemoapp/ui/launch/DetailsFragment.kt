@@ -5,29 +5,27 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.DetailsFragmentBinding
 import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
 class DetailsFragment : Fragment(R.layout.details_fragment) {
     @Inject
     lateinit var viewModel: LaunchDetailsViewModel
+    private var fragmentBlankBinding: DetailsFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.init(DetailsFragmentArgs.fromBundle(arguments ?: bundleOf()).launchId)
-        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.launches_details_list)
+        val binding = DetailsFragmentBinding.bind(view)
+        fragmentBlankBinding = binding
         val adapter = DetailsRecyclerViewAdapter()
-        recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val mySwipeRefreshLayout: SwipeRefreshLayout? =
-            getView()?.findViewById(R.id.swipe_refresh_details)
+        binding.launchesDetailsList.adapter = adapter
+        binding.launchesDetailsList.layoutManager = LinearLayoutManager(activity)
         viewModel.getLaunchUI()
         viewModel.launchLiveData.observe(this, { state ->
             when (state) {
@@ -45,16 +43,15 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     val dataset =
                         LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
-                    val toolbar: Toolbar = requireActivity().findViewById(R.id.toolbar_details)
-                    toolbar.title = state.model.mission.name
-                    mySwipeRefreshLayout?.isRefreshing = false
+                    binding.toolbarDetails.title = state.model.mission.name
+                    binding.swipeRefreshDetails.isRefreshing = false
                 }
                 is LaunchDetailsViewState.Loading -> {
-                    mySwipeRefreshLayout?.isRefreshing = true
+                    binding.swipeRefreshDetails.isRefreshing = true
                 }
             }
         })
-        mySwipeRefreshLayout?.setOnRefreshListener {
+        binding.swipeRefreshDetails.setOnRefreshListener {
             viewModel.getLaunchUI()
         }
     }
@@ -62,5 +59,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     override fun onAttach(context: Context) {
         (requireActivity().application as MyApp).appComponent?.inject(this)
         super.onAttach(context)
+    }
+
+    override fun onDestroyView() {
+        fragmentBlankBinding = null
+        super.onDestroyView()
     }
 }

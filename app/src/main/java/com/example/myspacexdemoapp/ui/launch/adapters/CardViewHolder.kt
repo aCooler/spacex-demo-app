@@ -5,18 +5,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.MissionCardBinding
 import com.example.myspacexdemoapp.toDateString
 import com.example.myspacexdemoapp.ui.DataModel
 
-class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val place: TextView = view.findViewById(R.id.place)
-    private val rocketName: TextView = view.findViewById(R.id.rocket_name)
-    private val date: TextView = view.findViewById(R.id.date)
-    private val reused: TextView = view.findViewById(R.id.reused)
-    private val reusedIcon: ImageView = view.findViewById(R.id.reused_icon)
-    private val rocketNameIcon: ImageView = view.findViewById(R.id.rocket_name_icon)
-    private val dateIcon: ImageView = view.findViewById(R.id.date_icon)
-    private val placeIcon: ImageView = view.findViewById(R.id.place_icon)
+class CardViewHolder(private val binding: MissionCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    private val place: TextView = binding.place
+    private val rocketName: TextView = binding.rocketName
+    private val date: TextView = binding.date
+    private val reused: TextView = binding.reused
+    private val reusedIcon: ImageView = binding.reusedIcon
+    private val rocketNameIcon: ImageView = binding.rocketNameIcon
+    private val dateIcon: ImageView = binding.dateIcon
+    private val placeIcon: ImageView = binding.placeIcon
 
     fun onBindView(model: DataModel.LaunchEvent) {
         if (model.date.isEmpty()) {

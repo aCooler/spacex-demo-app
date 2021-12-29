@@ -8,15 +8,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.databinding.PictureBinding
 import com.example.myspacexdemoapp.setColor
 import com.example.myspacexdemoapp.ui.DataModel
 
-class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val success: TextView = view.findViewById(R.id.success)
-    private val number: TextView = view.findViewById(R.id.number)
-    private val picture: ImageView = view.findViewById(R.id.launch_image)
-    private val successIcon: ImageView = view.findViewById(R.id.success_icon)
-    private val badge: ImageView = view.findViewById(R.id.badge)
+class PictureViewHolder(private val binding: PictureBinding) : RecyclerView.ViewHolder(binding.root) {
+    private val success: TextView = binding.success
+    private val number: TextView = binding.number
+    private val picture: ImageView = binding.launchImage
+    private val successIcon: ImageView = binding.successIcon
+    private val badge: ImageView = binding.badge
 
     fun onBindView(model: DataModel.MainInfo) {
         itemView.setOnClickListener {}
