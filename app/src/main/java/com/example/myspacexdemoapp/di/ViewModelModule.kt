@@ -13,7 +13,7 @@ class ViewModelModule {
 
     @Provides
     @Singleton
-    fun provideLaunchDetailsViewModel(useCase: GetLaunchDetailsUseCase): LaunchDetailsViewModel{
+    fun provideLaunchDetailsViewModel(useCase: GetLaunchDetailsUseCase): LaunchDetailsViewModel {
         return LaunchDetailsViewModel(useCase)
     }
 
