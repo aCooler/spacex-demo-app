@@ -6,7 +6,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
@@ -24,7 +24,7 @@ class GetLaunchDetailsUseCaseTest : TestCase() {
         val mockData =
             mock(GetLaunchQuery.Data::class.java)
         val mockLaunch = getLaunch()
-        `when`(mockData.launch).thenReturn(
+        Mockito.`when`(mockData.launch).thenReturn(
             mockLaunch
         )
         val mockResponse =
@@ -43,9 +43,9 @@ class GetLaunchDetailsUseCaseTest : TestCase() {
         val mockLaunch =
             mock(GetLaunchQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
         mockLaunch.apply {
-            `when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
-            `when`(details).thenReturn("My details")
-            `when`(
+            Mockito.`when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
+            Mockito.`when`(details).thenReturn("My details")
+            Mockito.`when`(
                 missionDetails.mission_name
             ).thenReturn("My mission name")
         }
