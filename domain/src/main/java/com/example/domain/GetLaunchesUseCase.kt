@@ -10,7 +10,9 @@ class GetLaunchesUseCase @Inject constructor(private val spaceXApi: LaunchReposi
 
     fun invoke(): Flowable<List<LaunchData>> {
         return spaceXApi.getLaunches().flatMap {
-            Flowable.just(mapper.toLaunches(response = it))
+            Flowable.just(
+                mapper.toLaunches(response = it)
+            )
         }
     }
 }
