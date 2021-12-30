@@ -6,8 +6,8 @@ import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Answers
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import spacexdemoapp.GetLaunchQuery
 import java.util.UUID
 
