@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MissionCardBinding
-import com.example.myspacexdemoapp.toDateString
 import com.example.myspacexdemoapp.ui.UIModel
 
 class CardViewHolder(binding: MissionCardBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -24,7 +23,7 @@ class CardViewHolder(binding: MissionCardBinding) : RecyclerView.ViewHolder(bind
             date.visibility = View.GONE
             dateIcon.visibility = View.GONE
         } else {
-            date.text = model.date.toDateString()
+            date.text = model.date
         }
         if (model.place.isEmpty()) {
             place.visibility = View.GONE

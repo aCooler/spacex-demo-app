@@ -78,7 +78,7 @@ class DetailsFragmentTest {
                 )
             )
         )
-        onView(withId(R.id.launches_details_list)).check { view, e ->
+        onView(withId(R.id.launches_details_list)).check { view, _ ->
             view as RecyclerView
             matches(atPosition(0, hasDescendant(withText(number))))
         }

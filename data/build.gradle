@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    testImplementation project(path: ':domain')
     androidTestImplementation("io.mockk:mockk-android:$mockk")
     androidTestImplementation "androidx.test.ext:junit:$junit_android"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"

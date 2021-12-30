@@ -13,6 +13,7 @@ import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MainFragmentBinding
 import com.example.myspacexdemoapp.ui.launch.DetailsFragmentArgs
+import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -45,7 +46,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                         .show()
                 }
                 is LaunchesViewState.Success -> {
-                    adapter.setItems(state.model ?: listOf())
+                    adapter.setItems(
+                        state.model?.map {
+                            LaunchUIMapper(it).mainUiModelToDataModel()
+                        } ?: listOf()
+                    )
                     binding.swipeRefresh.isRefreshing = false
                 }
                 is LaunchesViewState.Loading -> {

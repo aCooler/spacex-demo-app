@@ -2,6 +2,7 @@ package com.example.myspacexdemoapp.ui.mappers
 
 import com.example.domain.LaunchData
 import com.example.domain.Payload
+import com.example.myspacexdemoapp.ui.MainScreenModel
 import com.example.myspacexdemoapp.ui.UIModel
 
 class LaunchUIMapper(private val launchData: LaunchData) {
@@ -26,6 +27,19 @@ class LaunchUIMapper(private val launchData: LaunchData) {
         addPayload()
         addGallery()
         return recycleViewModel
+    }
+
+    fun mainUiModelToDataModel(): MainScreenModel {
+        return MainScreenModel(
+            pictureUrl = launchData.linkInfo.picture,
+            badgeUrl = launchData.linkInfo.badge,
+            success = launchData.mission.success,
+            number = launchData.number,
+            rocket = launchData.mission.rocketName,
+            date = launchData.mission.date,
+            place = launchData.mission.place,
+            launch = launchData.mission.name
+        )
     }
 
     private fun addGallery() {

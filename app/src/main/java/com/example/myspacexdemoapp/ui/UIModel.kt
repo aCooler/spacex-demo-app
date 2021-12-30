@@ -5,14 +5,14 @@ sealed class UIModel {
         val number: String,
         val pictureUrl: String,
         val badgeUrl: String,
-        val success: Boolean
+        val success: Boolean,
     ) : UIModel()
 
     data class LaunchEvent(
         val rocket: String,
         val date: String,
         val place: String,
-        val reused: Boolean
+        val reused: Boolean,
     ) :
         UIModel()
 
@@ -35,3 +35,14 @@ sealed class UIModel {
     data class Gallery(val pictures: List<String>) :
         UIModel()
 }
+
+data class MainScreenModel(
+    val number: String,
+    val pictureUrl: String,
+    val badgeUrl: String,
+    val success: Boolean,
+    val launch: String,
+    val rocket: String,
+    val date: String,
+    val place: String,
+)

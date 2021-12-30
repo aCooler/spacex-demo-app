@@ -18,12 +18,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String",
-                "DATE_STRING_FROM",
-                "\"EEE MMM dd HH:mm:ss zzz yyyy\"")
-        buildConfigField("String",
-                "DATE_STRING_TO",
-                "\"MMM dd , yyyy HH:mm a\"")
-        buildConfigField("String",
                 "SPACEX_ENDPOINT",
                 "\"https://api.spacex.land/graphql/\"")
 
