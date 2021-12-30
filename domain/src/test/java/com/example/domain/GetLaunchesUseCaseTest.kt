@@ -5,11 +5,14 @@ import com.apollographql.apollo3.api.ApolloResponse
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchesQuery
 import java.util.UUID
 
+@RunWith(MockitoJUnitRunner::class)
 class GetLaunchesUseCaseTest : TestCase() {
 
     @get:Rule
