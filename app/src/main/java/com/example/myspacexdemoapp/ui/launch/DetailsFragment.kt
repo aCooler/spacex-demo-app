@@ -41,7 +41,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 }
                 is LaunchDetailsViewState.Success -> {
                     val dataset =
-                        LaunchUIMapper(launchUiModel = state.model).launchUiModelToDataModel()
+                        LaunchUIMapper(state.model).launchUiModelToDataModel()
                     adapter.setItems(dataset)
                     binding.toolbarDetails.title = state.model.mission.name
                     binding.swipeRefreshDetails.isRefreshing = false

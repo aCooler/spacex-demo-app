@@ -4,13 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.GetLaunchDetailsUseCase
-import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
-import com.example.myspacexdemoapp.ui.launches.LinkInfo
-import com.example.myspacexdemoapp.ui.launches.Mission
-import com.example.myspacexdemoapp.ui.launches.Payload
-import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
-import com.example.myspacexdemoapp.ui.mappers.toMission
-import com.example.myspacexdemoapp.ui.mappers.toPayload
 import javax.inject.Inject
 
 class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchDetailsUseCase) :
@@ -37,18 +30,8 @@ class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchD
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
             .subscribe({ response ->
-                val linkInfo = response.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
-                val payload = response.data?.payload?.toPayload() ?: Payload.EMPTY
-                val mission = response.data?.launch?.toMission() ?: Mission.EMPTY
                 _launchMutableLiveData.postValue(
-                    LaunchDetailsViewState.Success(
-                        LaunchUiModel(
-                            number = id,
-                            mission = mission,
-                            payload = payload,
-                            linkInfo = linkInfo
-                        ),
-                    )
+                    LaunchDetailsViewState.Success(response)
                 )
             }, { throwable ->
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))

@@ -2,8 +2,9 @@ package com.example.myspacexdemoapp.di
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.adapter.DateAdapter
+import com.example.domain.DataLaunchRepository
+import com.example.domain.LaunchMapper
 import com.example.domain.LaunchRepository
-import com.example.domain.LaunchRepositoryImpl
 import com.example.myspacexdemoapp.BuildConfig
 import com.example.spacexdemoapp.api.SpaceXApi
 import dagger.Module
@@ -31,6 +32,12 @@ class NetModule {
     @Provides
     @Singleton
     fun provideLaunchesRepository(spaceXApi: SpaceXApi): LaunchRepository {
-        return LaunchRepositoryImpl(spaceXApi)
+        return DataLaunchRepository(spaceXApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapper(): LaunchMapper {
+        return LaunchMapper()
     }
 }

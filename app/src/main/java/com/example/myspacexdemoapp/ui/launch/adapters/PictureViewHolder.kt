@@ -10,16 +10,16 @@ import com.bumptech.glide.Glide
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.PictureBinding
 import com.example.myspacexdemoapp.setColor
-import com.example.myspacexdemoapp.ui.DataModel
+import com.example.myspacexdemoapp.ui.UIModel
 
-class PictureViewHolder(private val binding: PictureBinding) : RecyclerView.ViewHolder(binding.root) {
+class PictureViewHolder(binding: PictureBinding) : RecyclerView.ViewHolder(binding.root) {
     private val success: TextView = binding.success
     private val number: TextView = binding.number
     private val picture: ImageView = binding.launchImage
     private val successIcon: ImageView = binding.successIcon
     private val badge: ImageView = binding.badge
 
-    fun onBindView(model: DataModel.MainInfo) {
+    fun onBindView(model: UIModel.MainInfo) {
         itemView.setOnClickListener {}
         number.text = String.format(
             itemView.context.getString(R.string.number),
@@ -47,7 +47,7 @@ class PictureViewHolder(private val binding: PictureBinding) : RecyclerView.View
         success.text = makeSuccess(model)
     }
 
-    private fun makeSuccess(model: DataModel.MainInfo): CharSequence {
+    private fun makeSuccess(model: UIModel.MainInfo): CharSequence {
         return when (model.success) {
             true -> {
                 val green = ContextCompat.getColor(itemView.context, R.color.success_green)

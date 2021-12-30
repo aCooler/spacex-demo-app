@@ -9,6 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.domain.LaunchData
+import com.example.domain.LinkInfo
+import com.example.domain.Mission
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MainListCardBinding
 import com.example.myspacexdemoapp.setColor
@@ -16,9 +19,9 @@ import com.example.myspacexdemoapp.toDateString
 
 class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
-    private var items: List<LaunchUiModel> = emptyList()
+    private var items: List<LaunchData> = emptyList()
 
-    class MainListViewHolder(private val binding: MainListCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MainListViewHolder(binding: MainListCardBinding) : RecyclerView.ViewHolder(binding.root) {
         val place: TextView = binding.place
         val rocketName: TextView = binding.rocketName
         val success: TextView = binding.success
@@ -48,7 +51,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             viewHolder.date.text = items[position].mission.date.toDateString()
             viewHolder.success.text = makeSuccess(viewHolder, position)
         }
-        if (items[position].number != LaunchUiModel.EMPTY.number) {
+        if (items[position].number != LaunchData.EMPTY.number) {
             viewHolder.number.text = String.format(
                 viewHolder.itemView.context.getString(R.string.number),
                 items[position].number
@@ -99,7 +102,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         fun onClick(id: String?) = clickListener(id)
     }
 
-    fun setItems(strings: List<LaunchUiModel>) {
+    fun setItems(strings: List<LaunchData>) {
         items = strings
         notifyDataSetChanged()
     }
