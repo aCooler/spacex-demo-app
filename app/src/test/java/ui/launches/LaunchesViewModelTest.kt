@@ -13,10 +13,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -35,10 +35,11 @@ class LaunchesViewModelTest : TestCase() {
             Flowable.just(
                 listOf(
                     LaunchData.EMPTY.copy(
-                        number= "1111",
+                        number = "1111",
                         mission = Mission.EMPTY.copy(
                             details = "My details",
-                            name = "My mission name"),
+                            name = "My mission name"
+                        ),
                     )
                 )
             )
