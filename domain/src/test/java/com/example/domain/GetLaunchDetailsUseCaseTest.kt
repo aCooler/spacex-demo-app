@@ -1,14 +1,13 @@
 package com.example.domain
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.apollographql.apollo3.api.ApolloResponse
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Answers
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
 import java.util.UUID
@@ -17,7 +16,7 @@ import java.util.UUID
 class GetLaunchDetailsUseCaseTest : TestCase() {
 
     @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+    val instantExecutorRule = androidx.arch.core.executor.testing.InstantTaskExecutorRule()
 
     @Test
     operator fun invoke() {
