@@ -2,17 +2,17 @@ package com.example.domain
 
 import com.apollographql.apollo3.api.ApolloResponse
 import com.example.spacexdemoapp.api.SpaceXApi
-import io.reactivex.rxjava3.core.Flowable
+import kotlinx.coroutines.flow.Flow
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 
 class DataLaunchRepository(private val spaceXApi: SpaceXApi) : LaunchRepository {
 
-    override fun getLaunches(): Flowable<ApolloResponse<GetLaunchesQuery.Data>> {
+    override suspend fun getLaunches(): Flow<ApolloResponse<GetLaunchesQuery.Data>> {
         return spaceXApi.getLaunches()
     }
 
-    override fun getLaunchById(id: String): Flowable<ApolloResponse<GetLaunchQuery.Data>> {
+    override suspend fun getLaunchById(id: String): Flow<ApolloResponse<GetLaunchQuery.Data>> {
         return spaceXApi.getLaunchById(id = id)
     }
 }

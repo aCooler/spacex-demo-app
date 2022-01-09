@@ -3,8 +3,13 @@ package com.example.myspacexdemoapp.ui.launches
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.GetLaunchesUseCase
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LaunchesViewModel @Inject constructor(private val useCase: GetLaunchesUseCase) : ViewModel() {
@@ -14,19 +19,23 @@ class LaunchesViewModel @Inject constructor(private val useCase: GetLaunchesUseC
     private var disposable: Disposable? = null
 
     fun getLaunches() {
-        disposable = useCase.invoke()
-            .doOnSubscribe { _launchesMutableLiveData.postValue(LaunchesViewState.Loading) }
-            .subscribe(
-                { response ->
+        viewModelScope.launch {
+            useCase.invoke()
+                .onStart {
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
+                }
+                .catch { exception ->
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Error(exception))
+                }
+                .collect { response ->
                     with(_launchesMutableLiveData) {
                         postValue(
                             LaunchesViewState.Success(response)
                         )
                     }
                 }
-            ) { throwable ->
-                _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
-            }
+
+        }
     }
 
     override fun onCleared() {

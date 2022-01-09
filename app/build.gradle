@@ -109,9 +109,11 @@ dependencies {
     testImplementation "androidx.test:core:$core"
     testImplementation "org.mockito:mockito-android:$mockito"
     debugImplementation("androidx.fragment:fragment-testing:$fragment")
-    implementation "androidx.arch.core:core-testing:$arch"
+    androidTestImplementation "android.arch.core:core-testing:1.1.0"
     androidTestImplementation("androidx.test:rules:$test")
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+
 }
