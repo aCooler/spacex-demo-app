@@ -84,10 +84,7 @@ class LaunchDetailsViewModelTest : TestCase() {
             }
         )
         viewModel.launchLiveData.observeForever(mockObserver)
-
         viewModel.getLaunch("9")
-
-
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
