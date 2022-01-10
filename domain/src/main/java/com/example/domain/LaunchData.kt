@@ -1,6 +1,6 @@
-package com.example.myspacexdemoapp.ui.launches
+package com.example.domain
 
-data class LaunchUiModel(
+data class LaunchData(
     val number: String,
     val mission: Mission,
     val payload: Payload = Payload.EMPTY,
@@ -9,7 +9,7 @@ data class LaunchUiModel(
 
     companion object {
 
-        val EMPTY = LaunchUiModel(
+        val EMPTY = LaunchData(
             number = "",
             mission = Mission.EMPTY,
             payload = Payload.EMPTY,

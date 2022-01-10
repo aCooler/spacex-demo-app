@@ -6,10 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MissionCardBinding
-import com.example.myspacexdemoapp.toDateString
-import com.example.myspacexdemoapp.ui.DataModel
+import com.example.myspacexdemoapp.ui.UIModel
 
-class CardViewHolder(private val binding: MissionCardBinding) : RecyclerView.ViewHolder(binding.root) {
+class CardViewHolder(binding: MissionCardBinding) : RecyclerView.ViewHolder(binding.root) {
     private val place: TextView = binding.place
     private val rocketName: TextView = binding.rocketName
     private val date: TextView = binding.date
@@ -19,12 +18,12 @@ class CardViewHolder(private val binding: MissionCardBinding) : RecyclerView.Vie
     private val dateIcon: ImageView = binding.dateIcon
     private val placeIcon: ImageView = binding.placeIcon
 
-    fun onBindView(model: DataModel.LaunchEvent) {
+    fun onBindView(model: UIModel.LaunchEvent) {
         if (model.date.isEmpty()) {
             date.visibility = View.GONE
             dateIcon.visibility = View.GONE
         } else {
-            date.text = model.date.toDateString()
+            date.text = model.date
         }
         if (model.place.isEmpty()) {
             place.visibility = View.GONE

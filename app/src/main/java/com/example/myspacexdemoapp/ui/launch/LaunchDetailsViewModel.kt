@@ -3,15 +3,15 @@ package com.example.myspacexdemoapp.ui.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
-import com.example.myspacexdemoapp.ui.launches.LinkInfo
-import com.example.myspacexdemoapp.ui.launches.Mission
-import com.example.myspacexdemoapp.ui.launches.Payload
-import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
-import com.example.myspacexdemoapp.ui.mappers.toMission
-import com.example.myspacexdemoapp.ui.mappers.toPayload
+import androidx.lifecycle.viewModelScope
+import com.example.domain.GetLaunchDetailsUseCase
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.api.SpaceXApi) :
+class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchDetailsUseCase) :
     ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
@@ -24,32 +24,24 @@ class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.ap
     }
 
     fun getLaunchUI() {
-        if (!id.isNullOrEmpty()) {
-            getLaunch(id ?: "")
-        }
+        if (!id.isNullOrEmpty()) getLaunch(id ?: "")
     }
 
     fun getLaunch(id: String) {
-        spaceXApi.getLaunchById(id)
-            .doOnSubscribe {
-                _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
-            }
-            .subscribe({ response ->
-                val linkInfo = response.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
-                val payload = response.data?.payload?.toPayload() ?: Payload.EMPTY
-                val mission = response.data?.launch?.toMission() ?: Mission.EMPTY
-                _launchMutableLiveData.postValue(
-                    LaunchDetailsViewState.Success(
-                        LaunchUiModel(
-                            number = id,
-                            mission = mission,
-                            payload = payload,
-                            linkInfo = linkInfo
-                        ),
+        viewModelScope.launch {
+            useCase.invoke(id)
+                .onStart {
+                    _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
+                }
+                .catch { exception ->
+                    _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(exception))
+                }
+                .collect { response ->
+                    _launchMutableLiveData.postValue(
+                        LaunchDetailsViewState.Success(response)
                     )
-                )
-            }, { throwable ->
-                _launchMutableLiveData.postValue(LaunchDetailsViewState.Error(throwable))
-            })
+                }
+
+        }
     }
 }

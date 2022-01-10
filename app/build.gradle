@@ -18,12 +18,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String",
-                "DATE_STRING_FROM",
-                "\"EEE MMM dd HH:mm:ss zzz yyyy\"")
-        buildConfigField("String",
-                "DATE_STRING_TO",
-                "\"MMM dd , yyyy HH:mm a\"")
-        buildConfigField("String",
                 "SPACEX_ENDPOINT",
                 "\"https://api.spacex.land/graphql/\"")
 
@@ -83,6 +77,8 @@ dependencies {
     implementation project(path: ':data')
     implementation "com.google.dagger:dagger-android:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"
+    implementation project(path: ':domain')
+
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
     implementation "com.google.dagger:dagger:$dagger"
@@ -114,9 +110,11 @@ dependencies {
     testImplementation "androidx.test:core:$core"
     testImplementation "org.mockito:mockito-android:$mockito"
     debugImplementation("androidx.fragment:fragment-testing:$fragment")
-    implementation "androidx.arch.core:core-testing:$arch"
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation("androidx.test:rules:$test")
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+
 }

@@ -3,41 +3,39 @@ package com.example.myspacexdemoapp.ui.launches
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myspacexdemoapp.ui.mappers.toLinksInfo
-import com.example.myspacexdemoapp.ui.mappers.toMission
-import com.example.spacexdemoapp.api.SpaceXApi
+import androidx.lifecycle.viewModelScope
+import com.example.domain.GetLaunchesUseCase
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LaunchesViewModel(private val spaceXApi: SpaceXApi) : ViewModel() {
+class LaunchesViewModel @Inject constructor(private val useCase: GetLaunchesUseCase) : ViewModel() {
 
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
     private var disposable: Disposable? = null
 
     fun getLaunches() {
-        disposable = spaceXApi.getLaunches()
-            .doOnSubscribe {
-                _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
-            }
-            .subscribe(
-                { response ->
+        viewModelScope.launch {
+            useCase.invoke()
+                .onStart {
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Loading)
+                }
+                .catch { exception ->
+                    _launchesMutableLiveData.postValue(LaunchesViewState.Error(exception))
+                }
+                .collect { response ->
                     with(_launchesMutableLiveData) {
                         postValue(
-                            LaunchesViewState.Success(
-                                response.data?.launches?.map {
-                                    LaunchUiModel(
-                                        number = it?.id ?: LaunchUiModel.EMPTY.number,
-                                        mission = it?.toMission() ?: Mission.EMPTY,
-                                        linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
-                                    )
-                                } ?: emptyList()
-                            )
+                            LaunchesViewState.Success(response)
                         )
                     }
                 }
-            ) { throwable ->
-                _launchesMutableLiveData.postValue(LaunchesViewState.Error(throwable))
-            }
+
+        }
     }
 
     override fun onCleared() {
