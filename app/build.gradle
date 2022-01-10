@@ -78,6 +78,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"
     implementation project(path: ':domain')
+
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
     implementation "com.google.dagger:dagger:$dagger"
@@ -109,7 +110,7 @@ dependencies {
     testImplementation "androidx.test:core:$core"
     testImplementation "org.mockito:mockito-android:$mockito"
     debugImplementation("androidx.fragment:fragment-testing:$fragment")
-    androidTestImplementation "android.arch.core:core-testing:1.1.0"
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation("androidx.test:rules:$test")
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")

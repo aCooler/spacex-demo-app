@@ -33,7 +33,7 @@ class LaunchDetailsViewModelTest : TestCase() {
     lateinit var mockObserver: Observer<LaunchDetailsViewState>
 
     @Test
-    fun `when get launches initialized then success is retrieved`() =runTest{
+    fun `when get launches initialized then success is retrieved`() = runTest {
         mock(ApolloResponse::class.java)
         `when`(useCase.invoke("9")).thenReturn(
             flow {
@@ -46,11 +46,11 @@ class LaunchDetailsViewModelTest : TestCase() {
                 )
             }
         )
-        val job = launch {
-            viewModel.getLaunch("9")
+        launch {
             viewModel.launchLiveData.observeForever(mockObserver)
+            viewModel.getLaunch("9")
         }
-        job.join()
+
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
@@ -62,24 +62,20 @@ class LaunchDetailsViewModelTest : TestCase() {
     }
 
     @Test
-    fun `when get launches initialized then error is retrieved`() = runTest{
-
-
-
-        launch{
-            `when`(useCase.invoke("9")).thenReturn(
-                flow{
-                    Throwable()
-
-                }
-            )
+    fun `when get launches initialized then error is retrieved`() = runTest {
+        `when`(useCase.invoke("9")).thenReturn(
+            flow {
+                Throwable()
+            }
+        )
+        launch {
             viewModel.launchLiveData.observeForever(mockObserver)
             viewModel.getLaunch("9")
-            val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
-            verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
-            assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
-            assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Error)
         }
+        val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
+        verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
+        assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
+        assert(argumentCaptor.allValues.last() is LaunchDetailsViewState.Error)
 
     }
 }
