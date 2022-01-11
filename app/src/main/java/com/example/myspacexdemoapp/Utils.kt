@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 fun String.toDateString(): String? {
-    return ""
     if (this.isEmpty()) {
         return this
     }

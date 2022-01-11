@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.domain.GetLaunchDetailsUseCase
 import javax.inject.Inject
 
-class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchDetailsUseCase) :
+class LaunchDetailsViewModel @Inject constructor(private val getLaunchDetailsUseCase: GetLaunchDetailsUseCase) :
     ViewModel() {
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
@@ -25,7 +25,7 @@ class LaunchDetailsViewModel @Inject constructor(private val useCase: GetLaunchD
     }
 
     fun getLaunch(id: String) {
-        useCase.invoke(id)
+        getLaunchDetailsUseCase.invoke(id)
             .doOnSubscribe {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
