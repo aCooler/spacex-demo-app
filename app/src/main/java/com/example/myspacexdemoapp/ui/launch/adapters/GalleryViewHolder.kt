@@ -8,8 +8,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class GalleryViewHolder(binding: GalleryBinding) : RecyclerView.ViewHolder(binding.root) {
-class GalleryViewHolder(binding: GalleryBinding) :
-    RecyclerView.ViewHolder(binding.root) {
     private val pager: ViewPager2 = binding.viewPager
     private val tabLayout: TabLayout = binding.tabDots
     private val adapter = CategoryAdapter()
