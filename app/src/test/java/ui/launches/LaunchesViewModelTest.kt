@@ -26,7 +26,7 @@ class LaunchesViewModelTest : TestCase() {
     val instantExecutorRule = InstantTaskExecutorRule()
     private val useCase = mock(GetLaunchesUseCase::class.java)
     private val viewModel by lazy {
-        LaunchesViewModel(useCase = useCase)
+        LaunchesViewModel(getLaunchesUseCase = useCase)
     }
 
     @Test
@@ -35,10 +35,11 @@ class LaunchesViewModelTest : TestCase() {
             Flowable.just(
                 listOf(
                     LaunchData.EMPTY.copy(
-                        number= "1111",
+                        number = "1111",
                         mission = Mission.EMPTY.copy(
                             details = "My details",
-                            name = "My mission name"),
+                            name = "My mission name"
+                        ),
                     )
                 )
             )
