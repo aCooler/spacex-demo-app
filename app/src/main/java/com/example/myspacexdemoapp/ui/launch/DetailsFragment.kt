@@ -20,13 +20,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private var fragmentBlankBinding: DetailsFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (arguments ?: bundleOf()).apply {
-            with(
-                DetailsFragmentArgs.fromBundle(this)
-            ) {
-                viewModel.init(launchId, payloadId)
-            }
-        }
+        val args = DetailsFragmentArgs.fromBundle(arguments ?: bundleOf())
+        viewModel.init(args.launchId, args.payloadId)
         val binding = DetailsFragmentBinding.bind(view)
         fragmentBlankBinding = binding
         val adapter = DetailsRecyclerViewAdapter()
