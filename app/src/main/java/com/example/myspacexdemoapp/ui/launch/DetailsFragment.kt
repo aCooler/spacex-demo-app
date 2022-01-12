@@ -25,7 +25,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 arguments ?: bundleOf()
             ).launchId,
             DetailsFragmentArgs.fromBundle(
-                arguments ?: bundleOf()).payloadId
+                arguments ?: bundleOf()
+            ).payloadId
         )
         val binding = DetailsFragmentBinding.bind(view)
         fragmentBlankBinding = binding
