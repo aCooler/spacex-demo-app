@@ -21,11 +21,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     lateinit var launchesViewModel: LaunchesViewModel
     private var fragmentBlankBinding: MainFragmentBinding? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View, savedInstanceState: Bundle?
+    ) {
         val binding = MainFragmentBinding.bind(view)
         fragmentBlankBinding = binding
         val adapter =
-            RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { id, payloadId ->
+            RecyclerViewAdapter(
+                RecyclerViewAdapter.OnClickListener { id, payloadId ->
                 openDetailsFragment(id, payloadId)
             }
             )

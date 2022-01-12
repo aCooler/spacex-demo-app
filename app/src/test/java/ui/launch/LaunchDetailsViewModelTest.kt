@@ -46,14 +46,14 @@ class LaunchDetailsViewModelTest : TestCase() {
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
-        `when`(spaceXApi.getLaunchById("9","CRS-1")).thenReturn(
+        `when`(spaceXApi.getLaunchById("9", "CRS-1")).thenReturn(
             Flowable.just(
                 mockResponse
             )
         )
         val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9","CRS-1")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
@@ -66,14 +66,14 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then error is retrieved`() {
-        `when`(spaceXApi.getLaunchById("9","CRS-1")).thenReturn(
+        `when`(spaceXApi.getLaunchById("9", "CRS-1")).thenReturn(
             Flowable.error(
                 Throwable()
             )
         )
         val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9","CRS-1")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)

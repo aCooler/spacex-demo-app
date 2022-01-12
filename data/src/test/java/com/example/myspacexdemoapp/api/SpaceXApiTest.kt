@@ -30,7 +30,7 @@ class SpaceXApiTest : TestCase() {
     fun getLaunchById() {
         val queryCaptor: ArgumentCaptor<GetLaunchQuery> =
             ArgumentCaptor.forClass(GetLaunchQuery::class.java)
-        val query = GetLaunchQuery("9","CRS-1")
+        val query = GetLaunchQuery("9", "CRS-1")
         apolloClient.query(query)
         verify(apolloClient).query(capture(queryCaptor))
         assertEquals(query, queryCaptor.value)
