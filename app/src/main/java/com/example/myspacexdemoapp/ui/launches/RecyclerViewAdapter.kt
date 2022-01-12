@@ -18,7 +18,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
     private var items: List<LaunchUiModel> = emptyList()
 
-    class MainListViewHolder(private val binding: MainListCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MainListViewHolder(private val binding: MainListCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val place: TextView = binding.place
         val rocketName: TextView = binding.rocketName
         val success: TextView = binding.success
@@ -39,7 +40,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(viewHolder: MainListViewHolder, position: Int) {
         viewHolder.itemView.setOnClickListener {
-            onClickListener.onClick(items[position].number)
+            onClickListener.onClick(items[position].number, items[position].mission.name)
         }
         if (items[position].mission != Mission.EMPTY) {
             viewHolder.place.text = items[position].mission.place
@@ -95,8 +96,8 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (id: String?) -> Unit) {
-        fun onClick(id: String?) = clickListener(id)
+    class OnClickListener(val clickListener: (id: String?, payloadId: String?) -> Unit) {
+        fun onClick(id: String?, payloadId: String?) = clickListener(id, payloadId)
     }
 
     fun setItems(strings: List<LaunchUiModel>) {

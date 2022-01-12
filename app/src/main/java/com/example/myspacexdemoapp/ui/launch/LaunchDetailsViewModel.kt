@@ -16,21 +16,25 @@ class LaunchDetailsViewModel(private val spaceXApi: com.example.spacexdemoapp.ap
     private val _launchMutableLiveData = MutableLiveData<LaunchDetailsViewState>()
     val launchLiveData: LiveData<LaunchDetailsViewState> = _launchMutableLiveData
     private var id: String? = null
+    private var payId: String? = null
 
-    fun init(launchId: String) {
+    fun init(launchId: String, payloadId: String) {
         if (launchId.isNotEmpty()) {
             id = launchId
+        }
+        if (payloadId.isNotEmpty()) {
+            payId = payloadId
         }
     }
 
     fun getLaunchUI() {
         if (!id.isNullOrEmpty()) {
-            getLaunch(id ?: "")
+            getLaunch(id ?: "", payId ?: "")
         }
     }
 
-    fun getLaunch(id: String) {
-        spaceXApi.getLaunchById(id)
+    fun getLaunch(id: String, payloadId: String) {
+        spaceXApi.getLaunchById(id, payloadId)
             .doOnSubscribe {
                 _launchMutableLiveData.postValue(LaunchDetailsViewState.Loading)
             }
