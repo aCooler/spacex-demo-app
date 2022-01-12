@@ -26,6 +26,11 @@
             app:argType="string"
             app:nullable="false"
             />
+        <argument
+            android:name="payloadId"
+            app:argType="string"
+            app:nullable="false"
+            />
 
         <action
             android:id="@+id/action_myDetailsFragment_to_myHomeFragment"

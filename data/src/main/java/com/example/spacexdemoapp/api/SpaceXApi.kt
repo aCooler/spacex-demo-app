@@ -14,13 +14,16 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
         return apolloClient.query(query).rxFlowable()
     }
 
-    override fun getLaunchById(id: String): Flowable<ApolloResponse<GetLaunchQuery.Data>> {
-        val query = GetLaunchQuery(id)
+    override fun getLaunchById(
+        id: String,
+        payloadId: String,
+    ): Flowable<ApolloResponse<GetLaunchQuery.Data>> {
+        val query = GetLaunchQuery(id, payloadId)
         return apolloClient.query(query).rxFlowable()
     }
 }
 
 interface ISpaceXApi {
     fun getLaunches(): Flowable<ApolloResponse<GetLaunchesQuery.Data>>
-    fun getLaunchById(id: String): Flowable<ApolloResponse<GetLaunchQuery.Data>>
+    fun getLaunchById(id: String, payloadId: String): Flowable<ApolloResponse<GetLaunchQuery.Data>>
 }

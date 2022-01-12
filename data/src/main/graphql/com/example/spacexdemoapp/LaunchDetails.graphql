@@ -16,9 +16,9 @@ query GetLaunches {
     }
 }
 
-query GetLaunch($id:ID!) {
+query GetLaunch($id:ID!, $payload_id:ID!) {
 
-    payload(id: $id) {
+    payload(id: $payload_id) {
         payload_type
         norad_id
         manufacturer
