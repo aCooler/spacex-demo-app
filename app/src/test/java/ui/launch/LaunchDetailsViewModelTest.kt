@@ -42,7 +42,7 @@ class LaunchDetailsViewModelTest : TestCase() {
 
         val mockResponse =
             ApolloResponse.Builder(
-                operation = GetLaunchQuery("9","CRS-1"),
+                operation = GetLaunchQuery("9", "CRS-1"),
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
