@@ -12,10 +12,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import spacexdemoapp.GetLaunchQuery
 
@@ -31,7 +31,7 @@ class LaunchDetailsViewModelTest : TestCase() {
     @Test
     fun `when get launches initialized then success is retrieved`() {
         mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
-        `when`(useCase.invoke("9")).thenReturn(
+        `when`(useCase.invoke("9", "CRS-1")).thenReturn(
             Flowable.just(
                 LaunchData.EMPTY.copy(
                     mission = Mission.EMPTY.copy(

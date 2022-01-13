@@ -33,7 +33,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch ?: LinkInfo.EMPTY.badge,
     picture = when {
         flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-        else -> flickr_images?.first() ?: LinkInfo.EMPTY.picture
+        else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
     },
     pictures = flickr_images ?: LinkInfo.EMPTY.pictures
 )
@@ -76,7 +76,7 @@ fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
         badge = mission_patch ?: LinkInfo.EMPTY.badge,
         picture = when {
             flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-            else -> flickr_images?.first() ?: LinkInfo.EMPTY.picture
+            else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
         },
         pictures = flickr_images ?: LinkInfo.EMPTY.pictures,
         video = video_link ?: LinkInfo.EMPTY.video

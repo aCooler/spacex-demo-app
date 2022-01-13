@@ -11,8 +11,8 @@ class DataLaunchRepository(private val spaceXApi: SpaceXApi) : LaunchRepository 
         }
     }
 
-    override fun getLaunchById(id: String): Flowable<LaunchData> {
-        return spaceXApi.getLaunchById(id = id).flatMap {
+    override fun getLaunchById(id: String, payloadId: String): Flowable<LaunchData> {
+        return spaceXApi.getLaunchById(id = id, payloadId = payloadId).flatMap {
             Flowable.just(
                 LaunchMapper().toLaunchDetails(id = id, response = it)
             )
