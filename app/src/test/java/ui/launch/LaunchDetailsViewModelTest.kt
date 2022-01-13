@@ -44,7 +44,7 @@ class LaunchDetailsViewModelTest : TestCase() {
         )
         val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
@@ -57,14 +57,14 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then error is retrieved`() {
-        `when`(useCase.invoke("9")).thenReturn(
+        `when`(useCase.invoke("9", "CRS-1")).thenReturn(
             Flowable.error(
                 Throwable()
             )
         )
         val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
