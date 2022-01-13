@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
@@ -27,11 +26,8 @@ class LaunchesViewModelTest : TestCase() {
     val instantExecutorRule = InstantTaskExecutorRule()
     private val useCase = mock(GetLaunchesUseCase::class.java)
     private val viewModel by lazy {
-        LaunchesViewModel(useCase = useCase)
+        LaunchesViewModel(getLaunchesUseCase = useCase)
     }
-
-    @Mock
-    lateinit var mockObserver: Observer<LaunchesViewState>
 
     @Test
     fun `when launch by id initialized then success is retrieved`() {
@@ -49,6 +45,7 @@ class LaunchesViewModelTest : TestCase() {
             )
         )
 
+        val mockObserver = mock(Observer::class.java) as Observer<LaunchesViewState>
         viewModel.launchesLiveData.observeForever(mockObserver)
         viewModel.getLaunches()
         val argumentCaptor = ArgumentCaptor.forClass(LaunchesViewState::class.java)
@@ -68,11 +65,12 @@ class LaunchesViewModelTest : TestCase() {
                 Throwable()
             )
         )
+        val mockObserver = mock(Observer::class.java) as Observer<LaunchesViewState>
         viewModel.launchesLiveData.observeForever(mockObserver)
         viewModel.getLaunches()
         val argumentCaptor = ArgumentCaptor.forClass(LaunchesViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
-        assertTrue(argumentCaptor.allValues.first() is LaunchesViewState.Loading)
-        assertTrue(argumentCaptor.allValues.last() is LaunchesViewState.Error)
+        assert(argumentCaptor.allValues.first() is LaunchesViewState.Loading)
+        assert(argumentCaptor.allValues.last() is LaunchesViewState.Error)
     }
 }

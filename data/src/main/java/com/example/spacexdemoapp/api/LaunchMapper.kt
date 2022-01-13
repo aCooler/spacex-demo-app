@@ -1,6 +1,11 @@
-package com.example.domain
+package com.example.spacexdemoapp.api
 
 import com.apollographql.apollo3.api.ApolloResponse
+import com.example.domain.LaunchData
+import com.example.domain.LinkInfo
+import com.example.domain.Mission
+import com.example.domain.Payload
+import com.example.domain.toDateString
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 
@@ -33,7 +38,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch ?: LinkInfo.EMPTY.badge,
     picture = when {
         flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-        else -> flickr_images?.first() ?: LinkInfo.EMPTY.picture
+        else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
     },
     pictures = flickr_images ?: LinkInfo.EMPTY.pictures
 )
@@ -76,7 +81,7 @@ fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
         badge = mission_patch ?: LinkInfo.EMPTY.badge,
         picture = when {
             flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-            else -> flickr_images?.first() ?: LinkInfo.EMPTY.picture
+            else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
         },
         pictures = flickr_images ?: LinkInfo.EMPTY.pictures,
         video = video_link ?: LinkInfo.EMPTY.video

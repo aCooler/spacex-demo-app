@@ -1,54 +1,51 @@
 package com.example.domain
 
 import com.apollographql.apollo3.api.ApolloResponse
+import com.example.spacexdemoapp.api.LaunchMapper
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Answers
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
-import org.mockito.junit.MockitoJUnitRunner
-import spacexdemoapp.GetLaunchQuery
+import spacexdemoapp.GetLaunchesQuery
 import java.util.UUID
 
-@RunWith(MockitoJUnitRunner::class)
-class GetLaunchDetailsUseCaseTest : TestCase() {
+class GetLaunchDetailsUseCaseTest {
 
     @get:Rule
     val instantExecutorRule = androidx.arch.core.executor.testing.InstantTaskExecutorRule()
 
     @Test
     operator fun invoke() {
-        mock(ApolloResponse::class.java)
+        Mockito.mock(ApolloResponse::class.java)
         val mockData =
-            mock(GetLaunchQuery.Data::class.java)
-        val mockLaunch = getLaunch()
-        Mockito.`when`(mockData.launch).thenReturn(
+            Mockito.mock(GetLaunchesQuery.Data::class.java)
+        val mockLaunch = getLaunches()
+        Mockito.`when`(mockData.launches).thenReturn(
             mockLaunch
         )
         val mockResponse =
             ApolloResponse.Builder(
-                operation = GetLaunchQuery("9"),
+                operation = GetLaunchesQuery(),
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
-        val mapped = LaunchMapper().toLaunchDetails("9", mockResponse)
-        assertEquals(mapped.mission.rocketName, "AC")
-        assertEquals(mapped.mission.details, "My details")
-        assertEquals(mapped.mission.name, "My mission name")
+        val mapped = LaunchMapper().toLaunches(mockResponse)
+        TestCase.assertEquals(mapped[0].number, "1111")
+        TestCase.assertEquals(mapped[0].mission.details, "My details")
+        TestCase.assertEquals(mapped[0].mission.name, "My mission name")
     }
 
-    private fun getLaunch(): GetLaunchQuery.Launch {
+    private fun getLaunches(): List<GetLaunchesQuery.Launch> {
         val mockLaunch =
-            mock(GetLaunchQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
+            Mockito.mock(GetLaunchesQuery.Launch::class.java, Answers.RETURNS_DEEP_STUBS)
         mockLaunch.apply {
-            Mockito.`when`(rocket?.rocketFields?.rocket_name).thenReturn("AC")
-            Mockito.`when`(details).thenReturn("My details")
+            Mockito.`when`(mockLaunch.id).thenReturn("1111")
+            Mockito.`when`(mockLaunch.details).thenReturn("My details")
             Mockito.`when`(
-                missionDetails.mission_name
+                mockLaunch.missionDetails.mission_name
             ).thenReturn("My mission name")
         }
-        return mockLaunch
+        return listOf(mockLaunch)
     }
 }

@@ -1,4 +1,4 @@
-package ui.launch
+package com.example.myspacexdemoapp.ui.launch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
@@ -6,20 +6,18 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.example.domain.GetLaunchDetailsUseCase
 import com.example.domain.LaunchData
 import com.example.domain.Mission
-import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
-import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewState
 import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import spacexdemoapp.GetLaunchQuery
 
 @RunWith(MockitoJUnitRunner::class)
 class LaunchDetailsViewModelTest : TestCase() {
@@ -30,13 +28,10 @@ class LaunchDetailsViewModelTest : TestCase() {
         LaunchDetailsViewModel(useCase)
     }
 
-    @Mock
-    lateinit var mockObserver: Observer<LaunchDetailsViewState>
-
     @Test
     fun `when get launches initialized then success is retrieved`() {
-        mock(ApolloResponse::class.java)
-        `when`(useCase.invoke("9")).thenReturn(
+        mock(ApolloResponse::class.java) as ApolloResponse<GetLaunchQuery.Data>
+        `when`(useCase.invoke("9", "CRS-1")).thenReturn(
             Flowable.just(
                 LaunchData.EMPTY.copy(
                     mission = Mission.EMPTY.copy(
@@ -47,8 +42,9 @@ class LaunchDetailsViewModelTest : TestCase() {
                 )
             )
         )
+        val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)
@@ -61,13 +57,14 @@ class LaunchDetailsViewModelTest : TestCase() {
 
     @Test
     fun `when get launches initialized then error is retrieved`() {
-        `when`(useCase.invoke("9")).thenReturn(
+        `when`(useCase.invoke("9", "CRS-1")).thenReturn(
             Flowable.error(
                 Throwable()
             )
         )
+        val mockObserver = mock(Observer::class.java) as Observer<LaunchDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("9")
+        viewModel.getLaunch("9", "CRS-1")
         val argumentCaptor = ArgumentCaptor.forClass(LaunchDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is LaunchDetailsViewState.Loading)

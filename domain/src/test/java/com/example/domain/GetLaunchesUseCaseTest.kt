@@ -1,6 +1,7 @@
 package com.example.domain
 
 import com.apollographql.apollo3.api.ApolloResponse
+import com.example.spacexdemoapp.api.LaunchMapper
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test

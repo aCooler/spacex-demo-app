@@ -13,7 +13,6 @@ import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MainFragmentBinding
 import com.example.myspacexdemoapp.ui.launch.DetailsFragmentArgs
-import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -26,7 +25,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val binding = MainFragmentBinding.bind(view)
         fragmentBlankBinding = binding
         val adapter =
-            RecyclerViewAdapter(RecyclerViewAdapter.OnClickListener { openDetailsFragment(it) })
+            RecyclerViewAdapter(
+                RecyclerViewAdapter.OnClickListener { id, payloadId ->
+                    openDetailsFragment(id, payloadId)
+                }
+            )
         binding.launchesList.adapter = adapter
         binding.launchesList.layoutManager = LinearLayoutManager(activity)
         binding.swipeRefresh.setOnRefreshListener {
@@ -46,11 +49,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                         .show()
                 }
                 is LaunchesViewState.Success -> {
-                    adapter.setItems(
-                        state.model?.map {
-                            LaunchUIMapper(it).mainUiModelToDataModel()
-                        } ?: listOf()
-                    )
+                    adapter.setItems(state.model ?: listOf())
                     binding.swipeRefresh.isRefreshing = false
                 }
                 is LaunchesViewState.Loading -> {
@@ -60,12 +59,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         })
     }
 
-    private fun openDetailsFragment(id: String?) {
+    private fun openDetailsFragment(id: String?, payloadId: String?) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
                 findNavController().navigate(
                     R.id.action_myHomeFragment_to_myDetailsFragment,
-                    DetailsFragmentArgs(launchId = id).toBundle(),
+                    DetailsFragmentArgs(launchId = id, payloadId = payloadId ?: "").toBundle(),
                     null
                 )
             }

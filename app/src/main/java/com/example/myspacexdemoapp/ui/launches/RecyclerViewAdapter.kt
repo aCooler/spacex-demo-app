@@ -9,14 +9,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.domain.LaunchData
+import com.example.domain.LinkInfo
+import com.example.domain.Mission
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MainListCardBinding
 import com.example.myspacexdemoapp.setColor
-import com.example.myspacexdemoapp.ui.MainScreenModel
 
 class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MainListViewHolder>() {
-    private var items: List<MainScreenModel> = emptyList()
+    private var items: List<LaunchData> = emptyList()
 
     class MainListViewHolder(binding: MainListCardBinding) : RecyclerView.ViewHolder(binding.root) {
         val place: TextView = binding.place
@@ -39,36 +41,36 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(viewHolder: MainListViewHolder, position: Int) {
         viewHolder.itemView.setOnClickListener {
-            onClickListener.onClick(items[position].number)
+            onClickListener.onClick(items[position].number, items[position].mission.name)
         }
-        if (items[position].launch.isNotEmpty()) {
-            viewHolder.place.text = items[position].place
-            viewHolder.rocketName.text = items[position].rocket
-            viewHolder.missionName.text = items[position].launch
-            viewHolder.date.text = items[position].date
+        if (items[position].mission != Mission.EMPTY) {
+            viewHolder.place.text = items[position].mission.place
+            viewHolder.rocketName.text = items[position].mission.rocketName
+            viewHolder.missionName.text = items[position].mission.name
+            viewHolder.date.text = items[position].mission.date
             viewHolder.success.text = makeSuccess(viewHolder, position)
         }
-        if (items[position].number.isNotEmpty()) {
+        if (items[position].number != LaunchData.EMPTY.number) {
             viewHolder.number.text = String.format(
                 viewHolder.itemView.context.getString(R.string.number),
                 items[position].number
             )
         }
-        if (items[position].pictureUrl.isNotEmpty()) {
+        if (items[position].linkInfo != LinkInfo.EMPTY) {
             Glide.with(viewHolder.itemView)
-                .load(items[position].pictureUrl)
+                .load(items[position].linkInfo.picture)
                 .centerCrop()
                 .placeholder(R.drawable.sky)
                 .into(viewHolder.picture)
             Glide.with(viewHolder.itemView)
-                .load(items[position].badgeUrl)
+                .load(items[position].linkInfo.badge)
                 .into(viewHolder.badge)
-            viewHolder.badge.isVisible = items[position].badgeUrl.isNotEmpty()
+            viewHolder.badge.isVisible = items[position].linkInfo.badge.isNotEmpty()
         }
     }
 
     private fun makeSuccess(viewHolder: MainListViewHolder, position: Int): CharSequence {
-        return when (items[position].success) {
+        return when (items[position].mission.success) {
             true -> {
                 val green =
                     ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
@@ -95,11 +97,11 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (id: String?) -> Unit) {
-        fun onClick(id: String?) = clickListener(id)
+    class OnClickListener(val clickListener: (id: String?, payloadId: String?) -> Unit) {
+        fun onClick(id: String?, payloadId: String?) = clickListener(id, payloadId)
     }
 
-    fun setItems(strings: List<MainScreenModel>) {
+    fun setItems(strings: List<LaunchData>) {
         items = strings
         notifyDataSetChanged()
     }

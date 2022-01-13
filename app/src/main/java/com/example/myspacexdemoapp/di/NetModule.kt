@@ -3,9 +3,9 @@ package com.example.myspacexdemoapp.di
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.adapter.DateAdapter
 import com.example.domain.DataLaunchRepository
-import com.example.domain.LaunchMapper
 import com.example.domain.LaunchRepository
 import com.example.myspacexdemoapp.BuildConfig
+import com.example.spacexdemoapp.api.LaunchMapper
 import com.example.spacexdemoapp.api.SpaceXApi
 import dagger.Module
 import dagger.Provides

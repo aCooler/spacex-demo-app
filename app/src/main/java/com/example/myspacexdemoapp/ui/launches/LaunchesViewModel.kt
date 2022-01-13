@@ -7,14 +7,14 @@ import com.example.domain.GetLaunchesUseCase
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
-class LaunchesViewModel @Inject constructor(private val useCase: GetLaunchesUseCase) : ViewModel() {
+class LaunchesViewModel @Inject constructor(private val getLaunchesUseCase: GetLaunchesUseCase) : ViewModel() {
 
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData
     private var disposable: Disposable? = null
 
     fun getLaunches() {
-        disposable = useCase.invoke()
+        disposable = getLaunchesUseCase.invoke()
             .doOnSubscribe { _launchesMutableLiveData.postValue(LaunchesViewState.Loading) }
             .subscribe(
                 { response ->
