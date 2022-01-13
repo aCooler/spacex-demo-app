@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':data')
     implementation "com.google.dagger:dagger-android:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
