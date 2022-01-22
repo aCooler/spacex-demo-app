@@ -16,6 +16,19 @@ query GetLaunches {
     }
 }
 
+
+
+query GetNextLaunch {
+    launches {
+        launch_success
+    }
+    launchNext {
+        id
+        launch_date_local
+        mission_name
+    }
+}
+
 query GetLaunch($id:ID!, $payload_id:ID!) {
 
     payload(id: $payload_id) {

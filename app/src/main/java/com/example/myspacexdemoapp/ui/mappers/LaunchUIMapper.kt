@@ -2,6 +2,7 @@ package com.example.myspacexdemoapp.ui.mappers
 
 import com.example.domain.LaunchData
 import com.example.domain.Payload
+import com.example.domain.toDateString
 import com.example.myspacexdemoapp.ui.UIModel
 
 class LaunchUIMapper(private val launchData: LaunchData) {
@@ -103,7 +104,7 @@ class LaunchUIMapper(private val launchData: LaunchData) {
     private fun addLaunchEvent() {
 
         var listHasItems = false
-        val date = if (launchData.mission.date.isNotEmpty()) {
+        val date = if (launchData.mission.date.toDateString().isNotEmpty()) {
             listHasItems = true
             launchData.mission.date
         } else {
@@ -127,7 +128,7 @@ class LaunchUIMapper(private val launchData: LaunchData) {
         }
 
         val ui: UIModel.LaunchEvent =
-            UIModel.LaunchEvent(date = date, rocket = rocket, reused = reused, place = place)
+            UIModel.LaunchEvent(date = date.toString(), rocket = rocket, reused = reused, place = place)
         if (listHasItems) {
             recycleViewModel.add(ui)
         }

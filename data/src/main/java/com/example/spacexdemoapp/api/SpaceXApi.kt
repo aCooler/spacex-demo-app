@@ -6,6 +6,7 @@ import com.apollographql.apollo3.rx3.rxFlowable
 import io.reactivex.rxjava3.core.Flowable
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
+import spacexdemoapp.GetNextLaunchQuery
 
 class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
 
@@ -21,9 +22,15 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
         val query = GetLaunchQuery(id, payloadId)
         return apolloClient.query(query).rxFlowable()
     }
+
+    override fun getNextLaunch(): Flowable<ApolloResponse<GetNextLaunchQuery.Data>> {
+        val query = GetNextLaunchQuery()
+        return apolloClient.query(query).rxFlowable()
+    }
 }
 
 interface ISpaceXApi {
     fun getLaunches(): Flowable<ApolloResponse<GetLaunchesQuery.Data>>
     fun getLaunchById(id: String, payloadId: String): Flowable<ApolloResponse<GetLaunchQuery.Data>>
+    fun getNextLaunch(): Flowable<ApolloResponse<GetNextLaunchQuery.Data>>
 }

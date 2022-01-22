@@ -1,10 +1,37 @@
 package com.example.domain
 
+import java.util.Date
+
+
+data class HomeData(
+    val launchData: LaunchData,
+    val rockets: RocketsData,
+) {
+    companion object {
+        val EMPTY = HomeData(
+            launchData = LaunchData.EMPTY,
+            rockets = RocketsData.EMPTY
+        )
+    }
+}
+
+data class RocketsData(
+    val total: String,
+    val efficiency: String,
+) {
+    companion object {
+        val EMPTY = RocketsData(
+            total = "",
+            efficiency = "",
+        )
+    }
+}
+
 data class LaunchData(
     val number: String,
     val mission: Mission,
     val payload: Payload = Payload.EMPTY,
-    val linkInfo: LinkInfo
+    val linkInfo: LinkInfo,
 ) {
 
     companion object {
@@ -20,7 +47,7 @@ data class LaunchData(
 
 data class Mission(
     val name: String,
-    val date: String,
+    val date: Date,
     val rocketName: String,
     val place: String,
     val success: Boolean,
@@ -31,7 +58,7 @@ data class Mission(
 
         val EMPTY = Mission(
             name = "",
-            date = "",
+            date = Date(),
             rocketName = "",
             place = "",
             success = false,

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/main_fragment">
+    app:startDestination="@id/placeholder">
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.example.myspacexdemoapp.ui.launches.MainFragment"
@@ -36,4 +36,17 @@
             android:id="@+id/action_myDetailsFragment_to_myHomeFragment"
             app:popUpTo="@id/main_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/placeholder"
+        tools:layout="@layout/start_fragment"
+        android:name="com.example.myspacexdemoapp.ui.start.StartFragment"
+        android:label="fragment_my_start">
+
+
+
+    <action
+        android:id="@+id/action_myStartFragment_to_myMainFragment"
+        app:destination="@id/main_fragment" />
+</fragment>
+
 </navigation>

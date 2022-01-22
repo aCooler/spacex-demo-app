@@ -35,7 +35,6 @@ android {
 }
 
 dependencies {
-    testImplementation project(path: ':data')
     androidTestImplementation("io.mockk:mockk-android:$mockk")
     androidTestImplementation "androidx.test.ext:junit:$junit_android"
     testImplementation("org.mockito:mockito-core:$mockito")
