@@ -10,6 +10,7 @@ import com.example.myspacexdemoapp.databinding.MissionCardBinding
 import com.example.myspacexdemoapp.databinding.PictureBinding
 import com.example.myspacexdemoapp.databinding.RowBinding
 import com.example.myspacexdemoapp.databinding.SingleBinding
+import com.example.myspacexdemoapp.databinding.YoutubeBinding
 import com.example.myspacexdemoapp.ui.UIModel
 import com.example.myspacexdemoapp.ui.launch.adapters.CardViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.DetailsViewHolder
@@ -17,6 +18,7 @@ import com.example.myspacexdemoapp.ui.launch.adapters.GalleryViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.PictureViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.RowViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.SingleViewHolder
+import com.example.myspacexdemoapp.ui.launch.adapters.YoutubeViewHolder
 
 class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<UIModel> = mutableListOf()
@@ -29,6 +31,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
             is RowViewHolder -> holder.onBindView(launchUIModel as UIModel.SingleString)
             is SingleViewHolder -> holder.onBindView(launchUIModel as UIModel.TitleAndText)
             is GalleryViewHolder -> holder.onBindView(launchUIModel as UIModel.Gallery)
+            is YoutubeViewHolder -> holder.onBindView(launchUIModel as UIModel.Youtube)
         }
     }
 
@@ -39,6 +42,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         is UIModel.SingleString -> R.layout.row
         is UIModel.TitleAndText -> R.layout.single
         is UIModel.Gallery -> R.layout.gallery
+        is UIModel.Youtube -> R.layout.youtube
     }
 
     override fun getItemCount(): Int = listOfData.size
@@ -58,6 +62,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
             R.layout.single -> SingleViewHolder(SingleBinding.bind(view))
             R.layout.gallery -> GalleryViewHolder(GalleryBinding.bind(view))
             R.layout.row -> RowViewHolder(RowBinding.bind(view))
+            R.layout.youtube -> YoutubeViewHolder(YoutubeBinding.bind(view))
             else -> CardViewHolder(MissionCardBinding.bind(view))
         }
     }
