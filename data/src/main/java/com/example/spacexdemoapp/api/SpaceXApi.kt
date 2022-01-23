@@ -21,6 +21,7 @@ class SpaceXApi(private val apolloClient: ApolloClient) : ISpaceXApi {
         val query = GetLaunchQuery(id, payloadId)
         return apolloClient.query(query).rxFlowable()
     }
+
 }
 
 interface ISpaceXApi {

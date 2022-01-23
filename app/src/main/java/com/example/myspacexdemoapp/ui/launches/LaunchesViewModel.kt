@@ -7,7 +7,8 @@ import com.example.domain.GetLaunchesUseCase
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
-class LaunchesViewModel @Inject constructor(private val getLaunchesUseCase: GetLaunchesUseCase) : ViewModel() {
+class LaunchesViewModel @Inject constructor(private val getLaunchesUseCase: GetLaunchesUseCase) :
+    ViewModel() {
 
     private val _launchesMutableLiveData = MutableLiveData<LaunchesViewState>()
     val launchesLiveData: LiveData<LaunchesViewState> = _launchesMutableLiveData

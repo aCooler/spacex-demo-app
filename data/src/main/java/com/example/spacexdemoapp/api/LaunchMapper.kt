@@ -5,7 +5,9 @@ import com.example.domain.LaunchData
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
 import com.example.domain.Payload
+import com.example.domain.RocketData
 import com.example.domain.toDateString
+import com.example.example.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 
@@ -32,6 +34,21 @@ class LaunchMapper {
             )
         } ?: emptyList()
     }
+
+    fun toRockets(it: List<Rocket>?) :List<RocketData>{
+        return it?.map {
+            RocketData.EMPTY.copy(
+                name = it.name ?: RocketData.EMPTY.name,
+                firstFlight = it.firstFlight ?: RocketData.EMPTY.firstFlight,
+                country = it.country ?: RocketData.EMPTY.country,
+                cost = it.costPerLaunch?.toString() ?: RocketData.EMPTY.cost,
+                stagesNumber = it.stages?.toString() ?: RocketData.EMPTY.stagesNumber,
+                activity = it.active ?: RocketData.EMPTY.activity,
+                rocketPicture = it.flickrImages[0]
+            )
+        } ?: mutableListOf(RocketData.EMPTY)
+    }
+
 }
 
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
