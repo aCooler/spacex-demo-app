@@ -22,6 +22,7 @@ import com.example.myspacexdemoapp.ui.launch.adapters.YoutubeViewHolder
 
 class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<UIModel> = mutableListOf()
+    private var youtubeViewHolder: YoutubeViewHolder? = null
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val launchUIModel = listOfData[position]
         when (holder) {
@@ -53,8 +54,21 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
+        if (youtubeViewHolder == null) {
+            youtubeViewHolder =
+                YoutubeViewHolder(
+                    YoutubeBinding.bind(
+                        layoutInflater.inflate(
+                            R.layout.youtube,
+                            parent,
+                            false
+                        )
+                    )
+                )
+        }
         return when (viewType) {
             R.layout.picture -> PictureViewHolder(PictureBinding.bind(view))
             R.layout.mission_card -> CardViewHolder(MissionCardBinding.bind(view))
@@ -62,7 +76,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
             R.layout.single -> SingleViewHolder(SingleBinding.bind(view))
             R.layout.gallery -> GalleryViewHolder(GalleryBinding.bind(view))
             R.layout.row -> RowViewHolder(RowBinding.bind(view))
-            R.layout.youtube -> YoutubeViewHolder(YoutubeBinding.bind(view))
+            R.layout.youtube -> youtubeViewHolder ?: YoutubeViewHolder(YoutubeBinding.bind(view))
             else -> CardViewHolder(MissionCardBinding.bind(view))
         }
     }
