@@ -56,5 +56,6 @@ dependencies {
     implementation("com.apollographql.apollo3:apollo-api:$apollo_version")
     implementation group: 'com.apollographql.apollo3', name: 'apollo-runtime', version: "$apollo_version"
     implementation("com.apollographql.apollo3:apollo-adapters:$apollo_version")
+    implementation "io.reactivex.rxjava3:rxandroid:$rxjava"
     implementation 'androidx.core:core-ktx:1.7.0'
 }
