@@ -83,12 +83,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/efficiency"
                 tools:text="Elon Mask" />
 
-
             <Button
                 android:id="@+id/toRocket"
                 style="@style/rocket_start_torocket_style"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/right_guideline"
                 app:layout_constraintStart_toStartOf="@+id/left_guideline"

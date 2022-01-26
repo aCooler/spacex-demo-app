@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="card_rocket_name">
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:fontFamily">@font/inter</item>
@@ -10,12 +9,10 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="card_place" parent="card_rocket_name">
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">3</item>
     </style>
-
     <style name="card_reused">
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:lineSpacingExtra">4.8sp</item>
@@ -24,7 +21,6 @@
         <item name="android:textStyle">normal</item>
         <item name="android:paddingLeft">8dp</item>
     </style>
-
     <style name="details">
         <item name="android:background">@color/basic_background</item>
         <item name="android:fontFamily">@font/inter</item>
@@ -35,13 +31,11 @@
         <item name="android:layout_marginBottom">40dp</item>
         <item name="android:layout_marginTop">16dp</item>
     </style>
-
     <style name="gallery_viewpager">
         <item name="android:animationCache">false</item>
         <item name="android:background">@drawable/sky</item>
         <item name="android:orientation">horizontal</item>
     </style>
-
     <style name="row_row">
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textStyle">normal</item>
@@ -50,7 +44,6 @@
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginTop">16dp</item>
     </style>
-
     <style name="single_single_title">
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:fontFamily">@font/inter</item>
@@ -59,7 +52,6 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="single_single_text">
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:background">@drawable/bottom_border</item>
@@ -69,7 +61,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="timer_title_style">
         <item name="android:backgroundTintMode">src_in</item>
         <item name="android:fontFamily">@font/inter_semibold</item>
@@ -81,14 +72,12 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="rocket_name_style">
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textColor">@color/real_white</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="bottom_timer_words">
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:gravity">center_horizontal</item>
@@ -98,7 +87,6 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="numbers_timer_style">
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:fontFamily">@font/inter_semibold</item>
@@ -106,15 +94,13 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="launches_and_rocket_item_style">
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textColor">@color/real_white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
-    <style name="mission_name_style" parent="mission_name_style">
+    <style name="mission_name_style_style" >
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:lineSpacingExtra">4.8sp</item>
@@ -122,7 +108,6 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="launches_total_successful_style">
         <item name="android:layout_marginTop">11dp</item>
         <item name="android:background">@drawable/bottom_border</item>
@@ -133,7 +118,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="launches_total_all_launches">
         <item name="android:contentDescription">@string/app_name</item>
         <item name="android:gravity">center_horizontal</item>
@@ -142,17 +126,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="launches_total_tolaunch_style">
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:background">@drawable/frame_48</item>
         <item name="android:contentDescription">@string/app_name</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingHorizontal">24dp</item>
-        <item name="android:paddingVertical">16dp</item>
     </style>
-
     <style name="launches_total_total_style">
         <item name="android:layout_marginTop">11dp</item>
         <item name="android:background">@drawable/bottom_border</item>
@@ -163,7 +143,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="launches_total_efficiency_style">
         <item name="android:layout_marginTop">25dp</item>
         <item name="android:layout_marginBottom">32dp</item>
@@ -173,7 +152,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="rockets_start_efficiency_style">
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:layout_marginBottom">64dp</item>
@@ -183,7 +161,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-
     <style name="ellon_mask_style">
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:textStyle">italic</item>
@@ -191,7 +168,6 @@
         <item name="android:textColor">@color/text_white</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
-
     <style name="rockets_start_explore_rockets_style">
         <item name="android:lineSpacingExtra">7sp</item>
         <item name="android:gravity">center_horizontal</item>
@@ -200,13 +176,10 @@
         <item name="android:textStyle">normal</item>
         <item name="android:contentDescription">@string/app_name</item>
     </style>
-
     <style name="rocket_start_torocket_style">
         <item name="android:background">@drawable/frame_48</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingHorizontal">24dp</item>
-        <item name="android:paddingVertical">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:contentDescription">@string/app_name</item>
     </style>

@@ -1,9 +1,7 @@
 package com.example.domain
 
-import android.util.Log
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -11,23 +9,15 @@ import javax.inject.Inject
 class GetStartUseCase @Inject constructor(private val spaceXApi: LaunchRepository) {
 
     fun invoke(): Flowable<HomeData> {
-        Flowable.interval(1, 1, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                /*timeToLaunch.seconds--
-                dataset[0] = StartUIModel.Timer(
-                    name = nextLaunch.mission.name,
-                    days = timeToLaunch.day.toString(),
-                    hours = timeToLaunch.hours.toString(),
-                    minutes = timeToLaunch.minutes.toString(),
-                    seconds = timeToLaunch.seconds.toString()
-                )
-                adapter.setItems(dataset)*/
-
-            }, {
-                Log.d("tag", it.message.toString())
+        val timer = Flowable.interval(0, 1000, TimeUnit.MILLISECONDS)
+        val request = spaceXApi.getNextLaunch()
+        return Flowable.combineLatest(timer,
+            request,
+            { second: Long, homeData: HomeData ->
+                homeData.copy(launchData = homeData.launchData.copy(mission = homeData.launchData.mission.copy(
+                    date = Date(homeData.launchData.mission.date.time - Date().time)
+                )))
             })
-        return spaceXApi.getNextLaunch()
+
     }
 }

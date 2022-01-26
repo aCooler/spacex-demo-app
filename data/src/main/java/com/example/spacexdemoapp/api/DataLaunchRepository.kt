@@ -1,13 +1,12 @@
 package com.example.data
 
+import com.example.domain.HomeData
 import com.example.domain.LaunchData
 import com.example.domain.LaunchRepository
 import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.spacexdemoapp.api.toLaunchDetails
 import com.example.spacexdemoapp.api.toLaunches
-import com.example.domain.HomeData
-import com.example.domain.LaunchData
-import com.example.domain.LaunchRepository
+import com.example.spacexdemoapp.api.toNextLaunch
 import io.reactivex.rxjava3.core.Flowable
 
 class DataLaunchRepository(private val spaceXApi: SpaceXApi) : LaunchRepository {
@@ -25,11 +24,10 @@ class DataLaunchRepository(private val spaceXApi: SpaceXApi) : LaunchRepository 
     }
 
     override fun getNextLaunch(): Flowable<HomeData> {
-        return spaceXApi.getNextLaunch().flatMap {
-            Flowable.just(
-                LaunchMapper().toNextLaunch(response = it)
-            )
+        return spaceXApi.getNextLaunch().map {
+            it.toNextLaunch()
         }
     }
 
 }
+

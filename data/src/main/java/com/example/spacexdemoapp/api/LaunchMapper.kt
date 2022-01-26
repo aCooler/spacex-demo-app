@@ -28,50 +28,29 @@ fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
         payload = this.data?.payload?.toPayload() ?: Payload.EMPTY,
         linkInfo = this.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
     )
-class LaunchMapper {
 
-    fun toLaunchDetails(id: String, response: ApolloResponse<GetLaunchQuery.Data>): LaunchData {
-        val linkInfo = response.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
-        val payload = response.data?.payload?.toPayload() ?: Payload.EMPTY
-        val mission = response.data?.launch?.toMission() ?: Mission.EMPTY
-        return LaunchData(
-            number = id,
-            mission = mission,
-            payload = payload,
-            linkInfo = linkInfo
-        )
-    }
 
-    fun toLaunches(response: ApolloResponse<GetLaunchesQuery.Data>): List<LaunchData> {
-        return response.data?.launches?.map {
-            LaunchData(
-                number = it?.id ?: LaunchData.EMPTY.number,
-                mission = it?.toMission() ?: Mission.EMPTY,
-                linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
-            )
-        } ?: emptyList()
-    }
 
-    fun toNextLaunch(response: ApolloResponse<GetNextLaunchQuery.Data>): HomeData {
-        val nextLaunch = LaunchData(
-            number = LaunchData.EMPTY.number,
-            mission = Mission.EMPTY.copy(
-                name = response.data?.launchNext?.mission_name ?: "",
-                date = response.data?.launchNext?.launch_date_local ?: Date()),
-            linkInfo = LinkInfo.EMPTY,
-        )
+ fun ApolloResponse<GetNextLaunchQuery.Data>.toNextLaunch(): HomeData {
+     val nextLaunch = LaunchData(
+         number = LaunchData.EMPTY.number,
+         mission = Mission.EMPTY.copy(
+             name = this.data?.launchNext?.mission_name ?: "",
+             date = this.data?.launchNext?.launch_date_local ?: Date()),
+         linkInfo = LinkInfo.EMPTY,
+     )
 
-        val rockets = RocketsData(
-            total = response.data?.launches?.size.toString(),
-            efficiency = response.data?.launches?.filter {
-                it?.launch_success ?: false
-            }?.size.toString()
-        )
-        return HomeData(
-            launchData = nextLaunch,
-            rockets = rockets
-        )
-    }
+     val rockets = RocketsData(
+         total = this.data?.launches?.size.toString(),
+         efficiency = this.data?.launches?.filter {
+             it?.launch_success ?: false
+         }?.size.toString()
+     )
+     return HomeData(
+         launchData = nextLaunch,
+         rockets = rockets
+     )
+}
 
 
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
@@ -83,7 +62,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
 fun GetLaunchQuery.Launch.toMission(): Mission =
     Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
-        date = missionDetails.launch_date_local?.toDateString() ?: "",
+        date = missionDetails.launch_date_local ?: Date(),
         rocketName = rocket?.rocketFields?.rocket_name ?: Mission.EMPTY.rocketName,
         place = launch_site?.site_name_long ?: Mission.EMPTY.place,
         success = missionDetails.launch_success ?: Mission.EMPTY.success,
@@ -123,17 +102,6 @@ fun GetLaunchQuery.Launch.toMission(): Mission =
         )
     }
 
-    fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
-        LinkInfo(
-            badge = mission_patch ?: LinkInfo.EMPTY.badge,
-            picture = when {
-                flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-                else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
-            },
-            pictures = flickr_images ?: LinkInfo.EMPTY.pictures,
-            video = video_link ?: LinkInfo.EMPTY.video
-        )
-    }
 fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
     LinkInfo(
         badge = mission_patch ?: LinkInfo.EMPTY.badge,
