@@ -11,23 +11,18 @@ import com.example.example.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 
-class LaunchMapper {
-
-    fun toRockets(it: List<Rocket>?) :List<RocketData>{
-        return it?.map {
-            RocketData.EMPTY.copy(
-                name = it.name ?: RocketData.EMPTY.name,
-                firstFlight = it.firstFlight ?: RocketData.EMPTY.firstFlight,
-                country = it.country ?: RocketData.EMPTY.country,
-                cost = it.costPerLaunch?.toString() ?: RocketData.EMPTY.cost,
-                stagesNumber = it.stages?.toString() ?: RocketData.EMPTY.stagesNumber,
-                activity = it.active ?: RocketData.EMPTY.activity,
-                rocketPicture = it.flickrImages[0]
-            )
-        } ?: mutableListOf(RocketData.EMPTY)
-    }
-
+fun List<Rocket>.toRockets() = this.map {
+    RocketData.EMPTY.copy(
+        name = it.name ?: RocketData.EMPTY.name,
+        firstFlight = it.firstFlight ?: RocketData.EMPTY.firstFlight,
+        country = it.country ?: RocketData.EMPTY.country,
+        cost = it.costPerLaunch?.toString() ?: RocketData.EMPTY.cost,
+        stagesNumber = it.stages?.toString() ?: RocketData.EMPTY.stagesNumber,
+        activity = it.active ?: RocketData.EMPTY.activity,
+        rocketPicture = it.flickrImages[0]
+    )
 }
+
 fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
     this.data?.launches?.map {
         LaunchData(

@@ -5,7 +5,6 @@ import com.apollographql.apollo3.adapter.DateAdapter
 import com.example.data.DataLaunchRepository
 import com.example.domain.LaunchRepository
 import com.example.myspacexdemoapp.BuildConfig
-import com.example.spacexdemoapp.api.LaunchMapper
 import com.example.spacexdemoapp.api.SpaceXApi
 import com.example.spacexdemoapp.api.retrofit.RocketsService
 import dagger.Module
@@ -59,10 +58,4 @@ class NetModule {
         return DataLaunchRepository(spaceXApi, rocketsService)
     }
 
-
-    @Provides
-    @Singleton
-    fun provideMapper(): LaunchMapper {
-        return LaunchMapper()
-    }
 }
