@@ -1,7 +1,7 @@
-package com.example.domain
+package com.example.myspacexdemoapp.data
 
 import com.apollographql.apollo3.api.ApolloResponse
-import com.example.spacexdemoapp.api.LaunchMapper
+import com.example.spacexdemoapp.api.toLaunches
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
@@ -30,7 +30,7 @@ class GetLaunchDetailsUseCaseTest {
                 requestUuid = UUID.randomUUID(),
                 data = mockData
             ).build()
-        val mapped = LaunchMapper().toLaunches(mockResponse)
+        val mapped = mockResponse.toLaunches()
         TestCase.assertEquals(mapped[0].number, "1111")
         TestCase.assertEquals(mapped[0].mission.details, "My details")
         TestCase.assertEquals(mapped[0].mission.name, "My mission name")
