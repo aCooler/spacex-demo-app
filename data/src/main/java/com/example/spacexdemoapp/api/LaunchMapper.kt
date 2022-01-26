@@ -12,6 +12,22 @@ import spacexdemoapp.GetLaunchesQuery
 import spacexdemoapp.GetNextLaunchQuery
 import java.util.Date
 
+fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
+    this.data?.launches?.map {
+        LaunchData(
+            number = it?.id ?: LaunchData.EMPTY.number,
+            mission = it?.toMission() ?: Mission.EMPTY,
+            linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
+        )
+    } ?: emptyList()
+
+fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
+    LaunchData(
+        number = id,
+        mission = this.data?.launch?.toMission() ?: Mission.EMPTY,
+        payload = this.data?.payload?.toPayload() ?: Payload.EMPTY,
+        linkInfo = this.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
+    )
 class LaunchMapper {
 
     fun toLaunchDetails(id: String, response: ApolloResponse<GetLaunchQuery.Data>): LaunchData {
@@ -58,24 +74,21 @@ class LaunchMapper {
     }
 
 
-    fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
-        badge = mission_patch ?: LinkInfo.EMPTY.badge,
-        picture = when {
-            flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-            else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
-        },
-        pictures = flickr_images ?: LinkInfo.EMPTY.pictures
-    )
+fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
+    badge = mission_patch ?: LinkInfo.EMPTY.badge,
+    picture = flickr_images?.firstOrNull() ?: LinkInfo.EMPTY.picture,
+    pictures = flickr_images ?: LinkInfo.EMPTY.pictures
+)
 
-    fun GetLaunchQuery.Launch.toMission(): Mission =
-        Mission(
-            name = missionDetails.mission_name ?: Mission.EMPTY.name,
-            date = missionDetails.launch_date_local ?: Mission.EMPTY.date,
-            rocketName = rocket?.rocketFields?.rocket_name ?: Mission.EMPTY.rocketName,
-            place = launch_site?.site_name_long ?: Mission.EMPTY.place,
-            success = missionDetails.launch_success ?: Mission.EMPTY.success,
-            details = details ?: Mission.EMPTY.details
-        )
+fun GetLaunchQuery.Launch.toMission(): Mission =
+    Mission(
+        name = missionDetails.mission_name ?: Mission.EMPTY.name,
+        date = missionDetails.launch_date_local?.toDateString() ?: "",
+        rocketName = rocket?.rocketFields?.rocket_name ?: Mission.EMPTY.rocketName,
+        place = launch_site?.site_name_long ?: Mission.EMPTY.place,
+        success = missionDetails.launch_success ?: Mission.EMPTY.success,
+        details = details ?: Mission.EMPTY.details
+    )
 
     fun GetNextLaunchQuery.LaunchNext.toMission(): Mission =
         Mission(
@@ -121,4 +134,11 @@ class LaunchMapper {
             video = video_link ?: LinkInfo.EMPTY.video
         )
     }
+fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
+    LinkInfo(
+        badge = mission_patch ?: LinkInfo.EMPTY.badge,
+        picture = flickr_images?.firstOrNull() ?: LinkInfo.EMPTY.picture,
+        pictures = flickr_images ?: LinkInfo.EMPTY.pictures,
+        video = video_link ?: LinkInfo.EMPTY.video
+    )
 }
