@@ -8,7 +8,7 @@ import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
 import com.example.myspacexdemoapp.databinding.TimerCardBinding
 
-class StartAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class StartAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<StartUIModel> = mutableListOf()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -37,10 +37,14 @@ class StartAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.timer_card -> TimerViewHolder(TimerCardBinding.bind(view))
+            R.layout.timer_card -> TimerViewHolder(TimerCardBinding.bind(view),onClickListener)
             R.layout.launches_total -> LaunchesViewHolder(LaunchesTotalBinding.bind(view))
             R.layout.rockets_start -> RocketViewHolder(RocketsStartBinding.bind(view))
             else -> { TODO() }
         }
+    }
+
+    class OnClickListener(val clickListener: () -> Unit) {
+        fun onClick() = clickListener()
     }
 }

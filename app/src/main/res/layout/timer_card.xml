@@ -9,142 +9,92 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTintMode="src_in"
-        android:fontFamily="@font/inter_semibold"
-        android:foregroundTint="@color/real_white"
-        android:foregroundTintMode="add"
-        android:lineSpacingExtra="2.8sp"
-        android:text="NEXT LAUNCH"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:textStyle="normal"
+        android:text="@string/next_launch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline3"
-        tools:text="NEXT LAUNCH" />
+        tools:text="NEXT LAUNCH"
+        style="@style/timer_title_style" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="#fafafa"
-        android:textSize="30sp"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_goneMarginTop="16dp"
-        />
+        style="@style/rocket_name_style" />
 
     <TextView
         android:id="@+id/day"
         android:layout_width="78dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="2.8sp"
-        android:textAllCaps="true"
-        android:textColor="#8c8e8f"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
         app:layout_constraintRight_toLeftOf="@id/hour"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Days"
-        android:text="Days"
-        />
+        android:text="@string/days"
+        style="@style/bottom_timer_words" />
 
     <TextView
         android:id="@+id/hour"
         android:layout_width="78dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="2.8sp"
-        android:textAllCaps="true"
-        android:textColor="#8c8e8f"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
         app:layout_constraintLeft_toRightOf="@id/day"
         app:layout_constraintRight_toLeftOf="@id/minute"
         tools:text="Hours"
-        android:text="Hours" />
+        android:text="@string/hours"
+        style="@style/bottom_timer_words" />
 
     <TextView
         android:id="@+id/minute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="2.8sp"
-        android:textAllCaps="true"
-        android:textColor="#8c8e8f"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
         app:layout_constraintLeft_toRightOf="@id/hour"
         app:layout_constraintRight_toLeftOf="@id/second"
         tools:text="Minutes"
-        android:text="Minutes" />
+        android:text="@string/minutes"
+        style="@style/bottom_timer_words" />
 
     <TextView
         android:id="@+id/second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="2.8sp"
-        android:textAllCaps="true"
-        android:textColor="#8c8e8f"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
         app:layout_constraintLeft_toRightOf="@+id/minute"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="Seconds"
-        android:text="Seconds" />
+        android:text="@string/seconds"
+        style="@style/bottom_timer_words" />
 
     <TextView
         android:id="@+id/days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="#fafafa"
-        android:textSize="20sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@id/day"
         app:layout_constraintLeft_toLeftOf="@id/day"
         app:layout_constraintRight_toRightOf="@id/day"
         tools:text="8"
-        />
+        style="@style/numbers_timer_style" />
 
     <TextView
         android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="#fafafa"
-        android:textSize="20sp"
-        android:textStyle="normal"
+        style="@style/numbers_timer_style"
         app:layout_constraintBottom_toTopOf="@id/hour"
         app:layout_constraintLeft_toLeftOf="@id/hour"
         app:layout_constraintRight_toRightOf="@id/hour"
-        tools:text="17"
-        android:text="17" />
+        tools:text="17" />
 
     <TextView
         android:id="@+id/minutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="#fafafa"
-        android:textSize="20sp"
-        android:textStyle="normal"
+        style="@style/numbers_timer_style"
         app:layout_constraintBottom_toTopOf="@id/minute"
         app:layout_constraintLeft_toLeftOf="@id/minute"
         app:layout_constraintRight_toRightOf="@id/minute"
@@ -154,11 +104,7 @@
         android:id="@+id/seconds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="#fafafa"
-        android:textSize="20sp"
-        android:textStyle="normal"
+        style="@style/numbers_timer_style"
         app:layout_constraintBottom_toTopOf="@id/second"
         app:layout_constraintLeft_toLeftOf="@id/second"
         app:layout_constraintRight_toRightOf="@id/second"
@@ -182,14 +128,15 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/timer_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="127dp"
         android:contentDescription="@string/app_name"
         android:gravity="center_vertical|center_horizontal"
-        android:tint="@color/white"
-
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:tint="@color/white"
+        app:backgroundTint="@color/real_white_opacity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_under_timer" />
@@ -202,7 +149,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_space_x_logo_1_1" />
+        app:srcCompat="@drawable/ic_space_x_logo_1_1"
+        android:contentDescription="@string/app_name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

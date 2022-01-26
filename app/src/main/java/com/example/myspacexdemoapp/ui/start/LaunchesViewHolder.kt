@@ -1,19 +1,38 @@
 package com.example.myspacexdemoapp.ui.start
 
+import android.content.Context
+import android.view.Display
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
+
+
+
+
+
+
+
+
+
 
 class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolder(binding.root) {
     private val successful: TextView = binding.successful
     private val total: TextView = binding.total
     private val efficiency: TextView = binding.efficiency
     private val toLaunch: TextView = binding.toLaunch
+    private val card: ConstraintLayout = binding.root
+
+
 
     fun onBindView(model: StartUIModel.Launches) {
+        val wm: WindowManager = card.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display: Display = wm.defaultDisplay
+        card.layoutParams.height = display.height / 2
         if (model.successful.isEmpty()) {
             successful.visibility = View.GONE
         } else {

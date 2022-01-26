@@ -10,7 +10,7 @@ import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.StartFragmentBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.Date
@@ -29,14 +29,16 @@ class StartFragment : Fragment(R.layout.start_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = StartFragmentBinding.bind(view)
         fragmentBlankBinding = binding
-        val adapter = StartAdapter()
+        val adapter = StartAdapter(StartAdapter.OnClickListener {
+            binding.launchesListTimer.scrollToPosition(2)
+        })
         binding.launchesListTimer.adapter = adapter
         binding.launchesListTimer.layoutManager = LinearLayoutManager(activity)
         binding.swipeRefresh.setOnRefreshListener {
             timerViewModel.getLaunchNextLaunch()
         }
         timerViewModel.getLaunchNextLaunch()
-        var date = Date()
+        var date : Date
         timerViewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is StartViewState.Error -> {
@@ -66,7 +68,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
                     ))
 
                     adapter.setItems(dataset)
-                    disposable = Observable.interval(1, 1, TimeUnit.SECONDS)
+                    disposable = Flowable.interval(1, 1, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({

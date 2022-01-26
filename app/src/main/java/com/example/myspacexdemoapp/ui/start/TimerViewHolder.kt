@@ -4,8 +4,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.databinding.TimerCardBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class TimerViewHolder(binding: TimerCardBinding) : RecyclerView.ViewHolder(binding.root) {
+class TimerViewHolder(binding: TimerCardBinding, private val onClickListener: StartAdapter.OnClickListener) : RecyclerView.ViewHolder(binding.root) {
 /*    private val place: TextView = binding.place
     private val rocketName: TextView = binding.rocketName
     private val date: TextView = binding.date
@@ -22,9 +23,14 @@ class TimerViewHolder(binding: TimerCardBinding) : RecyclerView.ViewHolder(bindi
     private val hours: TextView = binding.hours
     private val minutes: TextView = binding.minutes
     private val seconds: TextView = binding.seconds
-
+    private val timerButton: FloatingActionButton = binding.timerButton
 
     fun onBindView(model: StartUIModel.Timer) {
+
+        timerButton.setOnClickListener{
+            onClickListener.onClick()
+        }
+
 
         if (model.name.isEmpty()) {
             name.visibility = View.GONE
