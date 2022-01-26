@@ -13,28 +13,6 @@ import spacexdemoapp.GetLaunchesQuery
 
 class LaunchMapper {
 
-    fun toLaunchDetails(id: String, response: ApolloResponse<GetLaunchQuery.Data>): LaunchData {
-        val linkInfo = response.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
-        val payload = response.data?.payload?.toPayload() ?: Payload.EMPTY
-        val mission = response.data?.launch?.toMission() ?: Mission.EMPTY
-        return LaunchData(
-            number = id,
-            mission = mission,
-            payload = payload,
-            linkInfo = linkInfo
-        )
-    }
-
-    fun toLaunches(response: ApolloResponse<GetLaunchesQuery.Data>): List<LaunchData> {
-        return response.data?.launches?.map {
-            LaunchData(
-                number = it?.id ?: LaunchData.EMPTY.number,
-                mission = it?.toMission() ?: Mission.EMPTY,
-                linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
-            )
-        } ?: emptyList()
-    }
-
     fun toRockets(it: List<Rocket>?) :List<RocketData>{
         return it?.map {
             RocketData.EMPTY.copy(
@@ -50,13 +28,26 @@ class LaunchMapper {
     }
 
 }
+fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
+    this.data?.launches?.map {
+        LaunchData(
+            number = it?.id ?: LaunchData.EMPTY.number,
+            mission = it?.toMission() ?: Mission.EMPTY,
+            linkInfo = it?.links?.toLinksInfo() ?: LinkInfo.EMPTY,
+        )
+    } ?: emptyList()
+
+fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
+    LaunchData(
+        number = id,
+        mission = this.data?.launch?.toMission() ?: Mission.EMPTY,
+        payload = this.data?.payload?.toPayload() ?: Payload.EMPTY,
+        linkInfo = this.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
+    )
 
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch ?: LinkInfo.EMPTY.badge,
-    picture = when {
-        flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-        else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
-    },
+    picture = flickr_images?.firstOrNull() ?: LinkInfo.EMPTY.picture,
     pictures = flickr_images ?: LinkInfo.EMPTY.pictures
 )
 
@@ -96,10 +87,7 @@ fun GetLaunchQuery.Payload.toPayload(): Payload {
 fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
     LinkInfo(
         badge = mission_patch ?: LinkInfo.EMPTY.badge,
-        picture = when {
-            flickr_images.isNullOrEmpty() -> LinkInfo.EMPTY.picture
-            else -> flickr_images.first() ?: LinkInfo.EMPTY.picture
-        },
+        picture = flickr_images?.firstOrNull() ?: LinkInfo.EMPTY.picture,
         pictures = flickr_images ?: LinkInfo.EMPTY.pictures,
         video = video_link ?: LinkInfo.EMPTY.video
     )
