@@ -84,7 +84,7 @@ fragment RocketFields on LaunchRocket {
 }
 
 fragment MissionDetails on Launch{
-    launch_date_utc
+    launch_date_local
     mission_name
     launch_success
 }

@@ -9,6 +9,9 @@ plugins {
 android {
     compileSdk 31
     defaultConfig {
+        buildConfigField("String",
+                "DATE_STRING_TO",
+                "\"MMM dd , yyyy HH:mm a\"")
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -33,5 +36,5 @@ android {
 
 dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:$rxjava"
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "com.google.dagger:dagger-android:$dagger"
 }

@@ -3,13 +3,13 @@ package com.example.myspacexdemoapp.ui.launch.adapters
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.databinding.SingleBinding
-import com.example.myspacexdemoapp.ui.DataModel
+import com.example.myspacexdemoapp.ui.UIModel
 
-class SingleViewHolder(private val binding: SingleBinding) : RecyclerView.ViewHolder(binding.root) {
+class SingleViewHolder(binding: SingleBinding) : RecyclerView.ViewHolder(binding.root) {
     private val singleTitle: TextView = binding.singleTitle
     private val singleText: TextView = binding.singleText
 
-    fun onBindView(model: DataModel.TitleAndText) {
+    fun onBindView(model: UIModel.TitleAndText) {
         singleTitle.text = model.title
         singleText.text = model.text
     }

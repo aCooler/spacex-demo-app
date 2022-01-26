@@ -10,6 +10,10 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.example.domain.LaunchData
+import com.example.domain.LinkInfo
+import com.example.domain.Mission
+import com.example.domain.Payload
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.util.TestUtil.atPosition
 import com.example.myspacexdemoapp.util.TestUtil.isRefreshing
@@ -65,7 +69,7 @@ class MainFragmentTest {
         liveData.postValue(
             LaunchesViewState.Success(
                 listOf(
-                    LaunchUiModel(
+                    LaunchData(
                         number,
                         linkInfo = LinkInfo.EMPTY
                             .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
@@ -90,7 +94,7 @@ class MainFragmentTest {
     fun when_success_retrieved_than_title_is_checked() {
         LaunchesViewState.Success(
             listOf(
-                LaunchUiModel(
+                LaunchData(
                     "889",
                     linkInfo = LinkInfo.EMPTY
                         .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
@@ -119,7 +123,7 @@ class MainFragmentTest {
         liveData.postValue(
             LaunchesViewState.Success(
                 listOf(
-                    LaunchUiModel(
+                    LaunchData(
                         "889",
                         linkInfo = LinkInfo.EMPTY
                             .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
@@ -151,7 +155,7 @@ class MainFragmentTest {
         liveData.postValue(
             LaunchesViewState.Success(
                 listOf(
-                    LaunchUiModel(
+                    LaunchData(
                         "889",
                         linkInfo = LinkInfo.EMPTY
                             .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),

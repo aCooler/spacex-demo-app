@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.api
+package com.example.myspacexdemoapp.data
 
 import com.apollographql.apollo3.ApolloClient
 import junit.framework.TestCase

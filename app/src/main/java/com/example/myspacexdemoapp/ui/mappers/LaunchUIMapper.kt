@@ -1,12 +1,12 @@
 package com.example.myspacexdemoapp.ui.mappers
 
-import com.example.myspacexdemoapp.ui.DataModel
-import com.example.myspacexdemoapp.ui.launches.LaunchUiModel
-import com.example.myspacexdemoapp.ui.launches.Payload
+import com.example.domain.LaunchData
+import com.example.domain.Payload
+import com.example.myspacexdemoapp.ui.UIModel
 
-class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
+class LaunchUIMapper(private val launchData: LaunchData) {
 
-    private val recycleViewModel: MutableList<DataModel> = mutableListOf()
+    private val recycleViewModel: MutableList<UIModel> = mutableListOf()
 
     companion object {
         const val PAYLOAD_NAME = "Payload #1"
@@ -19,7 +19,7 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
         const val GALLERY = "Gallery"
     }
 
-    fun launchUiModelToDataModel(): MutableList<DataModel> {
+    fun launchUiModelToDataModel(): MutableList<UIModel> {
         addPicture()
         addLaunchEvent()
         addLaunchDetails()
@@ -29,119 +29,119 @@ class LaunchUIMapper(private val launchUiModel: LaunchUiModel) {
     }
 
     private fun addGallery() {
-        launchUiModel.linkInfo.pictures.let { list ->
-            val dataModel = DataModel.Gallery(
+        launchData.linkInfo.pictures.let { list ->
+            val dataModel = UIModel.Gallery(
                 list.filterNotNull().filter
                 {
                     it.isNotBlank()
                 }
             )
             if (dataModel.pictures.isNotEmpty()) {
-                recycleViewModel.add(DataModel.SingleString(word = GALLERY))
+                recycleViewModel.add(UIModel.SingleString(word = GALLERY))
                 recycleViewModel.add(dataModel)
             }
         }
     }
 
     private fun addPayload() {
-        val payloadList = mutableListOf<DataModel>()
-        if (launchUiModel.mission.name.isNotEmpty()) {
-            payloadList.add(DataModel.TitleAndText(title = NAME, text = launchUiModel.mission.name))
+        val payloadList = mutableListOf<UIModel>()
+        if (launchData.mission.name.isNotEmpty()) {
+            payloadList.add(UIModel.TitleAndText(title = NAME, text = launchData.mission.name))
         }
-        if (launchUiModel.payload.customers.isNotEmpty()) {
+        if (launchData.payload.customers.isNotEmpty()) {
             payloadList.add(
-                DataModel.TitleAndText(
+                UIModel.TitleAndText(
                     title = CUSTOMER,
-                    text = launchUiModel.payload.customers[0] ?: Payload.EMPTY.manufacturer
+                    text = launchData.payload.customers[0] ?: Payload.EMPTY.manufacturer
                 )
             )
         }
-        if (launchUiModel.payload.manufacturer.isNotEmpty()) {
+        if (launchData.payload.manufacturer.isNotEmpty()) {
             payloadList.add(
-                DataModel.TitleAndText(
+                UIModel.TitleAndText(
                     title = MANUFACTURE,
-                    text = launchUiModel.payload.manufacturer
+                    text = launchData.payload.manufacturer
                 )
             )
         }
-        if (launchUiModel.payload.mass != 0.0) {
+        if (launchData.payload.mass != 0.0) {
             payloadList.add(
-                DataModel.TitleAndText(
+                UIModel.TitleAndText(
                     title = MASS,
-                    text = launchUiModel.payload.mass.toString()
+                    text = launchData.payload.mass.toString()
                 )
             )
         }
-        if (launchUiModel.payload.nationality.isNotEmpty()) {
+        if (launchData.payload.nationality.isNotEmpty()) {
             payloadList.add(
-                DataModel.TitleAndText(
+                UIModel.TitleAndText(
                     title = NATIONALITY,
-                    text = launchUiModel.payload.nationality
+                    text = launchData.payload.nationality
                 )
             )
         }
-        if (launchUiModel.payload.orbit.isNotEmpty()) {
+        if (launchData.payload.orbit.isNotEmpty()) {
             payloadList.add(
-                DataModel.TitleAndText(
+                UIModel.TitleAndText(
                     title = ORBIT,
-                    text = launchUiModel.payload.orbit
+                    text = launchData.payload.orbit
                 )
             )
         }
         if (payloadList.isNotEmpty()) {
-            payloadList.add(0, DataModel.SingleString(word = PAYLOAD_NAME))
+            payloadList.add(0, UIModel.SingleString(word = PAYLOAD_NAME))
             recycleViewModel.addAll(payloadList)
         }
     }
 
     private fun addLaunchDetails() {
-        if (launchUiModel.mission.details.isNotEmpty()) {
-            recycleViewModel.add(DataModel.Details(details = launchUiModel.mission.details))
+        if (launchData.mission.details.isNotEmpty()) {
+            recycleViewModel.add(UIModel.Details(details = launchData.mission.details))
         }
     }
 
     private fun addLaunchEvent() {
 
         var listHasItems = false
-        val date = if (launchUiModel.mission.date.isNotEmpty()) {
+        val date = if (launchData.mission.date.isNotEmpty()) {
             listHasItems = true
-            launchUiModel.mission.date
+            launchData.mission.date
         } else {
             ""
         }
-        val rocket = if (launchUiModel.mission.rocketName.isNotEmpty()) {
+        val rocket = if (launchData.mission.rocketName.isNotEmpty()) {
             listHasItems = true
-            launchUiModel.mission.rocketName
+            launchData.mission.rocketName
         } else {
             ""
         }
-        val place = if (launchUiModel.mission.place.isNotEmpty()) {
+        val place = if (launchData.mission.place.isNotEmpty()) {
             listHasItems = true
-            launchUiModel.mission.place
+            launchData.mission.place
         } else {
             ""
         }
-        val reused = launchUiModel.payload.reused
+        val reused = launchData.payload.reused
         if (reused) {
             listHasItems = true
         }
 
-        val data: DataModel.LaunchEvent =
-            DataModel.LaunchEvent(date = date, rocket = rocket, reused = reused, place = place)
+        val ui: UIModel.LaunchEvent =
+            UIModel.LaunchEvent(date = date, rocket = rocket, reused = reused, place = place)
         if (listHasItems) {
-            recycleViewModel.add(data)
+            recycleViewModel.add(ui)
         }
     }
 
     private fun addPicture() {
-        val data: DataModel.MainInfo = DataModel.MainInfo(
-            pictureUrl = launchUiModel.linkInfo.picture,
-            badgeUrl = launchUiModel.linkInfo.badge,
-            success = launchUiModel.mission.success,
-            number = launchUiModel.number
+        val ui: UIModel.MainInfo = UIModel.MainInfo(
+            pictureUrl = launchData.linkInfo.picture,
+            badgeUrl = launchData.linkInfo.badge,
+            success = launchData.mission.success,
+            number = launchData.number
         )
-        if (data.pictureUrl.isNotEmpty() || data.badgeUrl.isNotEmpty()) {
-            recycleViewModel.add(data)
+        if (ui.pictureUrl.isNotEmpty() || ui.badgeUrl.isNotEmpty()) {
+            recycleViewModel.add(ui)
         }
     }
 }

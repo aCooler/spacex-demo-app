@@ -1,12 +1,12 @@
 package com.example.myspacexdemoapp.ui
 
-sealed class DataModel {
+sealed class UIModel {
     data class MainInfo(
         val number: String,
         val pictureUrl: String,
         val badgeUrl: String,
         val success: Boolean
-    ) : DataModel()
+    ) : UIModel()
 
     data class LaunchEvent(
         val rocket: String,
@@ -14,24 +14,24 @@ sealed class DataModel {
         val place: String,
         val reused: Boolean
     ) :
-        DataModel()
+        UIModel()
 
     data class Details(
         val details: String,
     ) :
-        DataModel()
+        UIModel()
 
     data class SingleString(
         val word: String,
     ) :
-        DataModel()
+        UIModel()
 
     data class TitleAndText(
         val title: String,
         val text: String,
     ) :
-        DataModel()
+        UIModel()
 
     data class Gallery(val pictures: List<String>) :
-        DataModel()
+        UIModel()
 }

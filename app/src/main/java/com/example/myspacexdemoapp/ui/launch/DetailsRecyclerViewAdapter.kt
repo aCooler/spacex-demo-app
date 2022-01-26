@@ -10,7 +10,7 @@ import com.example.myspacexdemoapp.databinding.MissionCardBinding
 import com.example.myspacexdemoapp.databinding.PictureBinding
 import com.example.myspacexdemoapp.databinding.RowBinding
 import com.example.myspacexdemoapp.databinding.SingleBinding
-import com.example.myspacexdemoapp.ui.DataModel
+import com.example.myspacexdemoapp.ui.UIModel
 import com.example.myspacexdemoapp.ui.launch.adapters.CardViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.DetailsViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.GalleryViewHolder
@@ -19,31 +19,31 @@ import com.example.myspacexdemoapp.ui.launch.adapters.RowViewHolder
 import com.example.myspacexdemoapp.ui.launch.adapters.SingleViewHolder
 
 class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var listOfData: MutableList<DataModel> = mutableListOf()
+    private var listOfData: MutableList<UIModel> = mutableListOf()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val launchUIModel = listOfData[position]
         when (holder) {
-            is CardViewHolder -> holder.onBindView(launchUIModel as DataModel.LaunchEvent)
-            is PictureViewHolder -> holder.onBindView(launchUIModel as DataModel.MainInfo)
-            is DetailsViewHolder -> holder.onBindView(launchUIModel as DataModel.Details)
-            is RowViewHolder -> holder.onBindView(launchUIModel as DataModel.SingleString)
-            is SingleViewHolder -> holder.onBindView(launchUIModel as DataModel.TitleAndText)
-            is GalleryViewHolder -> holder.onBindView(launchUIModel as DataModel.Gallery)
+            is CardViewHolder -> holder.onBindView(launchUIModel as UIModel.LaunchEvent)
+            is PictureViewHolder -> holder.onBindView(launchUIModel as UIModel.MainInfo)
+            is DetailsViewHolder -> holder.onBindView(launchUIModel as UIModel.Details)
+            is RowViewHolder -> holder.onBindView(launchUIModel as UIModel.SingleString)
+            is SingleViewHolder -> holder.onBindView(launchUIModel as UIModel.TitleAndText)
+            is GalleryViewHolder -> holder.onBindView(launchUIModel as UIModel.Gallery)
         }
     }
 
     override fun getItemViewType(position: Int) = when (listOfData[position]) {
-        is DataModel.MainInfo -> R.layout.picture
-        is DataModel.LaunchEvent -> R.layout.mission_card
-        is DataModel.Details -> R.layout.details
-        is DataModel.SingleString -> R.layout.row
-        is DataModel.TitleAndText -> R.layout.single
-        is DataModel.Gallery -> R.layout.gallery
+        is UIModel.MainInfo -> R.layout.picture
+        is UIModel.LaunchEvent -> R.layout.mission_card
+        is UIModel.Details -> R.layout.details
+        is UIModel.SingleString -> R.layout.row
+        is UIModel.TitleAndText -> R.layout.single
+        is UIModel.Gallery -> R.layout.gallery
     }
 
     override fun getItemCount(): Int = listOfData.size
 
-    fun setItems(model: MutableList<DataModel>) {
+    fun setItems(model: MutableList<UIModel>) {
         listOfData = model
         notifyDataSetChanged()
     }
