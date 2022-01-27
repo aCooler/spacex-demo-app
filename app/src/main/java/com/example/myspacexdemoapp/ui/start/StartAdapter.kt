@@ -8,7 +8,8 @@ import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
 import com.example.myspacexdemoapp.databinding.TimerCardBinding
 
-class StartAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class StartAdapter(private val onClickListener: OnClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<StartUIModel> = mutableListOf()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -23,7 +24,6 @@ class StartAdapter(private val onClickListener: OnClickListener) : RecyclerView.
         is StartUIModel.Timer -> R.layout.timer_card
         is StartUIModel.Rockets -> R.layout.rockets_start
     }
-
 
     override fun getItemCount(): Int = listOfData.size
 
@@ -41,10 +41,10 @@ class StartAdapter(private val onClickListener: OnClickListener) : RecyclerView.
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.timer_card -> TimerViewHolder(TimerCardBinding.bind(view),onClickListener)
+            R.layout.timer_card -> TimerViewHolder(TimerCardBinding.bind(view), onClickListener)
             R.layout.launches_total -> LaunchesViewHolder(LaunchesTotalBinding.bind(view))
             R.layout.rockets_start -> RocketViewHolder(RocketsStartBinding.bind(view))
-            else -> { TODO() }
+            else -> TimerViewHolder(TimerCardBinding.bind(view), onClickListener)
         }
     }
 
