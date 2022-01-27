@@ -21,5 +21,4 @@ sealed class StartUIModel {
         val tweet: String,
     ) :
         StartUIModel()
-
 }

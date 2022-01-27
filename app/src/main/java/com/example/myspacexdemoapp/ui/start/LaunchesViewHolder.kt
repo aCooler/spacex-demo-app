@@ -27,7 +27,6 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
         } else {
             successful.text = model.successful
         }
-
         if (model.total.isEmpty()) {
             total.visibility = View.GONE
         } else {
@@ -40,7 +39,6 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
         } else {
             efficiency.text = eff
         }
-
         if (model.efficiency.isEmpty()) {
             efficiency.visibility = View.GONE
         } else {

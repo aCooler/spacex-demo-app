@@ -63,7 +63,8 @@ class StartFragmentTest {
                         number = "889",
                         linkInfo = LinkInfo.EMPTY.copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
                         payload = Payload.EMPTY,
-                        mission = Mission.EMPTY.copy(name = "Antares",
+                        mission = Mission.EMPTY.copy(
+                            name = "Antares",
                             date = Date().apply {
                                 seconds = 40
                                 minutes = 30

@@ -24,9 +24,11 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         timerViewModel.init(arguments)
         val binding = StartFragmentBinding.bind(view)
         fragmentBlankBinding = binding
-        val adapter = StartAdapter(StartAdapter.OnClickListener {
-            binding.launchesListTimer.scrollToPosition(2)
-        })
+        val adapter = StartAdapter(
+            StartAdapter.OnClickListener {
+                binding.launchesListTimer.scrollToPosition(2)
+            }
+        )
         binding.launchesListTimer.adapter = adapter
         binding.launchesListTimer.layoutManager = LinearLayoutManager(activity)
         binding.swipeRefreshStart.setOnRefreshListener {
