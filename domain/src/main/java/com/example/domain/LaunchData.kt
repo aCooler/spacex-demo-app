@@ -2,7 +2,6 @@ package com.example.domain
 
 import java.util.Date
 
-
 data class HomeData(
     val launchData: LaunchData,
     val rockets: RocketsData,

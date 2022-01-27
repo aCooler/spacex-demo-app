@@ -13,15 +13,15 @@ import com.example.myspacexdemoapp.ui.mappers.toTimerUIList
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
-
 class StartFragment : Fragment(R.layout.start_fragment) {
 
     @Inject
     lateinit var timerViewModel: StartViewModel
     private var fragmentBlankBinding: StartFragmentBinding? = null
     var adapter: StartAdapter? = null
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        timerViewModel.init(arguments)
         val binding = StartFragmentBinding.bind(view)
         fragmentBlankBinding = binding
         val adapter = StartAdapter(StartAdapter.OnClickListener {
@@ -29,11 +29,10 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         })
         binding.launchesListTimer.adapter = adapter
         binding.launchesListTimer.layoutManager = LinearLayoutManager(activity)
-        binding.swipeRefresh.setOnRefreshListener {
+        binding.swipeRefreshStart.setOnRefreshListener {
             timerViewModel.getLaunchNextLaunch()
         }
-        if (arguments?.getBoolean("test") != true) timerViewModel.getLaunchNextLaunch()
-        timerViewModel.launchLiveData.observe(this, { state ->
+        timerViewModel.launchLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is StartViewState.Error -> {
                     Log.d("StartViewState.Error", state.error.toString())
@@ -41,13 +40,13 @@ class StartFragment : Fragment(R.layout.start_fragment) {
                 is StartViewState.Success -> {
                     val dataset = state.model.toTimerUIList()
                     adapter.setTimer(dataset)
-                    binding.swipeRefresh.isRefreshing = false
+                    binding.swipeRefreshStart.isRefreshing = false
                 }
                 is StartViewState.Loading -> {
-                    binding.swipeRefresh.isRefreshing = true
+                    binding.swipeRefreshStart.isRefreshing = true
                 }
             }
-        })
+        }
     }
 
     override fun onAttach(context: Context) {

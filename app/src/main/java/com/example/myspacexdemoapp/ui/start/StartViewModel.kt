@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui.start
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,17 +12,23 @@ class StartViewModel @Inject constructor(private val getStartUseCase: GetStartUs
 
     private val _launchMutableLiveData = MutableLiveData<StartViewState>()
     val launchLiveData: LiveData<StartViewState> = _launchMutableLiveData
+    var isNotTest: Boolean = false
 
+    fun init(arguments: Bundle?) {
+        isNotTest = arguments?.getBoolean("isNotTest") ?: true
+    }
 
     fun getLaunchNextLaunch() {
-        getStartUseCase.invoke()
-            .doOnSubscribe { _launchMutableLiveData.postValue(StartViewState.Loading) }
-            .subscribe({ response ->
-                _launchMutableLiveData.postValue(
-                    StartViewState.Success(response)
-                )
-            }, { throwable ->
-                _launchMutableLiveData.postValue(StartViewState.Error(throwable))
-            })
+        check(isNotTest) {
+            getStartUseCase.invoke()
+                .doOnSubscribe { _launchMutableLiveData.postValue(StartViewState.Loading) }
+                .subscribe({ response ->
+                    _launchMutableLiveData.postValue(
+                        StartViewState.Success(response)
+                    )
+                }, { throwable ->
+                    _launchMutableLiveData.postValue(StartViewState.Error(throwable))
+                })
+        }
     }
 }

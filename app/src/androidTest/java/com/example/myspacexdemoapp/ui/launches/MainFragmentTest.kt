@@ -63,33 +63,6 @@ class MainFragmentTest {
         }
     }
 
-  /*  @Test
-    fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
-        val number = "889"
-        liveData.postValue(
-            LaunchesViewState.Success(
-                listOf(
-                    LaunchData(
-                        number,
-                        linkInfo = LinkInfo.EMPTY
-                            .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                        payload = Payload.EMPTY,
-                        mission = Mission.EMPTY
-                            .copy(name = "Antares")
-                    )
-                )
-            )
-        )
-        onView(withId(R.id.launches_list_timer)).check { _, _ ->
-            matches(
-                atPosition(
-                    0,
-                    ViewMatchers.hasDescendant(ViewMatchers.withText(number))
-                )
-            )
-        }
-    }
-*/
     @Test
     fun when_success_retrieved_than_title_is_checked() {
         LaunchesViewState.Success(

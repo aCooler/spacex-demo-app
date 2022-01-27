@@ -29,29 +29,27 @@ fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
         linkInfo = this.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
     )
 
+fun ApolloResponse<GetNextLaunchQuery.Data>.toNextLaunch(): HomeData {
+    val nextLaunch = LaunchData(
+        number = this.data?.launchNext?.id ?: LaunchData.EMPTY.number,
+        mission = Mission.EMPTY.copy(
+            name = this.data?.launchNext?.mission_name ?: "",
+            date = this.data?.launchNext?.launch_date_local ?: Date()
+        ),
+        linkInfo = LinkInfo.EMPTY,
+    )
 
-
- fun ApolloResponse<GetNextLaunchQuery.Data>.toNextLaunch(): HomeData {
-     val nextLaunch = LaunchData(
-         number = this.data?.launchNext?.id ?: LaunchData.EMPTY.number,
-         mission = Mission.EMPTY.copy(
-             name = this.data?.launchNext?.mission_name ?: "",
-             date = this.data?.launchNext?.launch_date_local ?: Date()),
-         linkInfo = LinkInfo.EMPTY,
-     )
-
-     val rockets = RocketsData(
-         total = this.data?.launches?.size.toString(),
-         efficiency = this.data?.launches?.filter {
-             it?.launch_success ?: false
-         }?.size.toString()
-     )
-     return HomeData(
-         launchData = nextLaunch,
-         rockets = rockets
-     )
+    val rockets = RocketsData(
+        total = this.data?.launches?.size.toString(),
+        efficiency = this.data?.launches?.filter {
+            it?.launch_success ?: false
+        }?.size.toString()
+    )
+    return HomeData(
+        launchData = nextLaunch,
+        rockets = rockets
+    )
 }
-
 
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch ?: LinkInfo.EMPTY.badge,
@@ -69,38 +67,28 @@ fun GetLaunchQuery.Launch.toMission(): Mission =
         details = details ?: Mission.EMPTY.details
     )
 
-    fun GetNextLaunchQuery.LaunchNext.toMission(): Mission =
-        Mission(
-            name = mission_name ?: Mission.EMPTY.name,
-            date = launch_date_local ?: Mission.EMPTY.date,
-            rocketName = Mission.EMPTY.rocketName,
-            place = Mission.EMPTY.place,
-            success = Mission.EMPTY.success,
-            details = Mission.EMPTY.details
-        )
+fun GetLaunchesQuery.Launch.toMission(): Mission {
+    return Mission(
+        name = missionDetails.mission_name ?: Mission.EMPTY.name,
+        date = missionDetails.launch_date_local ?: Mission.EMPTY.date,
+        rocketName = rocket?.rocketFields?.rocket_name
+            ?: Mission.EMPTY.rocketName,
+        place = launch_site?.site_name_long ?: Mission.EMPTY.place,
+        success = missionDetails.launch_success ?: Mission.EMPTY.success,
+        details = details ?: Mission.EMPTY.details,
+    )
+}
 
-    fun GetLaunchesQuery.Launch.toMission(): Mission {
-        return Mission(
-            name = missionDetails.mission_name ?: Mission.EMPTY.name,
-            date = missionDetails.launch_date_local ?: Mission.EMPTY.date,
-            rocketName = rocket?.rocketFields?.rocket_name
-                ?: Mission.EMPTY.rocketName,
-            place = launch_site?.site_name_long ?: Mission.EMPTY.place,
-            success = missionDetails.launch_success ?: Mission.EMPTY.success,
-            details = details ?: Mission.EMPTY.details,
-        )
-    }
-
-    fun GetLaunchQuery.Payload.toPayload(): Payload {
-        return Payload(
-            orbit = orbit ?: Payload.EMPTY.orbit,
-            nationality = nationality ?: Payload.EMPTY.nationality,
-            manufacturer = manufacturer ?: Payload.EMPTY.manufacturer,
-            customers = customers ?: Payload.EMPTY.customers,
-            mass = payload_mass_kg ?: Payload.EMPTY.mass,
-            reused = reused ?: Payload.EMPTY.reused,
-        )
-    }
+fun GetLaunchQuery.Payload.toPayload(): Payload {
+    return Payload(
+        orbit = orbit ?: Payload.EMPTY.orbit,
+        nationality = nationality ?: Payload.EMPTY.nationality,
+        manufacturer = manufacturer ?: Payload.EMPTY.manufacturer,
+        customers = customers ?: Payload.EMPTY.customers,
+        mass = payload_mass_kg ?: Payload.EMPTY.mass,
+        reused = reused ?: Payload.EMPTY.reused,
+    )
+}
 
 fun GetLaunchQuery.Links.toLinksInfo() = with(linkInfo) {
     LinkInfo(
