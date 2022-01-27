@@ -45,11 +45,11 @@ class StartFragmentTest {
         every { viewModel.launchLiveData } returns liveData
         launchFragmentInContainer<StartFragment>(
             Bundle().apply {
-            this.putBoolean(
-                "isNotTest",
-                false
-            )
-        },
+                this.putBoolean(
+                    "isNotTest",
+                    false
+                )
+            },
             themeResId = R.style.Theme_Spacexdemoapp
         )
     }
@@ -65,10 +65,10 @@ class StartFragmentTest {
                         payload = Payload.EMPTY,
                         mission = Mission.EMPTY.copy(name = "Antares",
                             date = Date().apply {
-                            seconds = 40
-                            minutes = 30
-                            hours = 20
-                        }
+                                seconds = 40
+                                minutes = 30
+                                hours = 20
+                            }
                         )
                     ),
                     rockets = RocketsData(total = "", efficiency = "")

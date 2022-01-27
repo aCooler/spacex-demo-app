@@ -139,13 +139,13 @@ class LaunchUIMapper(private val launchData: LaunchData) {
         if (reused) {
             listHasItems = true
         }
-
         val ui: UIModel.LaunchEvent =
             UIModel.LaunchEvent(
                 date = date.toString(),
                 rocket = rocket,
                 reused = reused,
-                place = place)
+                place = place
+            )
         if (listHasItems) {
             recycleViewModel.add(ui)
         }
@@ -169,22 +169,28 @@ fun HomeData.toTimerUIList(): MutableList<StartUIModel> {
     val rocketsEfficiency = this.rockets
     val timeToLaunch = nextLaunch.mission.date
     val dataset: MutableList<StartUIModel> = mutableListOf()
-    dataset.add(0, StartUIModel.Timer(
+    dataset.add(0,
+        StartUIModel.Timer(
         name = nextLaunch.mission.name,
         days = timeToLaunch.day.toString(),
         hours = timeToLaunch.hours.toString(),
         minutes = timeToLaunch.minutes.toString(),
         seconds = timeToLaunch.seconds.toString()
     ))
-    dataset.add(1, StartUIModel.Launches(
+    dataset.add(1,
+        StartUIModel.Launches(
         successful = rocketsEfficiency.efficiency,
         total = rocketsEfficiency.total,
         efficiency = "",
         toLaunches = ""
-    ))
-    dataset.add(2, StartUIModel.Rockets(
-        tweet = ""
-    ))
+    )
+    )
+    dataset.add(
+        2,
+        StartUIModel.Rockets(
+            tweet = ""
+        )
+    )
 
     return dataset
 }
