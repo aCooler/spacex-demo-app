@@ -21,7 +21,8 @@ class GetStartUseCase @Inject constructor(private val spaceXApi: LaunchRepositor
                             .copy(
                                 date = Date
                                     (
-                                    homeData.launchData.mission.date.time - Date().time)
+                                    homeData.launchData.mission.date.time - Date().time
+                                )
                             )
                     )
             )
