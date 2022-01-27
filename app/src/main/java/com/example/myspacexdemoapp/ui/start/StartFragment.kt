@@ -32,7 +32,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         binding.swipeRefresh.setOnRefreshListener {
             timerViewModel.getLaunchNextLaunch()
         }
-        timerViewModel.getLaunchNextLaunch()
+        if (arguments?.getBoolean("test") != true) timerViewModel.getLaunchNextLaunch()
         timerViewModel.launchLiveData.observe(this, { state ->
             when (state) {
                 is StartViewState.Error -> {
@@ -40,7 +40,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
                 }
                 is StartViewState.Success -> {
                     val dataset = state.model.toTimerUIList()
-                    adapter.setItems(dataset)
+                    adapter.setTimer(dataset)
                     binding.swipeRefresh.isRefreshing = false
                 }
                 is StartViewState.Loading -> {

@@ -33,7 +33,7 @@ fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
 
  fun ApolloResponse<GetNextLaunchQuery.Data>.toNextLaunch(): HomeData {
      val nextLaunch = LaunchData(
-         number = LaunchData.EMPTY.number,
+         number = this.data?.launchNext?.id ?: LaunchData.EMPTY.number,
          mission = Mission.EMPTY.copy(
              name = this.data?.launchNext?.mission_name ?: "",
              date = this.data?.launchNext?.launch_date_local ?: Date()),

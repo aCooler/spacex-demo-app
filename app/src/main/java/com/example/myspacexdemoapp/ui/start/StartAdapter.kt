@@ -32,6 +32,10 @@ class StartAdapter(private val onClickListener: OnClickListener) : RecyclerView.
         notifyDataSetChanged()
     }
 
+    fun setTimer(model: MutableList<StartUIModel>) {
+        listOfData = model
+        notifyItemChanged(0)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

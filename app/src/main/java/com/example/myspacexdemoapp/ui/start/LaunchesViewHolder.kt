@@ -11,15 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
 
-
-
-
-
-
-
-
-
-
 class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolder(binding.root) {
     private val successful: TextView = binding.successful
     private val total: TextView = binding.total
