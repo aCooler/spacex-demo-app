@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="212dp"
-    android:layout_marginBottom="36dp"
+    android:layout_marginBottom="56dp"
     android:background="@color/basic_background">
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -21,27 +20,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        style="@style/gallery_viewpager"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/left_guideline"
         app:layout_constraintRight_toLeftOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabDots"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

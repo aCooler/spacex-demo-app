@@ -34,4 +34,7 @@ sealed class UIModel {
 
     data class Gallery(val pictures: List<String>) :
         UIModel()
+
+    data class Youtube(val id: String) :
+        UIModel()
 }
