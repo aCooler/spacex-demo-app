@@ -14,15 +14,13 @@ class GetStartUseCase @Inject constructor(private val spaceXApi: LaunchRepositor
             timer,
             request
         ) { _: Long, homeData: HomeData ->
+            val time = homeData.launchData.mission.date.time - Date().time
             homeData.copy(
                 launchData = homeData.launchData
                     .copy(
                         mission = homeData.launchData.mission
                             .copy(
-                                date = Date
-                                    (
-                                    homeData.launchData.mission.date.time - Date().time
-                                )
+                                date = Date(time)
                             )
                     )
             )
