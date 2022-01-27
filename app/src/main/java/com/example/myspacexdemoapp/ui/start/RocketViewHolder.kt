@@ -26,6 +26,4 @@ class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(b
             )
         }
     }
-
-
 }

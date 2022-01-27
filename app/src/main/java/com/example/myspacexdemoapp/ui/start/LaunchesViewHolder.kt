@@ -18,8 +18,6 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
     private val toLaunch: TextView = binding.toLaunch
     private val card: ConstraintLayout = binding.root
 
-
-
     fun onBindView(model: StartUIModel.Launches) {
         val wm: WindowManager = card.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display: Display = wm.defaultDisplay
@@ -29,20 +27,18 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
         } else {
             successful.text = model.successful
         }
-
         if (model.total.isEmpty()) {
             total.visibility = View.GONE
         } else {
             total.text = model.total
         }
-        val efficiencyNumber = (model.successful.toFloat()/model.total.toFloat()*100).toInt()
+        val efficiencyNumber = (model.successful.toFloat() / model.total.toFloat() * 100).toInt()
         val eff = "Revolutionizing space flight with an efficiency of $efficiencyNumber% since 2006"
         if (model.efficiency.isEmpty()) {
             efficiency.visibility = View.GONE
         } else {
             efficiency.text = eff
         }
-
         if (model.efficiency.isEmpty()) {
             efficiency.visibility = View.GONE
         } else {
@@ -56,7 +52,5 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
             )
         }
     }
-
-
 }
 

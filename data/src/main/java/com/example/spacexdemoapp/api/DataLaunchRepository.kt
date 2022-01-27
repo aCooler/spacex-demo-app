@@ -28,6 +28,4 @@ class DataLaunchRepository(private val spaceXApi: SpaceXApi) : LaunchRepository 
             it.toNextLaunch()
         }
     }
-
 }
-

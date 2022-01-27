@@ -43,12 +43,19 @@ class StartFragmentTest {
     @Before
     fun init() {
         every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer<StartFragment>(Bundle().apply { this.putBoolean("test", true) },
-            themeResId = R.style.Theme_Spacexdemoapp)
+        launchFragmentInContainer<StartFragment>(
+            Bundle().apply {
+                this.putBoolean(
+                    "isNotTest",
+                    false
+                )
+            },
+            themeResId = R.style.Theme_Spacexdemoapp
+        )
     }
 
     @Test
-    fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
+    fun when_success_retrieved_than_timer_is_checked_for_launch_name_and_seconds_minutes_hours_text() {
         liveData.postValue(
             StartViewState.Success(
                 HomeData(
@@ -56,21 +63,27 @@ class StartFragmentTest {
                         number = "889",
                         linkInfo = LinkInfo.EMPTY.copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
                         payload = Payload.EMPTY,
-                        mission = Mission.EMPTY.copy(name = "Antares")
+                        mission = Mission.EMPTY.copy(
+                            name = "Antares",
+                            date = Date().apply {
+                                seconds = 40
+                                minutes = 30
+                                hours = 20
+                            }
+                        )
                     ),
-                    rockets = (RocketsData(total = "", efficiency = ""))
+                    rockets = RocketsData(total = "", efficiency = "")
                 )
             )
         )
         onView(withId(R.id.launches_list_timer)).check { _, _ ->
-            val text = "DAYS"
+            val text = "Antares"
             matches(atPosition(0, hasDescendant(withText(text))))
-/*
-            matches(atPosition(0, hasDescendant(withTextColor(R.color.success_green))))
-*/
+            matches(atPosition(0, hasDescendant(withText("20"))))
+            matches(atPosition(0, hasDescendant(withText("30"))))
+            matches(atPosition(0, hasDescendant(withText("40"))))
         }
     }
-
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
@@ -78,7 +91,7 @@ class StartFragmentTest {
         liveData.postValue(
             StartViewState.Error(error = Throwable(message = message))
         )
-        onView(withText(message)).check { _, _ ->
+        onView(withId(R.id.swipe_refresh_start)).check { _, _ ->
             matches(ViewMatchers.isDisplayed())
         }
     }
@@ -88,13 +101,13 @@ class StartFragmentTest {
         liveData.postValue(
             StartViewState.Loading
         )
-        onView(withId(R.id.swipe_refresh)).check { view, e ->
+        onView(withId(R.id.swipe_refresh_start)).check { _, _ ->
             matches(isRefreshing())
         }
     }
 
     @Test
-    fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
+    fun when_success_retrieved_than_launches_item_is_checked_for_total_and_efficiency() {
         liveData.postValue(StartViewState.Loading)
         val number = "889"
         liveData.postValue(
@@ -106,18 +119,17 @@ class StartFragmentTest {
                         payload = Payload.EMPTY,
                         mission = Mission.EMPTY.copy(name = "Antares")
                     ),
-                    rockets = (RocketsData(total = "", efficiency = ""))
+                    rockets = RocketsData(total = "20", efficiency = "10")
                 )
-            ))
+            )
+        )
         onView(withId(R.id.launches_list_timer)).check { view, e ->
             view as RecyclerView
-            matches(atPosition(0, hasDescendant(withText("DAYS"))))
-/*
-            matches(atPosition(0, hasDescendant(withText(number))))
-*/
+            matches(atPosition(1, hasDescendant(withText("10"))))
+            matches(atPosition(1, hasDescendant(withText("20"))))
+            matches(atPosition(1, hasDescendant(withText("50"))))
         }
     }
-
 
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
@@ -130,30 +142,31 @@ class StartFragmentTest {
                         payload = Payload.EMPTY,
                         mission = Mission.EMPTY.copy(name = "Antares", date = Date())
                     ),
-                    rockets = (RocketsData(total = "", efficiency = ""))
+                    rockets = RocketsData(total = "", efficiency = "")
                 )
             )
         )
         onView(withId(R.id.launches_list_timer)).check { _, _ ->
-            val text = "DAYS"
+            val text = "Elon Musk"
             matches(atPosition(0, hasDescendant(withText(text))))
-/*            matches(atPosition(0, hasDescendant(withTextColor(R.color.failed_red))))*/
         }
     }
 
     @Test
     fun when_success_retrieved_than_title_is_checked() {
         liveData.postValue(
-            StartViewState.Success(HomeData(
-                launchData = LaunchData(
-                    number = "889",
-                    linkInfo = LinkInfo.EMPTY.copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                    payload = Payload.EMPTY,
-                    mission = Mission.EMPTY.copy(name = "Antares")
-                ),
-                rockets = (RocketsData(total = "", efficiency = ""))
+            StartViewState.Success(
+                HomeData(
+                    launchData = LaunchData(
+                        number = "889",
+                        linkInfo = LinkInfo.EMPTY.copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
+                        payload = Payload.EMPTY,
+                        mission = Mission.EMPTY.copy(name = "Antares")
+                    ),
+                    rockets = RocketsData(total = "", efficiency = "")
+                )
             )
-            ))
+        )
         onView(withId(R.id.toolbar_details)).check { _, _ ->
             val title = "Antares"
             matches(hasDescendant(withText(title)))
@@ -163,17 +176,7 @@ class StartFragmentTest {
     @Test
     fun when_error_retrieved_than_list_is_empty() {
         liveData.postValue(
-            StartViewState.Success(
-                model = HomeData(
-                    launchData = LaunchData(
-                        number = "889",
-                        linkInfo = LinkInfo.EMPTY.copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                        payload = Payload.EMPTY,
-                        mission = Mission.EMPTY.copy(name = "Antares")
-                    ),
-                    rockets = (RocketsData(total = "", efficiency = ""))
-                )
-            )
+            StartViewState.Error(error = Throwable(message = "message"))
         )
         onView(withId(R.id.launches_list_timer)).check { view, _ ->
             view as RecyclerView
