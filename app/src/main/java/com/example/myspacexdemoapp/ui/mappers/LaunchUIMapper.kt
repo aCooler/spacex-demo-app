@@ -46,8 +46,12 @@ class LaunchUIMapper(private val launchData: LaunchData) {
 
     private fun addYoutube() {
         val (_, urlSplit) = launchData.linkInfo.video.split("v=")
-        val dataModel = UIModel.Youtube( id = urlSplit )
-        if (urlSplit.length > 1) { recycleViewModel.add(dataModel) }
+        val dataModel = UIModel.Youtube(
+            id = urlSplit
+        )
+        if (urlSplit.length > 1) {
+            recycleViewModel.add(dataModel)
+        }
     }
 
     private fun addPayload() {
