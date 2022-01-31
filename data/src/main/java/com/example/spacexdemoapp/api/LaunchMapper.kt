@@ -19,7 +19,7 @@ fun List<Rocket>.toRockets() = this.map {
         cost = it.costPerLaunch?.toString() ?: RocketData.EMPTY.cost,
         stagesNumber = it.stages?.toString() ?: RocketData.EMPTY.stagesNumber,
         activity = it.active ?: RocketData.EMPTY.activity,
-        rocketPicture = it.flickrImages[0]
+        rocketPicture = it.flickrImages.getOrNull(0) ?: ""
     )
 }
 

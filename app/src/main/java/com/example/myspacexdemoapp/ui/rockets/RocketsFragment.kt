@@ -31,11 +31,11 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
             )
         binding.rocketsList.adapter = adapter
         binding.rocketsList.layoutManager = LinearLayoutManager(activity)
-        binding.swipeRefresh.setOnRefreshListener {
+        binding.swipeRefreshRockets.setOnRefreshListener {
             rocketsViewModel.getRockets()
         }
         rocketsViewModel.getRockets()
-        rocketsViewModel.rocketsLiveData.observe(this, { state ->
+        rocketsViewModel.rocketsLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RocketsViewState.Error -> {
                     Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
@@ -49,13 +49,13 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
                 }
                 is RocketsViewState.Success -> {
                     adapter.setItems(state.model ?: listOf())
-                    binding.swipeRefresh.isRefreshing = false
+                    binding.swipeRefreshRockets.isRefreshing = false
                 }
                 is RocketsViewState.Loading -> {
-                    binding.swipeRefresh.isRefreshing = true
+                    binding.swipeRefreshRockets.isRefreshing = true
                 }
             }
-        })
+        }
     }
 
     private fun openDetailsFragment(id: String?) {
