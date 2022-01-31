@@ -25,6 +25,7 @@ class LaunchUIMapper(private val launchData: LaunchData) {
         addLaunchDetails()
         addPayload()
         addGallery()
+        addYoutube()
         return recycleViewModel
     }
 
@@ -40,6 +41,16 @@ class LaunchUIMapper(private val launchData: LaunchData) {
                 recycleViewModel.add(UIModel.SingleString(word = GALLERY))
                 recycleViewModel.add(dataModel)
             }
+        }
+    }
+
+    private fun addYoutube() {
+        val (_, urlSplit) = launchData.linkInfo.video.split("v=")
+        val dataModel = UIModel.Youtube(
+            id = urlSplit
+        )
+        if (urlSplit.length > 1) {
+            recycleViewModel.add(dataModel)
         }
     }
 
