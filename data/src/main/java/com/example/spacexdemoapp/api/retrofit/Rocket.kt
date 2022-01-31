@@ -1,149 +1,147 @@
-package com.example.example
+package com.example.spacexdemoapp.api.retrofit
 
 import com.google.gson.annotations.SerializedName
 
-
 data class Rocket(
-
-  @SerializedName("height") var height: Height? = Height(),
-  @SerializedName("diameter") var diameter: Diameter? = Diameter(),
-  @SerializedName("mass") var mass: Mass? = Mass(),
-  @SerializedName("first_stage") var firstStage: FirstStage? = FirstStage(),
-  @SerializedName("second_stage") var secondStage: SecondStage? = SecondStage(),
-  @SerializedName("engines") var engines: Engines? = Engines(),
-  @SerializedName("landing_legs") var landingLegs: LandingLegs? = LandingLegs(),
-  @SerializedName("payload_weights") var payloadWeights: ArrayList<PayloadWeights> = arrayListOf(),
-  @SerializedName("flickr_images") var flickrImages: ArrayList<String> = arrayListOf(),
-  @SerializedName("name") var name: String? = null,
-  @SerializedName("type") var type: String? = null,
-  @SerializedName("active") var active: Boolean? = null,
-  @SerializedName("stages") var stages: Int? = null,
-  @SerializedName("boosters") var boosters: Int? = null,
-  @SerializedName("cost_per_launch") var costPerLaunch: Int? = null,
-  @SerializedName("success_rate_pct") var successRatePct: Int? = null,
-  @SerializedName("first_flight") var firstFlight: String? = null,
-  @SerializedName("country") var country: String? = null,
-  @SerializedName("company") var company: String? = null,
-  @SerializedName("wikipedia") var wikipedia: String? = null,
-  @SerializedName("description") var description: String? = null,
-  @SerializedName("id") var id: String? = null,
+  @SerializedName("height") val height: Height,
+  @SerializedName("diameter") val diameter: Diameter,
+  @SerializedName("mass") val mass: Mass,
+  @SerializedName("first_stage") val firstStage: FirstStage,
+  @SerializedName("second_stage") val secondStage: SecondStage,
+  @SerializedName("engines") val engines: Engines,
+  @SerializedName("landing_legs") val landingLegs: LandingLegs,
+  @SerializedName("payload_weights") val payloadWeights: ArrayList<PayloadWeights>,
+  @SerializedName("flickr_images") val flickrImages: ArrayList<String>,
+  @SerializedName("name") val name: String,
+  @SerializedName("type") val type: String,
+  @SerializedName("active") val active: Boolean,
+  @SerializedName("stages") val stages: Int,
+  @SerializedName("boosters") val boosters: Int,
+  @SerializedName("cost_per_launch") val costPerLaunch: Int,
+  @SerializedName("success_rate_pct") val successRatePct: Int,
+  @SerializedName("first_flight") val firstFlight: String,
+  @SerializedName("country") val country: String,
+  @SerializedName("company") val company: String,
+  @SerializedName("wikipedia") val wikipedia: String,
+  @SerializedName("description") val description: String,
+  @SerializedName("id") val id: String,
 
   )
 
 
 data class CompositeFairing(
 
-  @SerializedName("height") var height: Height? = Height(),
-  @SerializedName("diameter") var diameter: Diameter? = Diameter(),
+  @SerializedName("height") val height: Height,
+  @SerializedName("diameter") val diameter: Diameter,
 
   )
 
 data class Diameter(
 
-  @SerializedName("meters") var meters: Double? = null,
-  @SerializedName("feet") var feet: Double? = null,
+  @SerializedName("meters") val meters: Double,
+  @SerializedName("feet") val feet: Double,
 
   )
 
 data class Engines(
 
-  @SerializedName("isp") var isp: Isp? = Isp(),
-  @SerializedName("thrust_sea_level") var thrustSeaLevel: ThrustSeaLevel? = ThrustSeaLevel(),
-  @SerializedName("thrust_vacuum") var thrustVacuum: ThrustVacuum? = ThrustVacuum(),
-  @SerializedName("number") var number: Int? = null,
-  @SerializedName("type") var type: String? = null,
-  @SerializedName("version") var version: String? = null,
-  @SerializedName("layout") var layout: String? = null,
-  @SerializedName("engine_loss_max") var engineLossMax: Int? = null,
-  @SerializedName("propellant_1") var propellant1: String? = null,
-  @SerializedName("propellant_2") var propellant2: String? = null,
-  @SerializedName("thrust_to_weight") var thrustToWeight: Float? = null,
+  @SerializedName("isp") val isp: Isp,
+  @SerializedName("thrust_sea_level") val thrustSeaLevel: ThrustSeaLevel,
+  @SerializedName("thrust_vacuum") val thrustVacuum: ThrustVacuum,
+  @SerializedName("number") val number: Int,
+  @SerializedName("type") val type: String,
+  @SerializedName("version") val version: String,
+  @SerializedName("layout") val layout: String,
+  @SerializedName("engine_loss_max") val engineLossMax: Int,
+  @SerializedName("propellant_1") val propellant1: String,
+  @SerializedName("propellant_2") val propellant2: String,
+  @SerializedName("thrust_to_weight") val thrustToWeight: Float,
 
   )
 
 data class FirstStage(
 
-  @SerializedName("thrust_sea_level") var thrustSeaLevel: ThrustSeaLevel? = ThrustSeaLevel(),
-  @SerializedName("thrust_vacuum") var thrustVacuum: ThrustVacuum? = ThrustVacuum(),
-  @SerializedName("reusable") var reusable: Boolean? = null,
-  @SerializedName("engines") var engines: Int? = null,
-  @SerializedName("fuel_amount_tons") var fuelAmountTons: Double? = null,
-  @SerializedName("burn_time_sec") var burnTimeSec: Int? = null,
+  @SerializedName("thrust_sea_level") val thrustSeaLevel: ThrustSeaLevel,
+  @SerializedName("thrust_vacuum") val thrustVacuum: ThrustVacuum,
+  @SerializedName("reusable") val reusable: Boolean,
+  @SerializedName("engines") val engines: Int,
+  @SerializedName("fuel_amount_tons") val fuelAmountTons: Double,
+  @SerializedName("burn_time_sec") val burnTimeSec: Int,
 
   )
 
 data class Height(
 
-  @SerializedName("meters") var meters: Double? = null,
-  @SerializedName("feet") var feet: Double? = null,
+  @SerializedName("meters") val meters: Double,
+  @SerializedName("feet") val feet: Double,
 
   )
 
 data class Isp(
 
-  @SerializedName("sea_level") var seaLevel: Int? = null,
-  @SerializedName("vacuum") var vacuum: Int? = null,
+  @SerializedName("sea_level") val seaLevel: Int,
+  @SerializedName("vacuum") val vacuum: Int,
 
   )
 
 data class LandingLegs(
 
-  @SerializedName("number") var number: Int? = null,
-  @SerializedName("material") var material: String? = null,
+  @SerializedName("number") val number: Int,
+  @SerializedName("material") val material: String,
 
   )
 
 data class Mass(
 
-  @SerializedName("kg") var kg: Int? = null,
-  @SerializedName("lb") var lb: Int? = null,
+  @SerializedName("kg") val kg: Int,
+  @SerializedName("lb") val lb: Int,
 
   )
 
 data class Payloads(
 
-  @SerializedName("composite_fairing") var compositeFairing: CompositeFairing? = CompositeFairing(),
-  @SerializedName("option_1") var option1: String? = null,
+  @SerializedName("composite_fairing") val compositeFairing: CompositeFairing,
+  @SerializedName("option_1") val option1: String,
 
   )
 
 data class PayloadWeights(
 
-  @SerializedName("id") var id: String? = null,
-  @SerializedName("name") var name: String? = null,
-  @SerializedName("kg") var kg: Int? = null,
-  @SerializedName("lb") var lb: Int? = null,
+  @SerializedName("id") val id: String,
+  @SerializedName("name") val name: String,
+  @SerializedName("kg") val kg: Int,
+  @SerializedName("lb") val lb: Int,
 
   )
 
 data class SecondStage(
 
-  @SerializedName("thrust") var thrust: Thrust? = Thrust(),
-  @SerializedName("payloads") var payloads: Payloads? = Payloads(),
-  @SerializedName("reusable") var reusable: Boolean? = null,
-  @SerializedName("engines") var engines: Int? = null,
-  @SerializedName("fuel_amount_tons") var fuelAmountTons: Double? = null,
-  @SerializedName("burn_time_sec") var burnTimeSec: Int? = null,
+  @SerializedName("thrust") val thrust: Thrust,
+  @SerializedName("payloads") val payloads: Payloads,
+  @SerializedName("reusable") val reusable: Boolean,
+  @SerializedName("engines") val engines: Int,
+  @SerializedName("fuel_amount_tons") val fuelAmountTons: Double,
+  @SerializedName("burn_time_sec") val burnTimeSec: Int,
 
   )
 
 data class Thrust(
 
-  @SerializedName("kN") var kN: Int? = null,
-  @SerializedName("lbf") var lbf: Int? = null,
+  @SerializedName("kN") val kN: Int,
+  @SerializedName("lbf") val lbf: Int,
 
   )
 
 data class ThrustSeaLevel(
 
-  @SerializedName("kN") var kN: Int? = null,
-  @SerializedName("lbf") var lbf: Int? = null,
+  @SerializedName("kN") val kN: Int,
+  @SerializedName("lbf") val lbf: Int,
 
   )
 
 data class ThrustVacuum(
 
-  @SerializedName("kN") var kN: Int? = null,
-  @SerializedName("lbf") var lbf: Int? = null,
+  @SerializedName("kN") val kN: Int,
+  @SerializedName("lbf") val lbf: Int,
 
   )

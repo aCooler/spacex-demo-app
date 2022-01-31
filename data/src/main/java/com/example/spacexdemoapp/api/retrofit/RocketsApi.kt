@@ -1,6 +1,6 @@
 package com.example.spacexdemoapp.data
 
-import com.example.example.Rocket
+import com.example.spacexdemoapp.api.retrofit.Rocket
 import com.example.spacexdemoapp.api.retrofit.RocketsService
 import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject

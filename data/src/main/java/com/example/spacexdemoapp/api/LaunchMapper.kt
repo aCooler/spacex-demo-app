@@ -7,21 +7,44 @@ import com.example.domain.Mission
 import com.example.domain.Payload
 import com.example.domain.RocketData
 import com.example.domain.toDateString
-import com.example.example.Rocket
+import com.example.spacexdemoapp.api.retrofit.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 fun List<Rocket>.toRockets() = this.map {
     RocketData.EMPTY.copy(
         name = it.name ?: RocketData.EMPTY.name,
-        firstFlight = it.firstFlight ?: RocketData.EMPTY.firstFlight,
+        firstFlight = it.firstFlight.toFirstFlight() ?: RocketData.EMPTY.firstFlight,
         country = it.country ?: RocketData.EMPTY.country,
-        cost = it.costPerLaunch?.toString() ?: RocketData.EMPTY.cost,
-        stagesNumber = it.stages?.toString() ?: RocketData.EMPTY.stagesNumber,
+        cost = it.costPerLaunch.toString().toCost().toString() ?: RocketData.EMPTY.cost,
+        stagesNumber = it.stages.toString().toStages().toString() ?: RocketData.EMPTY.stagesNumber,
         activity = it.active ?: RocketData.EMPTY.activity,
         rocketPicture = it.flickrImages.getOrNull(0) ?: ""
     )
 }
+
+private fun String.toCost(): CharSequence {
+    var cost = this
+    "${(cost.toInt() / 1000000)} Millions Per Launch".also { cost = it }
+    return cost
+}
+
+private fun CharSequence.toStages(): CharSequence {
+    return "$this Stages"
+}
+
+private fun String.toFirstFlight(): String {
+    return "First Flight ${this.toDateFormat()}"
+}
+private fun String.toDateFormat(): String {
+    val parser = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    val formatter = SimpleDateFormat("MMM dd yyyy", Locale.US)
+    return formatter.format(parser.parse(this) ?: "")
+}
+
+
 
 fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
     this.data?.launches?.map {

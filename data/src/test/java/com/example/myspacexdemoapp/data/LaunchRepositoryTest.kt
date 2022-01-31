@@ -1,7 +1,7 @@
 package com.example.myspacexdemoapp.data
 
 import com.apollographql.apollo3.api.ApolloResponse
-import com.example.example.Rocket
+import com.example.spacexdemoapp.api.retrofit.Rocket
 import com.example.spacexdemoapp.api.toLaunchDetails
 import com.example.spacexdemoapp.api.toLaunches
 import com.example.spacexdemoapp.api.toRockets

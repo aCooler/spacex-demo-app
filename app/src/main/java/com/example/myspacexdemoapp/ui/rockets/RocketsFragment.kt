@@ -21,6 +21,7 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
     private var fragmentBlankBinding: RocketsFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        rocketsViewModel.init(arguments)
         val binding = RocketsFragmentBinding.bind(view)
         fragmentBlankBinding = binding
         val adapter =
@@ -38,7 +39,7 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
         rocketsViewModel.rocketsLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RocketsViewState.Error -> {
-                    Log.d("LaunchesViewState.E ", state.error.message ?: "empty message")
+                    Log.d("RocketsViewState.E ", state.error.message ?: "empty message")
                     AlertDialog.Builder(requireActivity())
                         .setMessage(state.error.message)
                         .setTitle(getString(R.string.error))
@@ -63,7 +64,6 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
             requireActivity().supportFragmentManager.commit {
                 findNavController().navigate(
                     R.id.action_myRocketsFragment_to_myDetailsFragment,
-                    //DetailsFragmentArgs(launchId = id).toBundle(),
                     null
                 )
             }

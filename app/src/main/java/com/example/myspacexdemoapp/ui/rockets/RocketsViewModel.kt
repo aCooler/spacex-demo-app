@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui.rockets
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,28 +13,37 @@ import javax.inject.Inject
 class RocketsViewModel @Inject constructor(private val getRocketsUseCase: GetRocketsUseCase) :
     ViewModel() {
 
+    var isNotTest: Boolean = true
+
     private val _rocketsMutableLiveData = MutableLiveData<RocketsViewState>()
     val rocketsLiveData: LiveData<RocketsViewState> = _rocketsMutableLiveData
     private var disposable: Disposable? = null
 
     fun getRockets() {
-        disposable = getRocketsUseCase.invoke().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _rocketsMutableLiveData.postValue(RocketsViewState.Loading) }
-            .subscribe(
-                { response ->
-                    with(_rocketsMutableLiveData) {
-                        postValue(
-                            RocketsViewState.Success(response)
-                        )
+        if (isNotTest) {
+            disposable = getRocketsUseCase.invoke().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { _rocketsMutableLiveData.postValue(RocketsViewState.Loading) }
+                .subscribe(
+                    { response ->
+                        with(_rocketsMutableLiveData) {
+                            postValue(
+                                RocketsViewState.Success(response)
+                            )
+                        }
                     }
+                ) { throwable ->
+                    _rocketsMutableLiveData.postValue(RocketsViewState.Error(throwable))
                 }
-            ) { throwable ->
-                _rocketsMutableLiveData.postValue(RocketsViewState.Error(throwable))
-            }
+        }
     }
 
     override fun onCleared() {
         disposable?.dispose()
         super.onCleared()
+    }
+
+    fun init(arguments: Bundle?) {
+        isNotTest = arguments?.getBoolean("isNotTest") ?: true
     }
 }

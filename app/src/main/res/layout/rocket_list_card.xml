@@ -67,18 +67,20 @@
 
         <TextView
             android:id="@+id/rocket"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/launch_image"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semibold"
-            android:textStyle="normal"
-            android:textSize="18sp"
-            android:textColor="#fafafa"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter_semibold"
+            android:maxLines="1"
             android:text="Falcon 9"
-            tools:text="Falcon 9"/>
+            android:textColor="#fafafa"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/launch_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Falcon 9" />
 
         <ImageView
             android:id="@+id/date_icon"
@@ -94,6 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/card_date_style"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/rocket_name"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/date_icon"
@@ -137,6 +140,7 @@
             android:id="@+id/place"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/reused"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/place_icon"
@@ -167,6 +171,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/reused_icon"
