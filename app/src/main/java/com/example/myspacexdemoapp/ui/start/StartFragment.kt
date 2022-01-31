@@ -34,6 +34,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         binding.swipeRefreshStart.setOnRefreshListener {
             timerViewModel.getLaunchNextLaunch()
         }
+        timerViewModel.getLaunchNextLaunch()
         timerViewModel.launchLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is StartViewState.Error -> {

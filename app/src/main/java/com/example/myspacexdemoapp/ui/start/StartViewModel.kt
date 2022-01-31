@@ -12,14 +12,14 @@ class StartViewModel @Inject constructor(private val getStartUseCase: GetStartUs
 
     private val _launchMutableLiveData = MutableLiveData<StartViewState>()
     val launchLiveData: LiveData<StartViewState> = _launchMutableLiveData
-    var isNotTest: Boolean = false
+    var isNotTest: Boolean = true
 
     fun init(arguments: Bundle?) {
         isNotTest = arguments?.getBoolean("isNotTest") ?: true
     }
 
     fun getLaunchNextLaunch() {
-        check(isNotTest) {
+        if(isNotTest) {
             getStartUseCase.invoke()
                 .doOnSubscribe { _launchMutableLiveData.postValue(StartViewState.Loading) }
                 .subscribe({ response ->
