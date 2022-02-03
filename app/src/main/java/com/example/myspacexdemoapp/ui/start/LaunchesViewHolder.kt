@@ -53,4 +53,3 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
         }
     }
 }
-

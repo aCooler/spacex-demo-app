@@ -28,7 +28,6 @@ class StartAdapter(private val onClickListener: OnClickListener) :
     override fun getItemCount(): Int = listOfData.size
 
     fun setTimer() {
-        //TODO
         notifyItemRangeChanged(0, 2)
     }
 

@@ -63,4 +63,3 @@ class StartFragment : Fragment(R.layout.start_fragment) {
         super.onDestroyView()
     }
 }
-

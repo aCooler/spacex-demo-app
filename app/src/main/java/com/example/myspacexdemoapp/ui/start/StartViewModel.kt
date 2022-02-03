@@ -19,7 +19,7 @@ class StartViewModel @Inject constructor(private val getStartUseCase: GetStartUs
     }
 
     fun getLaunchNextLaunch() {
-        if(isNotTest) {
+        if (isNotTest) {
             getStartUseCase.invoke()
                 .doOnSubscribe { _launchMutableLiveData.postValue(StartViewState.Loading) }
                 .subscribe({ response ->
