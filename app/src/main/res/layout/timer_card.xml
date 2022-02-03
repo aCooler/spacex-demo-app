@@ -6,108 +6,108 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/timer_card_next_launch"
+        style="@style/timer_title_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_launch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline3"
-        tools:text="NEXT LAUNCH"
-        style="@style/timer_title_style" />
+        app:layout_constraintTop_toTopOf="@id/guideline_above_name"
+        tools:text="NEXT LAUNCH" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/timer_card_launch_name"
+        style="@style/rocket_name_style"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_goneMarginTop="16dp"
-        style="@style/rocket_name_style" />
+        app:layout_constraintTop_toBottomOf="@+id/timer_card_next_launch"
+        app:layout_goneMarginTop="16dp" />
 
     <TextView
-        android:id="@+id/day"
-        android:layout_width="78dp"
+        android:id="@+id/timer_card_days_text"
+        style="@style/bottom_timer_words"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
-        app:layout_constraintRight_toLeftOf="@id/hour"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Days"
         android:text="@string/days"
-        style="@style/bottom_timer_words" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
+        app:layout_constraintEnd_toStartOf="@+id/timer_card_hours_text"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Days" />
 
     <TextView
-        android:id="@+id/hour"
-        android:layout_width="78dp"
+        android:id="@+id/timer_card_hours_text"
+        style="@style/bottom_timer_words"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
-        app:layout_constraintLeft_toRightOf="@id/day"
-        app:layout_constraintRight_toLeftOf="@id/minute"
-        tools:text="Hours"
         android:text="@string/hours"
-        style="@style/bottom_timer_words" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
+        app:layout_constraintEnd_toStartOf="@+id/timer_card_minutes_text"
+        app:layout_constraintStart_toEndOf="@+id/timer_card_days_text"
+        tools:text="Hours" />
 
     <TextView
-        android:id="@+id/minute"
+        android:id="@+id/timer_card_minutes_text"
+        style="@style/bottom_timer_words"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
-        app:layout_constraintLeft_toRightOf="@id/hour"
-        app:layout_constraintRight_toLeftOf="@id/second"
-        tools:text="Minutes"
         android:text="@string/minutes"
-        style="@style/bottom_timer_words" />
-
-    <TextView
-        android:id="@+id/second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
-        app:layout_constraintLeft_toRightOf="@+id/minute"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="Seconds"
+        app:layout_constraintEnd_toStartOf="@+id/timer_card_seconds_text"
+        app:layout_constraintStart_toEndOf="@+id/timer_card_hours_text"
+        tools:text="Minutes" />
+
+    <TextView
+        android:id="@+id/timer_card_seconds_text"
+        style="@style/bottom_timer_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/seconds"
-        style="@style/bottom_timer_words" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline_under_timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timer_card_minutes_text"
+        tools:text="Seconds" />
 
     <TextView
-        android:id="@+id/days"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/day"
-        app:layout_constraintLeft_toLeftOf="@id/day"
-        app:layout_constraintRight_toRightOf="@id/day"
-        tools:text="8"
-        style="@style/numbers_timer_style" />
-
-    <TextView
-        android:id="@+id/hours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/timer_card_days_value"
         style="@style/numbers_timer_style"
-        app:layout_constraintBottom_toTopOf="@id/hour"
-        app:layout_constraintLeft_toLeftOf="@id/hour"
-        app:layout_constraintRight_toRightOf="@id/hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/timer_card_days_text"
+        app:layout_constraintLeft_toLeftOf="@id/timer_card_days_text"
+        app:layout_constraintRight_toRightOf="@id/timer_card_days_text"
+        tools:text="8" />
+
+    <TextView
+        android:id="@+id/timer_card_hours_value"
+        style="@style/numbers_timer_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/timer_card_hours_text"
+        app:layout_constraintLeft_toLeftOf="@id/timer_card_hours_text"
+        app:layout_constraintRight_toRightOf="@id/timer_card_hours_text"
         tools:text="17" />
 
     <TextView
-        android:id="@+id/minutes"
+        android:id="@+id/timer_card_minutes_value"
+        style="@style/numbers_timer_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/numbers_timer_style"
-        app:layout_constraintBottom_toTopOf="@id/minute"
-        app:layout_constraintLeft_toLeftOf="@id/minute"
-        app:layout_constraintRight_toRightOf="@id/minute"
+        app:layout_constraintBottom_toTopOf="@id/timer_card_minutes_text"
+        app:layout_constraintLeft_toLeftOf="@id/timer_card_minutes_text"
+        app:layout_constraintRight_toRightOf="@id/timer_card_minutes_text"
         tools:text="29" />
 
     <TextView
-        android:id="@+id/seconds"
+        android:id="@+id/timer_card_seconds_value"
+        style="@style/numbers_timer_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/numbers_timer_style"
-        app:layout_constraintBottom_toTopOf="@id/second"
-        app:layout_constraintLeft_toLeftOf="@id/second"
-        app:layout_constraintRight_toRightOf="@id/second"
+        app:layout_constraintBottom_toTopOf="@id/timer_card_seconds_text"
+        app:layout_constraintLeft_toLeftOf="@id/timer_card_seconds_text"
+        app:layout_constraintRight_toRightOf="@id/timer_card_seconds_text"
         tools:text="7" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -120,7 +120,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline_above_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -128,13 +128,13 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/timer_button"
+        android:id="@+id/timer_card_timer_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginTop="127dp"
+        android:layout_marginTop="128dp"
         android:contentDescription="@string/app_name"
         android:gravity="center_vertical|center_horizontal"
-        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:src="@drawable/icon_down"
         android:tint="@color/white"
         app:backgroundTint="@color/real_white_opacity"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,15 +142,15 @@
         app:layout_constraintTop_toTopOf="@+id/guideline_under_timer" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/timer_card_space_x_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_space_x_logo_1_1"
-        android:contentDescription="@string/app_name" />
+        app:srcCompat="@drawable/ic_space_x_logo_1_1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

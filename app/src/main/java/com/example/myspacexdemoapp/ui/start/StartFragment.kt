@@ -42,7 +42,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
                 }
                 is StartViewState.Success -> {
                     val dataset = state.model.toTimerUIList()
-                    adapter.setTimer(dataset)
+                    adapter.setItems(dataset)
                     binding.swipeRefreshStart.isRefreshing = false
                 }
                 is StartViewState.Loading -> {

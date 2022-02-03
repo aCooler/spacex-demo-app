@@ -631,7 +631,7 @@ type Launch {
 
   launch_date_unix: Date
 
-  launch_date_unix: Date
+  launch_date_utc: Date
 
   launch_site: LaunchSite
 

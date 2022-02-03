@@ -27,14 +27,14 @@ class StartAdapter(private val onClickListener: OnClickListener) :
 
     override fun getItemCount(): Int = listOfData.size
 
-    fun setItems(model: MutableList<StartUIModel>) {
-        listOfData = model
-        notifyDataSetChanged()
+    fun setTimer() {
+        //TODO
+        notifyItemRangeChanged(0, 2)
     }
 
-    fun setTimer(model: MutableList<StartUIModel>) {
+    fun setItems(model: MutableList<StartUIModel>) {
         listOfData = model
-        notifyItemChanged(0)
+        setTimer()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

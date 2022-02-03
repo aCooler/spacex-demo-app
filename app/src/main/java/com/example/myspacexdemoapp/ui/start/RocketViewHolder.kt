@@ -11,7 +11,7 @@ import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
 
 class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val toLaunch: TextView = binding.toRocket
+    private val toLaunch: TextView = binding.buttonToRockets
     private val card: ConstraintLayout = binding.root
 
     fun onBindView(model: StartUIModel.Rockets) {

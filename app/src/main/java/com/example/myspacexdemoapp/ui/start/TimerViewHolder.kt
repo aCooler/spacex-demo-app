@@ -10,12 +10,12 @@ class TimerViewHolder(
     binding: TimerCardBinding,
     private val onClickListener: StartAdapter.OnClickListener,
 ) : RecyclerView.ViewHolder(binding.root) {
-    private val name: TextView = binding.name
-    private val days: TextView = binding.days
-    private val hours: TextView = binding.hours
-    private val minutes: TextView = binding.minutes
-    private val seconds: TextView = binding.seconds
-    private val timerButton: FloatingActionButton = binding.timerButton
+    private val name: TextView = binding.timerCardLaunchName
+    private val days: TextView = binding.timerCardDaysValue
+    private val hours: TextView = binding.timerCardHoursValue
+    private val minutes: TextView = binding.timerCardMinutesValue
+    private val seconds: TextView = binding.timerCardSecondsValue
+    private val timerButton: FloatingActionButton = binding.timerCardTimerButton
 
     fun onBindView(model: StartUIModel.Timer) {
         timerButton.setOnClickListener {

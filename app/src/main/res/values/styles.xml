@@ -161,7 +161,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
-    <style name="ellon_mask_style">
+    <style name="elon_mask_style">
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">16sp</item>

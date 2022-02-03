@@ -12,8 +12,8 @@ import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
 
 class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val successful: TextView = binding.successful
-    private val total: TextView = binding.total
+    private val successful: TextView = binding.successfulLaunchesValue
+    private val total: TextView = binding.totalLaunchesValue
     private val efficiency: TextView = binding.efficiency
     private val toLaunch: TextView = binding.toLaunch
     private val card: ConstraintLayout = binding.root
