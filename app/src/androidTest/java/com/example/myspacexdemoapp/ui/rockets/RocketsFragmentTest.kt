@@ -94,14 +94,17 @@ class RocketsFragmentTest {
             val text = "success"
             ViewAssertions.matches(
                 TestUtil.atPosition(
-                    0, ViewMatchers.hasDescendant(
+                    0,
+                    ViewMatchers.hasDescendant(
                         ViewMatchers.withText(text)
                     )
                 )
             )
             ViewAssertions.matches(
-                TestUtil.atPosition(0, ViewMatchers.hasDescendant(
-                    TestUtil.withTextColor(R.color.success_green))
+                TestUtil.atPosition(0,
+                    ViewMatchers.hasDescendant(
+                    TestUtil.withTextColor(R.color.success_green)
+                )
                 )
             )
         }
@@ -120,14 +123,16 @@ class RocketsFragmentTest {
             val text = "failed"
             ViewAssertions.matches(
                 TestUtil.atPosition(
-                    0, ViewMatchers.hasDescendant(
+                    0,
+                    ViewMatchers.hasDescendant(
                         ViewMatchers.withText(text)
                     )
                 )
             )
             ViewAssertions.matches(
                 TestUtil.atPosition(
-                    0, ViewMatchers.hasDescendant(
+                    0,
+                    ViewMatchers.hasDescendant(
                         TestUtil.withTextColor(R.color.failed_red)
                     )
                 )
