@@ -101,10 +101,11 @@ class RocketsFragmentTest {
                 )
             )
             ViewAssertions.matches(
-                TestUtil.atPosition(0,
+                TestUtil.atPosition(
+                    0,
                     ViewMatchers.hasDescendant(
-                    TestUtil.withTextColor(R.color.success_green)
-                )
+                        TestUtil.withTextColor(R.color.success_green)
+                    )
                 )
             )
         }
