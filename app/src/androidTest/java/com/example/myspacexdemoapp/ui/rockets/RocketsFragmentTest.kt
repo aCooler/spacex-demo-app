@@ -20,6 +20,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class RocketsFragmentTest {
@@ -39,7 +40,9 @@ class RocketsFragmentTest {
     fun when_error_retrieved_than_dialog_is_showed() {
         val message = "Test for empty list"
         liveData.postValue(
-            RocketsViewState.Error(error = Throwable(message = message))
+            RocketsViewState.Error(
+                error = Throwable(message = message)
+            )
         )
         Espresso.onView(ViewMatchers.withText(message)).check { _, _ ->
             ViewAssertions.matches(ViewMatchers.isDisplayed())
@@ -69,8 +72,13 @@ class RocketsFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { view, e ->
             view as RecyclerView
-            ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(ViewMatchers.withText(number))))
+            ViewAssertions.matches(
+                TestUtil.atPosition
+                    (0,
+                    ViewMatchers.hasDescendant(ViewMatchers.withText(number)
+                    )
+                )
+            )
         }
     }
 
@@ -83,8 +91,13 @@ class RocketsFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { _, _ ->
             val text = "success"
-            ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(ViewMatchers.withText(text))))
+            ViewAssertions.matches(
+                TestUtil.atPosition
+                    (0,
+                    ViewMatchers.hasDescendant(ViewMatchers.withText(text)
+                    )
+                )
+            )
             ViewAssertions.matches(TestUtil.atPosition(0,
                 ViewMatchers.hasDescendant(TestUtil.withTextColor(R.color.success_green))))
         }
@@ -101,10 +114,19 @@ class RocketsFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { _, _ ->
             val text = "failed"
+            ViewAssertions.matches(
+                TestUtil.atPosition
+                    (0,
+                    ViewMatchers.hasDescendant(
+                        ViewMatchers.withText(text)
+                    )
+                )
+            )
             ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(ViewMatchers.withText(text))))
-            ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(TestUtil.withTextColor(R.color.failed_red))))
+                ViewMatchers.hasDescendant(TestUtil.withTextColor(R.color.failed_red)
+                )
+            )
+            )
         }
     }
 

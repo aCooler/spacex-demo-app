@@ -57,5 +57,4 @@ class NetModule {
     fun provideLaunchesRepository(spaceXApi: SpaceXApi, rocketsService: RocketsService): LaunchRepository {
         return DataLaunchRepository(spaceXApi, rocketsService)
     }
-
 }

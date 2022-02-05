@@ -45,7 +45,6 @@ private fun String.toDateFormat(): String {
 }
 
 
-
 fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
     this.data?.launches?.map {
         LaunchData(
