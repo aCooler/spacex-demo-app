@@ -11,6 +11,7 @@ import com.example.myspacexdemoapp.databinding.TimerCardBinding
 class StartAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listOfData: MutableList<StartUIModel> = mutableListOf()
+    private var onModel = OnModelChanged()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TimerViewHolder -> holder.onBindView(listOfData[position] as StartUIModel.Timer)
@@ -27,27 +28,39 @@ class StartAdapter(private val onClickListener: OnClickListener) :
 
     override fun getItemCount(): Int = listOfData.size
 
-    fun setTimer() {
-        notifyItemRangeChanged(0, 2)
-    }
-
     fun setItems(model: MutableList<StartUIModel>) {
-        listOfData = model
-        setTimer()
+        when {
+            listOfData.isEmpty() -> {
+                listOfData = model
+                notifyItemRangeChanged(0, 2)
+            }
+            else -> {
+                listOfData = model
+                onModel.invoke(listOfData[0] as StartUIModel.Timer)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.timer_card -> TimerViewHolder(TimerCardBinding.bind(view), onClickListener)
+            R.layout.timer_card -> TimerViewHolder(
+                TimerCardBinding.bind(view),
+                onClickListener,
+                onModel
+            )
             R.layout.launches_total -> LaunchesViewHolder(LaunchesTotalBinding.bind(view))
             R.layout.rockets_start -> RocketViewHolder(RocketsStartBinding.bind(view))
-            else -> TimerViewHolder(TimerCardBinding.bind(view), onClickListener)
+            else -> TimerViewHolder(TimerCardBinding.bind(view), onClickListener, onModel)
         }
     }
 
     class OnClickListener(val clickListener: () -> Unit) {
         fun onClick() = clickListener()
+    }
+
+    class OnModelChanged {
+        var invoke: (model: StartUIModel.Timer) -> Unit = { }
     }
 }

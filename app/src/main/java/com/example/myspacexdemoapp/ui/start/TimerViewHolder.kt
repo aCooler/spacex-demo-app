@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class TimerViewHolder(
     binding: TimerCardBinding,
     private val onClickListener: StartAdapter.OnClickListener,
+    private val onModel: StartAdapter.OnModelChanged,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val name: TextView = binding.timerCardLaunchName
     private val days: TextView = binding.timerCardDaysValue
@@ -16,6 +17,38 @@ class TimerViewHolder(
     private val minutes: TextView = binding.timerCardMinutesValue
     private val seconds: TextView = binding.timerCardSecondsValue
     private val timerButton: FloatingActionButton = binding.timerCardTimerButton
+
+    init {
+        this.onModel.invoke = { model -> onTimerChanged(model) }
+    }
+
+    private fun onTimerChanged(model: StartUIModel.Timer) {
+        if (model.name.isEmpty()) {
+            name.visibility = View.GONE
+        } else {
+            name.text = model.name
+        }
+        if (model.days.isEmpty()) {
+            days.visibility = View.GONE
+        } else {
+            days.text = model.days
+        }
+        if (model.hours.isEmpty()) {
+            hours.visibility = View.GONE
+        } else {
+            hours.text = model.hours
+        }
+        if (model.minutes.isEmpty()) {
+            minutes.visibility = View.GONE
+        } else {
+            minutes.text = model.minutes
+        }
+        if (model.seconds.isEmpty()) {
+            seconds.visibility = View.GONE
+        } else {
+            seconds.text = model.seconds
+        }
+    }
 
     fun onBindView(model: StartUIModel.Timer) {
         timerButton.setOnClickListener {
