@@ -48,14 +48,6 @@ private fun String?.toFirstFlight(): String {
     }
 }
 
-private fun String?.toFirstFlig000ht(): String {
-    return if (this.isNullOrEmpty()) {
-        ""
-    } else {
-        "First Flight ${toDateFormat()}"
-    }
-}
-
 private fun String.toDateFormat(): String {
     val parser = SimpleDateFormat("yyyy-MM-dd", Locale.US)
     val formatter = SimpleDateFormat("MMM dd yyyy", Locale.US)
