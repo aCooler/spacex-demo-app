@@ -73,9 +73,10 @@ class RocketsFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { view, e ->
             view as RecyclerView
             ViewAssertions.matches(
-                TestUtil.atPosition
-                    (0,
-                    ViewMatchers.hasDescendant(ViewMatchers.withText(number)
+                TestUtil.atPosition(
+                    0,
+                    ViewMatchers.hasDescendant(
+                        ViewMatchers.withText(number)
                     )
                 )
             )
@@ -92,14 +93,17 @@ class RocketsFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { _, _ ->
             val text = "success"
             ViewAssertions.matches(
-                TestUtil.atPosition
-                    (0,
-                    ViewMatchers.hasDescendant(ViewMatchers.withText(text)
+                TestUtil.atPosition(
+                    0, ViewMatchers.hasDescendant(
+                        ViewMatchers.withText(text)
                     )
                 )
             )
-            ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(TestUtil.withTextColor(R.color.success_green))))
+            ViewAssertions.matches(
+                TestUtil.atPosition(0, ViewMatchers.hasDescendant(
+                    TestUtil.withTextColor(R.color.success_green))
+                )
+            )
         }
     }
 
@@ -115,17 +119,18 @@ class RocketsFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { _, _ ->
             val text = "failed"
             ViewAssertions.matches(
-                TestUtil.atPosition
-                    (0,
-                    ViewMatchers.hasDescendant(
+                TestUtil.atPosition(
+                    0, ViewMatchers.hasDescendant(
                         ViewMatchers.withText(text)
                     )
                 )
             )
-            ViewAssertions.matches(TestUtil.atPosition(0,
-                ViewMatchers.hasDescendant(TestUtil.withTextColor(R.color.failed_red)
+            ViewAssertions.matches(
+                TestUtil.atPosition(
+                    0, ViewMatchers.hasDescendant(
+                        TestUtil.withTextColor(R.color.failed_red)
+                    )
                 )
-            )
             )
         }
     }
@@ -141,7 +146,11 @@ class RocketsFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.toolbar_details)).check { _, _ ->
             val title = "Antares"
-            ViewAssertions.matches(ViewMatchers.hasDescendant(ViewMatchers.withText(title)))
+            ViewAssertions.matches(
+                ViewMatchers.hasDescendant(
+                    ViewMatchers.withText(title)
+                )
+            )
         }
     }
 
@@ -156,7 +165,9 @@ class RocketsFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.launches_details_list)).check { view, _ ->
             view as RecyclerView
-            TestCase.assertEquals(view.adapter?.itemCount, 0)
+            TestCase.assertEquals(
+                view.adapter?.itemCount, 0
+            )
         }
     }
 }

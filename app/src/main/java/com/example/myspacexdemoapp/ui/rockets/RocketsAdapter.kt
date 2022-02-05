@@ -39,7 +39,7 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
         viewHolder.cost.text = items[position].cost
         viewHolder.country.text = items[position].country
         viewHolder.firstFlight.text = items[position].firstFlight
-        viewHolder.stages.text =  viewHolder.stages.text
+        viewHolder.stages.text = viewHolder.stages.text
         viewHolder.rocket.text = items[position].name
         viewHolder.root.setOnClickListener {
             onClickListener.onClick(items[position].name)
@@ -55,7 +55,7 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
     }
 
     private fun makeSuccess(viewHolder: RocketsViewHolder, position: Int): CharSequence {
-         return when (items[position].activity) {
+        return when (items[position].activity) {
             true -> {
                 val green =
                     ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
@@ -79,6 +79,6 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
         items = strings
         notifyDataSetChanged()
     }
+
     override fun getItemCount() = items.size
 }
-
