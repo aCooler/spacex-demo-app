@@ -103,7 +103,7 @@ class LaunchRepositoryTest : TestCase() {
             )
         val mapped = mockResponse.toRockets()
         assertEquals(mapped[0].country, "country")
-        assertEquals(mapped[0].cost, "1")
+        assertEquals(mapped[0].cost, "1 Per Launch")
         assertEquals(mapped[0].name, "name")
     }
 }

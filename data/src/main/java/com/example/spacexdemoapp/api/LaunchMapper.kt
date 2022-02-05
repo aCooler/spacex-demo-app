@@ -27,7 +27,12 @@ fun List<Rocket>.toRockets() = this.map {
 
 private fun String.toCost(): CharSequence {
     var cost = this
-    "${cost.toInt() / 1000000} Millions Per Launch".also { cost = it }
+    if (cost.toInt() > 1000000) {
+        "${cost.toInt() / 1000000} Millions Per Launch".also { cost = it }
+    } else {
+        "${cost.toInt()} Per Launch".also { cost = it }
+    }
+
     return cost
 }
 
@@ -35,8 +40,12 @@ private fun CharSequence.toStages(): CharSequence {
     return "$this Stages"
 }
 
-private fun String.toFirstFlight(): String {
-    return "First Flight ${this.toDateFormat()}"
+private fun String?.toFirstFlight(): String {
+    return if (this.isNullOrEmpty()) {
+        ""
+    } else {
+        "First Flight ${toDateFormat()}"
+    }
 }
 
 private fun String.toDateFormat(): String {
@@ -44,7 +53,6 @@ private fun String.toDateFormat(): String {
     val formatter = SimpleDateFormat("MMM dd yyyy", Locale.US)
     return formatter.format(parser.parse(this) ?: "")
 }
-
 
 fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
     this.data?.launches?.map {
