@@ -1,12 +1,9 @@
-package com.example.spacexdemoapp.data
+package com.example.spacexdemoapp.api.retrofit
 
-import com.example.spacexdemoapp.api.retrofit.Rocket
-import com.example.spacexdemoapp.api.retrofit.RocketsService
 import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject
 
 class RocketsApi @Inject constructor(private val rocketsService: RocketsService) : IRocketsApi {
-
     override fun getRockets(): Flowable<List<Rocket>> {
         return rocketsService.listRockets()
     }

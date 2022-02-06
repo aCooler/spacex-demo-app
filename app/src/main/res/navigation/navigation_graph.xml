@@ -23,8 +23,27 @@
         >
 
         <action
-            android:id="@+id/action_myRocketsFragment_to_myDetailsFragment"
-            app:destination="@id/main_fragment" />
+            android:id="@+id/action_myRocketsFragment_to_myDetailsRocketFragment"
+            app:destination="@id/rocket_details_fragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/rocket_details_fragment"
+        android:name="com.example.myspacexdemoapp.ui.rocketDetails.RocketDetailsFragment"
+        android:label="fragment_my_rocket_details"
+        tools:layout="@layout/rocket_details_fragment"
+        >
+
+        <argument
+            android:name="launchId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"
+            />
+
+        <action
+            android:id="@+id/action_myDetailsFragment_to_myRocketsFragment"
+            app:popUpTo="@id/rockets_fragment" />
 
     </fragment>
     <fragment
@@ -45,7 +64,7 @@
             />
 
         <action
-            android:id="@+id/action_myDetailsFragment_to_myHomeFragment"
+            android:id="@+id/action_myRocketsFragment_to_myDetailsFragment"
             app:popUpTo="@id/main_fragment" />
     </fragment>
 </navigation>
