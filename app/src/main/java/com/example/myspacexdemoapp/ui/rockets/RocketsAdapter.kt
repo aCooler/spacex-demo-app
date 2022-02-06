@@ -39,7 +39,7 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
         viewHolder.cost.text = items[position].cost
         viewHolder.country.text = items[position].country
         viewHolder.firstFlight.text = items[position].firstFlight
-        viewHolder.stages.text =  viewHolder.stages.text
+        viewHolder.stages.text = viewHolder.stages.text
         viewHolder.rocket.text = items[position].name
         viewHolder.root.setOnClickListener {
             onClickListener.onClick(items[position].name)
@@ -81,4 +81,3 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
     }
     override fun getItemCount() = items.size
 }
-

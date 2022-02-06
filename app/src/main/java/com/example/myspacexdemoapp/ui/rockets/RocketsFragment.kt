@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.RocketsFragmentBinding
+import com.example.myspacexdemoapp.ui.rocketDetails.RocketDetailsFragmentArgs
 import javax.inject.Inject
 
 class RocketsFragment : Fragment(R.layout.rockets_fragment) {
@@ -63,8 +64,8 @@ class RocketsFragment : Fragment(R.layout.rockets_fragment) {
         if (!id.isNullOrEmpty()) {
             requireActivity().supportFragmentManager.commit {
                 findNavController().navigate(
-                    R.id.action_myRocketsFragment_to_myDetailsFragment,
-                    null
+                    R.id.action_myRocketsFragment_to_myDetailsRocketFragment,
+                    RocketDetailsFragmentArgs(launchId = id).toBundle(),
                 )
             }
         }

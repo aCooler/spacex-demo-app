@@ -1,13 +1,10 @@
-package com.example.data
+package com.example.spacexdemoapp.api
 
 import com.example.domain.LaunchData
 import com.example.domain.LaunchRepository
 import com.example.domain.RocketData
-import com.example.spacexdemoapp.api.SpaceXApi
+import com.example.domain.RocketDetailsData
 import com.example.spacexdemoapp.api.retrofit.RocketsService
-import com.example.spacexdemoapp.api.toLaunchDetails
-import com.example.spacexdemoapp.api.toLaunches
-import com.example.spacexdemoapp.api.toRockets
 import io.reactivex.rxjava3.core.Flowable
 
 class DataLaunchRepository(
@@ -27,10 +24,15 @@ class DataLaunchRepository(
         }
     }
 
+    override fun getRocketByName(id: String, payloadId: String): Flowable<RocketDetailsData> {
+        return rocketsService.listRockets().map {
+            it.toRocketDetails(id)
+        }
+    }
+
     override fun getRockets(): Flowable<List<RocketData>> {
         return rocketsService.listRockets().map {
             it.toRockets()
         }
     }
 }
-

@@ -22,7 +22,6 @@ class LaunchRepositoryTest : TestCase() {
     @get:Rule
     val instantExecutorRule = androidx.arch.core.executor.testing.InstantTaskExecutorRule()
 
-
     @Test
     operator fun invoke() {
         Mockito.mock(ApolloResponse::class.java)
@@ -107,6 +106,4 @@ class LaunchRepositoryTest : TestCase() {
         assertEquals(mapped[0].cost, "1")
         assertEquals(mapped[0].name, "name")
     }
-
-
 }

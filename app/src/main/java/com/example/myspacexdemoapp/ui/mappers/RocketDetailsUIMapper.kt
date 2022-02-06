@@ -21,8 +21,8 @@ class RocketDetailsUIMapper(private val rocketData: RocketDetailsData) {
         rocketData.expandables.forEachIndexed { index, expandable ->
             addTopExpandable(expandable.topItem, index)
             expandable.itemList.map {
-                addTopItem(it.topItem,index)
-                addTitleAndTextItem(it.itemList,index)
+                addTopItem(it.topItem, index)
+                addTitleAndTextItem(it.itemList, index)
             }
         }
     }
@@ -41,13 +41,15 @@ class RocketDetailsUIMapper(private val rocketData: RocketDetailsData) {
     private fun addTopItem(topItem: RocketSingleValue, index: Int) {
         if (topItem.word.isNotEmpty()) {
             val rowPlane = RocketDetailsUIModel.Row(
-                word = topItem.word, position = index)
+                word = topItem.word, position = index
+            )
             recycleViewModel.add(rowPlane)
         }
     }
 
     private fun addTopExpandable(topItem: RocketSingleValue, number: Int) {
-        val rowExpandable = RocketDetailsUIModel.RowExpandable(word = topItem.word, position = number)
+        val rowExpandable =
+            RocketDetailsUIModel.RowExpandable(word = topItem.word, position = number)
         recycleViewModel.add(rowExpandable)
     }
 

@@ -29,5 +29,4 @@ class ViewModelModule {
     fun provideRocketsViewModel(getRocketsUseCase: GetRocketsUseCase): RocketsViewModel {
         return RocketsViewModel(getRocketsUseCase)
     }
-
 }

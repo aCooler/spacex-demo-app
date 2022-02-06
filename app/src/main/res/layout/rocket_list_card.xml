@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="154dp"
+    android:layout_height="152dp"
     android:layout_margin="16dp"
     app:cardBackgroundColor="@color/card_color"
     app:cardCornerRadius="8dp">
@@ -49,38 +49,22 @@
             android:id="@+id/active"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:fontFamily="@font/inter_semibold"
-            android:textStyle="normal"
-            android:textSize="12sp"
-            android:textColor="#1aac80"
-            android:lineSpacingExtra="4.8sp"
             app:layout_constraintBottom_toBottomOf="@id/launch_image"
             app:layout_constraintStart_toStartOf="@id/launch_image"
-            android:background="@drawable/rounded"
             android:text="@string/active"
-            tools:text="@string/active"/>
+            tools:text="@string/active"
+            style="@style/rocket_list_card_active_style" />
 
 
         <TextView
             android:id="@+id/rocket"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/inter_semibold"
-            android:maxLines="1"
-            android:text="Falcon 9"
-            android:textColor="#fafafa"
-            android:textSize="18sp"
-            android:textStyle="normal"
             app:layout_constraintEnd_toStartOf="@+id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/launch_image"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Falcon 9" />
+            tools:text="Falcon 9"
+            style="@style/rocket_list_card_rocket_style" />
 
         <ImageView
             android:id="@+id/date_icon"
@@ -101,7 +85,6 @@
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/date_icon"
             app:layout_constraintTop_toBottomOf="@+id/rocket"
-            android:text="First Flight 4 Jun 2010"
             tools:text="First Flight 4 Jun 2010" />
 
 
@@ -112,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="@id/rocket_name"
             app:layout_constraintStart_toStartOf="@id/rocket"
             app:layout_constraintTop_toTopOf="@id/rocket_name"
-            app:srcCompat="@drawable/ic_baseline_outlined_flag_24"  />
+            app:srcCompat="@drawable/ic_flag"  />
 
         <TextView
             android:id="@+id/rocket_name"
@@ -123,7 +106,6 @@
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/rocket_name_icon"
             app:layout_constraintTop_toBottomOf="@+id/date"
-            android:text="United States"
             tools:text="United States"
             style="@style/card_rocket_name" />
 
@@ -145,7 +127,6 @@
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/place_icon"
             app:layout_constraintTop_toBottomOf="@+id/rocket_name"
-            android:text="$50 millions per Launch"
             tools:text="$50 millions per Launch"
             style="@style/card_place" />
 
@@ -176,7 +157,6 @@
             app:layout_constraintEnd_toStartOf="@id/right_guideline"
             app:layout_constraintStart_toEndOf="@id/reused_icon"
             app:layout_constraintTop_toBottomOf="@+id/place"
-            android:text="2 Stages"
             tools:text="2 Stages"
             style="@style/card_reused" />
 

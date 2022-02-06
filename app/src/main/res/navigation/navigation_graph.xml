@@ -41,6 +41,13 @@
             app:nullable="false"
             />
 
+        <argument
+            android:name="payloadId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"
+            />
+
         <action
             android:id="@+id/action_myDetailsFragment_to_myRocketsFragment"
             app:popUpTo="@id/rockets_fragment" />
@@ -55,16 +62,18 @@
         <argument
             android:name="launchId"
             app:argType="string"
+            android:defaultValue=""
             app:nullable="false"
             />
         <argument
             android:name="payloadId"
             app:argType="string"
+            android:defaultValue=""
             app:nullable="false"
             />
 
         <action
             android:id="@+id/action_myRocketsFragment_to_myDetailsFragment"
-            app:popUpTo="@id/main_fragment" />
+            app:popUpTo="@id/rockets_fragment" />
     </fragment>
 </navigation>

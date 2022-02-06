@@ -117,8 +117,9 @@ class RocketDetailsViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.rocket_details_picture -> RocketPictureViewHolder(RocketDetailsPictureBinding.bind(
-                view))
+            R.layout.rocket_details_picture -> RocketPictureViewHolder(
+                RocketDetailsPictureBinding.bind(view)
+            )
             R.layout.details -> RocketDetailsViewHolder(DetailsBinding.bind(view))
             R.layout.icon_and_text -> IconAndTestViewHolder(IconAndTextBinding.bind(view))
             R.layout.row_expandable -> ExpandableRowViewHolder(RowExpandableBinding.bind(view)) { n ->

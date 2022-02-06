@@ -27,11 +27,13 @@ class RocketDetailsFragment : Fragment(R.layout.rocket_details_fragment) {
         fragmentBlankBinding = binding
         val adapter = RocketDetailsViewAdapter()
         binding.launchesDetailsList.adapter = adapter
-        binding.toolbarDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        binding.toolbarDetails.setNavigationOnClickListener { findNavController().navigate(
-            R.id.action_myDetailsFragment_to_myRocketsFragment,
-            null
-        ) }
+        binding.toolbarDetails.setNavigationIcon(R.drawable.arrow_back)
+        binding.toolbarDetails.setNavigationOnClickListener {
+            findNavController().navigate(
+                R.id.action_myDetailsFragment_to_myRocketsFragment,
+                null
+            )
+        }
         binding.launchesDetailsList.layoutManager = LinearLayoutManager(activity)
         viewModel.getLaunchUI()
         viewModel.launchLiveData.observe(viewLifecycleOwner) { state ->
@@ -72,6 +74,4 @@ class RocketDetailsFragment : Fragment(R.layout.rocket_details_fragment) {
         fragmentBlankBinding = null
         super.onDestroyView()
     }
-
-
 }
