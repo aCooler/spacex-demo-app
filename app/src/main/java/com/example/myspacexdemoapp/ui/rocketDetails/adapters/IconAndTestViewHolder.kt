@@ -13,6 +13,6 @@ class IconAndTestViewHolder(binding: IconAndTextBinding) :
 
     fun onBindView(model: RocketDetailsUIModel.IconAndText) {
         icon.setImageResource(model.icon)
-        text.text= model.text
+        text.text = model.text
     }
 }

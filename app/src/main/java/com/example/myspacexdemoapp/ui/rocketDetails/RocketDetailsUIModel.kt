@@ -34,5 +34,4 @@ sealed class RocketDetailsUIModel {
         val text: String,
     ) :
         RocketDetailsUIModel()
-
 }

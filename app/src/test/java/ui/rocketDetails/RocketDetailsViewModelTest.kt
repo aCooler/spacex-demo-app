@@ -36,14 +36,15 @@ class RocketDetailsViewModelTest : TestCase() {
                 RocketDetailsData.EMPTY.copy(
                     number = "1111",
                     mission = Mission.EMPTY.copy(
-                        details = "My details", name = "My mission name")
+                        details = "My details", name = "My mission name"
+                    )
                 )
             )
         )
 
         val mockObserver = mock(Observer::class.java) as Observer<RocketDetailsViewState>
         viewModel.launchLiveData.observeForever(mockObserver)
-        viewModel.getLaunch("", "")
+        viewModel.getLaunch("1", "1")
         val argumentCaptor = ArgumentCaptor.forClass(RocketDetailsViewState::class.java)
         verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
         assert(argumentCaptor.allValues.first() is RocketDetailsViewState.Loading)

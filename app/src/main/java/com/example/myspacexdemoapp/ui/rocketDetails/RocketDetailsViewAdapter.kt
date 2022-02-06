@@ -112,7 +112,6 @@ class RocketDetailsViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         notifyItemRangeRemoved(firstPosition, counter)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)

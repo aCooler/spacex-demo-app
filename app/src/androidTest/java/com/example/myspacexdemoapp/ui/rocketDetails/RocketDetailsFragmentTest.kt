@@ -50,7 +50,8 @@ class RocketDetailsFragmentTest {
         )
         onView(ViewMatchers.withText(message))
             .check { _, _ ->
-                matches(ViewMatchers.isDisplayed()
+                matches(
+                    ViewMatchers.isDisplayed()
                 )
             }
     }
