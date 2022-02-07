@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.RocketDetailsUseCase
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class RocketDetailsViewModel @Inject constructor(private val getRocketDetailsUseCase: RocketDetailsUseCase) :
@@ -28,7 +27,6 @@ class RocketDetailsViewModel @Inject constructor(private val getRocketDetailsUse
 
     fun getLaunch(id: String, payloadId: String) {
         getRocketDetailsUseCase.invoke(id, payloadId)
-            .subscribeOn(Schedulers.io())
             .doOnSubscribe {
                 _launchMutableLiveData.postValue(RocketDetailsViewState.Loading)
             }

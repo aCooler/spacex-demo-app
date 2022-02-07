@@ -14,10 +14,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -58,4 +58,21 @@ class RocketDetailsViewModelTest : TestCase() {
         assertEquals(actualState.model.mission.details, "My details")
         assertEquals(actualState.model.mission.name, "My mission name")
     }
+
+    @Test
+    fun `when launch by id initialized then error is retrieved`() {
+        `when`(useCase?.invoke("", "")).thenReturn(
+            Flowable.error(
+                Throwable()
+            )
+        )
+        val mockObserver = mock(Observer::class.java) as Observer<RocketDetailsViewState>
+        viewModel?.launchLiveData?.observeForever(mockObserver)
+        viewModel?.getLaunch("", "")
+        val argumentCaptor = ArgumentCaptor.forClass(RocketDetailsViewState::class.java)
+        verify(mockObserver, times(2)).onChanged(argumentCaptor.capture())
+        assert(argumentCaptor.allValues.first() is RocketDetailsViewState.Loading)
+        assert(argumentCaptor.allValues.last() is RocketDetailsViewState.Error)
+    }
+
 }
