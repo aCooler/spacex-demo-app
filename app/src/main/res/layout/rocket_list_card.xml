@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="152dp"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/card_color"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_edge">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="138dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <ImageView
+            android:id="@+id/launch_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sky" />
+
+        <TextView
+            android:id="@+id/active"
+            style="@style/rocket_list_card_active_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="@string/active"
+            app:layout_constraintBottom_toBottomOf="@id/launch_image"
+            app:layout_constraintStart_toStartOf="@id/launch_image"
+            tools:text="@string/active" />
+
+
+        <TextView
+            android:id="@+id/rocket"
+            style="@style/rocket_list_card_rocket_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/launch_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Falcon 9" />
+
+        <ImageView
+            android:id="@+id/date_icon"
+            android:layout_width="12sp"
+            android:layout_height="12sp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/date"
+            app:layout_constraintStart_toStartOf="@id/rocket"
+            app:layout_constraintTop_toTopOf="@id/date"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/card_date_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            app:layout_constraintBottom_toTopOf="@+id/rocket_name"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/date_icon"
+            app:layout_constraintTop_toBottomOf="@+id/rocket"
+            tools:text="First Flight 4 Jun 2010" />
+
+
+        <ImageView
+            android:id="@+id/rocket_name_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/rocket_name"
+            app:layout_constraintStart_toStartOf="@id/rocket"
+            app:layout_constraintTop_toTopOf="@id/rocket_name"
+            app:srcCompat="@drawable/ic_flag" />
+
+        <TextView
+            android:id="@+id/rocket_name"
+            style="@style/card_rocket_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            app:layout_constraintBottom_toTopOf="@+id/place"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/rocket_name_icon"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            tools:text="United States" />
+
+        <ImageView
+            android:id="@+id/place_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/dummy_text"
+            app:layout_constraintStart_toStartOf="@id/rocket"
+            app:layout_constraintTop_toTopOf="@id/place"
+            app:srcCompat="@drawable/ic_currency_usd" />
+
+        <TextView
+            android:id="@+id/place"
+            style="@style/card_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@+id/reused"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/place_icon"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+            tools:text="$50 millions per Launch" />
+
+        <TextView
+            android:id="@+id/dummy_text"
+            style="@style/card_reused"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@id/place"
+            app:layout_constraintEnd_toStartOf="@+id/place" />
+
+        <ImageView
+            android:id="@+id/reused_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/reused"
+            app:layout_constraintStart_toStartOf="@id/rocket"
+            app:layout_constraintTop_toTopOf="@id/reused"
+            app:srcCompat="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/reused"
+            style="@style/card_reused"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/reused_icon"
+            app:layout_constraintTop_toBottomOf="@+id/place"
+            tools:text="2 Stages" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

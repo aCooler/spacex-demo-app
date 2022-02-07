@@ -1,6 +1,7 @@
 package com.example.myspacexdemoapp.data
 
 import com.apollographql.apollo3.ApolloClient
+import com.example.spacexdemoapp.api.retrofit.RocketsService
 import junit.framework.TestCase
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,6 +15,8 @@ import spacexdemoapp.GetLaunchesQuery
 @RunWith(MockitoJUnitRunner::class)
 class SpaceXApiTest : TestCase() {
     private val apolloClient: ApolloClient = mock(ApolloClient::class.java)
+    private val rocketService: RocketsService = mock(RocketsService::class.java)
+
     private fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
 
     @Test
@@ -34,5 +37,11 @@ class SpaceXApiTest : TestCase() {
         apolloClient.query(query)
         verify(apolloClient).query(capture(queryCaptor))
         assertEquals(query, queryCaptor.value)
+    }
+
+    @Test
+    fun getRockets() {
+        rocketService.listRockets()
+        verify(rocketService).listRockets()
     }
 }

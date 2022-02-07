@@ -1,6 +1,5 @@
-package com.example.myspacexdemoapp.ui.launches
+package com.example.myspacexdemoapp.ui.rocketDetails
 
-import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -11,11 +10,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.example.domain.LaunchData
+import com.example.domain.BasicInfoEntity
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
 import com.example.domain.Payload
+import com.example.domain.RocketDetailsData
 import com.example.myspacexdemoapp.R
+import com.example.myspacexdemoapp.ui.launches.LaunchesViewState
 import com.example.myspacexdemoapp.util.TestUtil.atPosition
 import com.example.myspacexdemoapp.util.TestUtil.isRefreshing
 import com.example.myspacexdemoapp.util.TestUtil.withTextColor
@@ -29,70 +30,64 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class MainFragmentTest {
+class RocketDetailsFragmentTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private val viewModel: LaunchesViewModel = mockkClass(LaunchesViewModel::class)
-    private var liveData: MutableLiveData<LaunchesViewState> = MutableLiveData()
+    private val viewModel: RocketDetailsViewModel = mockkClass(RocketDetailsViewModel::class)
+    private var liveData: MutableLiveData<RocketDetailsViewState> = MutableLiveData()
 
     @Before
     fun init() {
-        launchFragmentInContainer<MainFragment>(
-            fragmentArgs = Bundle().apply {
-                putBoolean(
-                    "isNotTest",
-                    false
-                )
-            }
-        )
-        every { viewModel.launchesLiveData } returns liveData
+        launchFragmentInContainer<RocketDetailsFragment>()
+        every { viewModel.launchLiveData } returns liveData
     }
 
     @Test
     fun when_error_retrieved_than_dialog_is_showed() {
         val message = "Test for empty list"
         liveData.postValue(
-            LaunchesViewState.Error(error = Throwable(message = message))
+            RocketDetailsViewState.Error(error = Throwable(message = message))
         )
-        onView(withId(R.id.toolbar))
-            .check(matches(ViewMatchers.isDisplayed()))
-        onView(ViewMatchers.withText(message)).check { _, _ ->
-            matches(ViewMatchers.isDisplayed())
-        }
+        onView(ViewMatchers.withText(message))
+            .check { _, _ ->
+                matches(
+                    ViewMatchers.isDisplayed()
+                )
+            }
     }
 
     @Test
     fun when_loading_retrieved_than_progress_is_showed() {
         liveData.postValue(
-            LaunchesViewState.Loading
+            RocketDetailsViewState.Loading
         )
-        onView(withId(R.id.swipe_refresh_details)).check { _, _ ->
+        onView(withId(R.id.rocket_details_swipe_refresh_details)).check { _, _ ->
             matches(isRefreshing())
         }
     }
 
     @Test
     fun when_success_retrieved_than_list_is_filled_and_each_item_is_checked() {
-        val number = "889"
+        val number = "First Flight"
         liveData.postValue(
-            LaunchesViewState.Success(
-                listOf(
-                    LaunchData(
-                        number,
-                        linkInfo = LinkInfo.EMPTY
-                            .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                        payload = Payload.EMPTY,
-                        mission = Mission.EMPTY
-                            .copy(name = "Antares")
-                    )
+            RocketDetailsViewState.Success(
+                RocketDetailsData.EMPTY.copy(
+                    number = number,
+                    basics = BasicInfoEntity.EMPTY,
+                    mission = Mission.EMPTY,
+                    expandables = emptyList(),
+                    payload = Payload.EMPTY,
+                    linkInfo = LinkInfo.EMPTY
                 )
             )
         )
-        onView(withId(R.id.launches_list)).check { _, _ ->
+        onView(withId(R.id.launches_details_list)).check { _, _ ->
             matches(
                 atPosition(
                     0,
-                    ViewMatchers.hasDescendant(ViewMatchers.withText(number))
+                    ViewMatchers.hasDescendant(
+                        ViewMatchers.withText(number)
+                    )
                 )
             )
         }
@@ -100,27 +95,30 @@ class MainFragmentTest {
 
     @Test
     fun when_success_retrieved_than_title_is_checked() {
-        LaunchesViewState.Success(
-            listOf(
-                LaunchData(
-                    "889",
-                    linkInfo = LinkInfo.EMPTY
-                        .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
+        val title = "889"
+        liveData.postValue(
+            RocketDetailsViewState.Success(
+                RocketDetailsData.EMPTY.copy(
+                    number = "number",
+                    basics = BasicInfoEntity.EMPTY,
+                    mission = Mission.EMPTY.copy(name = title),
+                    expandables = emptyList(),
                     payload = Payload.EMPTY,
-                    mission = Mission.EMPTY
+                    linkInfo = LinkInfo.EMPTY
                 )
             )
         )
         onView(withId(R.id.toolbar)).check { _, _ ->
-            val title = "Launches"
-            matches(ViewMatchers.withText(title))
+            matches(
+                ViewMatchers.withText(title)
+            )
         }
     }
 
     @Test
     fun when_error_retrieved_than_list_is_empty() {
         LaunchesViewState.Error(Throwable())
-        onView(withId(R.id.launches_list)).check { view, _ ->
+        onView(withId(R.id.launches_details_list)).check { view, _ ->
             view as RecyclerView
             assertEquals(view.adapter?.itemCount, 0)
         }
@@ -129,21 +127,12 @@ class MainFragmentTest {
     @Test
     fun when_success_retrieved_than_list_is_checked_for_failed_launch_text_and_color_text() {
         liveData.postValue(
-            LaunchesViewState.Success(
-                listOf(
-                    LaunchData(
-                        "889",
-                        linkInfo = LinkInfo.EMPTY
-                            .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                        payload = Payload.EMPTY,
-                        mission = Mission.EMPTY
-                            .copy(name = "Antares", success = false)
-                    )
-                )
+            RocketDetailsViewState.Success(
+                RocketDetailsData.EMPTY
             )
         )
         onView(withId(R.id.launches_details_list)).check { _, _ ->
-            val text = "failed"
+            val text = "inactive"
             matches(
                 atPosition(
                     0,
@@ -159,23 +148,22 @@ class MainFragmentTest {
         }
     }
 
+    @Test
     fun when_success_retrieved_than_list_is_checked_for_success_launch_text_and_color_text() {
         liveData.postValue(
-            LaunchesViewState.Success(
-                listOf(
-                    LaunchData(
-                        "889",
-                        linkInfo = LinkInfo.EMPTY
-                            .copy(picture = "https://farm5.staticflickr.com/4477/38056454431_a5f40f9fd7_o.jpg"),
-                        payload = Payload.EMPTY,
-                        mission = Mission.EMPTY
-                            .copy(name = "Antares", success = true)
-                    )
+            RocketDetailsViewState.Success(
+                RocketDetailsData.EMPTY.copy(
+                    number = "number",
+                    basics = BasicInfoEntity.EMPTY,
+                    mission = Mission.EMPTY.copy(success = true),
+                    expandables = emptyList(),
+                    payload = Payload.EMPTY,
+                    linkInfo = LinkInfo.EMPTY
                 )
             )
         )
         onView(withId(R.id.launches_details_list)).check { _, _ ->
-            val text = "success"
+            val text = "Active"
             matches(
                 atPosition(
                     0,

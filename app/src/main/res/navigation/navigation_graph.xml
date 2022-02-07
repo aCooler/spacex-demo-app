@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/main_fragment">
+    app:startDestination="@id/rockets_fragment">
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.example.myspacexdemoapp.ui.launches.MainFragment"
@@ -16,6 +16,44 @@
 
     </fragment>
     <fragment
+        android:id="@+id/rockets_fragment"
+        android:name="com.example.myspacexdemoapp.ui.rockets.RocketsFragment"
+        android:label="fragment_rockets_list"
+        tools:layout="@layout/rockets_fragment"
+        >
+
+        <action
+            android:id="@+id/action_myRocketsFragment_to_myDetailsRocketFragment"
+            app:destination="@id/rocket_details_fragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/rocket_details_fragment"
+        android:name="com.example.myspacexdemoapp.ui.rocketDetails.RocketDetailsFragment"
+        android:label="fragment_my_rocket_details"
+        tools:layout="@layout/rocket_details_fragment"
+        >
+
+        <argument
+            android:name="launchId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"
+            />
+
+        <argument
+            android:name="payloadId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"
+            />
+
+        <action
+            android:id="@+id/action_myDetailsFragment_to_myRocketsFragment"
+            app:popUpTo="@id/rockets_fragment" />
+
+    </fragment>
+    <fragment
         android:id="@+id/details_fragment"
         android:name="com.example.myspacexdemoapp.ui.launch.DetailsFragment"
         android:label="fragment_my_details"
@@ -24,16 +62,18 @@
         <argument
             android:name="launchId"
             app:argType="string"
+            android:defaultValue=""
             app:nullable="false"
             />
         <argument
             android:name="payloadId"
             app:argType="string"
+            android:defaultValue=""
             app:nullable="false"
             />
 
         <action
-            android:id="@+id/action_myDetailsFragment_to_myHomeFragment"
-            app:popUpTo="@id/main_fragment" />
+            android:id="@+id/action_myRocketsFragment_to_myDetailsFragment"
+            app:popUpTo="@id/rockets_fragment" />
     </fragment>
 </navigation>

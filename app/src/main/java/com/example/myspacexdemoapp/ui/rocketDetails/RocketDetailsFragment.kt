@@ -1,4 +1,4 @@
-package com.example.myspacexdemoapp.ui.launch
+package com.example.myspacexdemoapp.ui.rocketDetails
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,30 +7,38 @@ import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.databinding.DetailsFragmentBinding
-import com.example.myspacexdemoapp.ui.mappers.LaunchUIMapper
+import com.example.myspacexdemoapp.databinding.RocketDetailsFragmentBinding
+import com.example.myspacexdemoapp.ui.mappers.RocketDetailsUIMapper
 import javax.inject.Inject
 
-class DetailsFragment : Fragment(R.layout.details_fragment) {
+class RocketDetailsFragment : Fragment(R.layout.rocket_details_fragment) {
     @Inject
-    lateinit var viewModel: LaunchDetailsViewModel
-    private var fragmentBlankBinding: DetailsFragmentBinding? = null
+    lateinit var viewModel: RocketDetailsViewModel
+    private var fragmentBlankBinding: RocketDetailsFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val args = DetailsFragmentArgs.fromBundle(arguments ?: bundleOf())
-        viewModel.init(args.launchId, args.payloadId)
-        val binding = DetailsFragmentBinding.bind(view)
+        val args = RocketDetailsFragmentArgs.fromBundle(arguments ?: bundleOf())
+        viewModel.init(args.launchId)
+        val binding = RocketDetailsFragmentBinding.bind(view)
         fragmentBlankBinding = binding
-        val adapter = DetailsRecyclerViewAdapter()
+        val adapter = RocketDetailsViewAdapter()
         binding.launchesDetailsList.adapter = adapter
+        binding.toolbarDetails.setNavigationIcon(R.drawable.arrow_back)
+        binding.toolbarDetails.setNavigationOnClickListener {
+            findNavController().navigate(
+                R.id.action_myDetailsFragment_to_myRocketsFragment,
+                null
+            )
+        }
         binding.launchesDetailsList.layoutManager = LinearLayoutManager(activity)
         viewModel.getLaunchUI()
         viewModel.launchLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is LaunchDetailsViewState.Error -> {
+                is RocketDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
                     val alertDialog = AlertDialog.Builder(requireActivity())
                     alertDialog.setMessage(state.error.message)
@@ -40,19 +48,19 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                         }.create()
                     alertDialog.show()
                 }
-                is LaunchDetailsViewState.Success -> {
+                is RocketDetailsViewState.Success -> {
                     val dataset =
-                        LaunchUIMapper(state.model).launchUiModelToDataModel()
+                        RocketDetailsUIMapper(state.model).rocketDetailsUiModelToDataModel()
                     adapter.setItems(dataset)
-                    binding.toolbarDetails.title = state.model.mission.name
-                    binding.swipeRefreshDetails.isRefreshing = false
+                    binding.toolbarDetails.title = state.model.number
+                    binding.rocketDetailsSwipeRefreshDetails.isRefreshing = false
                 }
-                is LaunchDetailsViewState.Loading -> {
-                    binding.swipeRefreshDetails.isRefreshing = true
+                is RocketDetailsViewState.Loading -> {
+                    binding.rocketDetailsSwipeRefreshDetails.isRefreshing = true
                 }
             }
         }
-        binding.swipeRefreshDetails.setOnRefreshListener {
+        binding.rocketDetailsSwipeRefreshDetails.setOnRefreshListener {
             viewModel.getLaunchUI()
         }
     }
