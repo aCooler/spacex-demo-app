@@ -55,7 +55,7 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
     }
 
     private fun makeSuccess(viewHolder: RocketsViewHolder, position: Int): CharSequence {
-         return when (items[position].activity) {
+        return when (items[position].activity) {
             true -> {
                 val green =
                     ContextCompat.getColor(viewHolder.itemView.context, R.color.success_green)
@@ -79,5 +79,6 @@ class RocketsAdapter(private val onClickListener: OnClickListener) :
         items = strings
         notifyDataSetChanged()
     }
+
     override fun getItemCount() = items.size
 }

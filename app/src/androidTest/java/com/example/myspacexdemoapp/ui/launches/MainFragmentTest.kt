@@ -39,9 +39,12 @@ class MainFragmentTest {
     fun init() {
         launchFragmentInContainer<MainFragment>(
             fragmentArgs = Bundle().apply {
-                putBoolean("isNotTest",
-                    false)
-            })
+                putBoolean(
+                    "isNotTest",
+                    false
+                )
+            }
+        )
         every { viewModel.launchesLiveData } returns liveData
     }
 
