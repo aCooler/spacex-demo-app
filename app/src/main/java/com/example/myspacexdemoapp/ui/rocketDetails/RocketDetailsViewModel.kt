@@ -29,7 +29,7 @@ class RocketDetailsViewModel @Inject constructor(private val getRocketDetailsUse
     fun getLaunch(id: String, payloadId: String) {
         getRocketDetailsUseCase.invoke(id, payloadId)
             .subscribeOn(Schedulers.io())
-            .doOnSubscribe {
+            .doOnSubscribe{
                 _launchMutableLiveData.postValue(RocketDetailsViewState.Loading)
             }
             .subscribe({ response ->
