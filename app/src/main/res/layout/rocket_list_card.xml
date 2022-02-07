@@ -38,6 +38,7 @@
             android:id="@+id/launch_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/divider"
@@ -47,13 +48,15 @@
 
         <TextView
             android:id="@+id/active"
+            style="@style/rocket_list_card_active_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="@string/active"
             app:layout_constraintBottom_toBottomOf="@id/launch_image"
             app:layout_constraintStart_toStartOf="@id/launch_image"
-            android:text="@string/active"
-            tools:text="@string/active"
-            style="@style/rocket_list_card_active_style" />
+            tools:text="@string/active" />
 
 
         <TextView
@@ -70,6 +73,7 @@
             android:id="@+id/date_icon"
             android:layout_width="12sp"
             android:layout_height="12sp"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@id/date"
             app:layout_constraintStart_toStartOf="@id/rocket"
             app:layout_constraintTop_toTopOf="@id/date"
@@ -92,6 +96,7 @@
             android:id="@+id/rocket_name_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@id/rocket_name"
             app:layout_constraintStart_toStartOf="@id/rocket"
             app:layout_constraintTop_toTopOf="@id/rocket_name"
@@ -113,6 +118,7 @@
             android:id="@+id/place_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@id/dummy_text"
             app:layout_constraintStart_toStartOf="@id/rocket"
             app:layout_constraintTop_toTopOf="@id/place"
@@ -142,6 +148,7 @@
             android:id="@+id/reused_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@id/reused"
             app:layout_constraintStart_toStartOf="@id/rocket"
             app:layout_constraintTop_toTopOf="@id/reused"
