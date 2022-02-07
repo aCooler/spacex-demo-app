@@ -14,10 +14,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -25,8 +25,8 @@ class RocketDetailsViewModelTest : TestCase() {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
-    private var useCase : RocketDetailsUseCase? = null
-    private var viewModel : RocketDetailsViewModel? = null
+    private var useCase: RocketDetailsUseCase? = null
+    private var viewModel: RocketDetailsViewModel? = null
 
     @Before
     fun init() {
