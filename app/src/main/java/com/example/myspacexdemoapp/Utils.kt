@@ -24,8 +24,7 @@ var TextView.textValue: String
         }
     }
 
-
-fun getTopHeight(card : ConstraintLayout): Int {
+fun getTopHeight(card: ConstraintLayout): Int {
     var result = 0
     val resourceId: Int =
         card.context.resources.getIdentifier("status_bar_height", "dimen", "android")
