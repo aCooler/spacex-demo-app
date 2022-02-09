@@ -33,7 +33,7 @@ import java.util.Date
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class StartFragmentTest {
+class HomeFragmentTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -43,7 +43,7 @@ class StartFragmentTest {
     @Before
     fun init() {
         every { viewModel.launchLiveData } returns liveData
-        launchFragmentInContainer<StartFragment>(
+        launchFragmentInContainer<HomeFragment>(
             Bundle().apply {
                 this.putBoolean(
                     "isNotTest",

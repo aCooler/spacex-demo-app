@@ -38,8 +38,8 @@
     </fragment>
     <fragment
         android:id="@+id/placeholder"
-        tools:layout="@layout/start_fragment"
-        android:name="com.example.myspacexdemoapp.ui.start.StartFragment"
+        tools:layout="@layout/home_fragment"
+        android:name="com.example.myspacexdemoapp.ui.start.HomeFragment"
         android:label="fragment_my_start">
 
 

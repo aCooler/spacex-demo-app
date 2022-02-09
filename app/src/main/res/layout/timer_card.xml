@@ -150,7 +150,7 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_space_x_logo_1_1" />
+        app:srcCompat="@drawable/ic_space_x_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

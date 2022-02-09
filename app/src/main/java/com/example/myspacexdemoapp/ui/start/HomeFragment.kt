@@ -8,24 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myspacexdemoapp.MyApp
 import com.example.myspacexdemoapp.R
-import com.example.myspacexdemoapp.databinding.StartFragmentBinding
+import com.example.myspacexdemoapp.databinding.HomeFragmentBinding
 import com.example.myspacexdemoapp.ui.mappers.toTimerUIList
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
-class StartFragment : Fragment(R.layout.start_fragment) {
+class HomeFragment : Fragment(R.layout.home_fragment) {
 
     @Inject
     lateinit var timerViewModel: StartViewModel
-    private var fragmentBlankBinding: StartFragmentBinding? = null
-    var adapter: StartAdapter? = null
+    private var homeFragmentBinding: HomeFragmentBinding? = null
+    var adapter: HomeAdapter? = null
     private var disposable: Disposable? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         timerViewModel.init(arguments)
-        val binding = StartFragmentBinding.bind(view)
-        fragmentBlankBinding = binding
-        val adapter = StartAdapter(
-            StartAdapter.OnClickListener {
+        val binding = HomeFragmentBinding.bind(view)
+        homeFragmentBinding = binding
+        val adapter = HomeAdapter(
+            HomeAdapter.OnClickListener {
                 binding.launchesListTimer.scrollToPosition(2)
             }
         )
@@ -59,7 +59,7 @@ class StartFragment : Fragment(R.layout.start_fragment) {
 
     override fun onDestroyView() {
         disposable?.dispose()
-        fragmentBlankBinding = null
+        homeFragmentBinding = null
         super.onDestroyView()
     }
 }

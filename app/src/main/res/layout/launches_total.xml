@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/top_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="parent"
-        />
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -33,54 +23,43 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/card_edge"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_barrier"
+        app:layout_constraintBottom_toBottomOf="@id/toLaunch"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_barrier" />
-
-
-    <View
-        android:id="@+id/top_barrier"
-        style="@style/launches_and_rocket_item_style"
-        android:visibility="invisible"
-        android:layout_height="16dp"
-        android:layout_width="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/launches_launches_title"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/top_guideline"
-        />
+        app:layout_constraintTop_toTopOf="@id/launches_launches_title" />
 
 
     <TextView
         android:id="@+id/launches_launches_title"
         style="@style/launches_and_rocket_item_style"
-        android:layout_marginHorizontal="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:paddingTop="16dp"
         android:text="@string/launches"
         app:layout_constraintBottom_toTopOf="@+id/successful_launches_text"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/top_barrier"
+        app:layout_constraintTop_toBottomOf="parent"
         tools:text="Launches" />
 
 
     <TextView
-        android:layout_marginHorizontal="16dp"
         android:id="@+id/successful_launches_text"
         style="@style/mission_name_style_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:text="@string/successful_launches"
         app:layout_constraintBottom_toTopOf="@+id/successful_launches_value"
         app:layout_constraintLeft_toLeftOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/launches_launches_title" />
 
     <TextView
-        android:layout_marginHorizontal="16dp"
         android:id="@+id/successful_launches_value"
         style="@style/launches_total_successful_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/total_launches_text"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
@@ -93,8 +72,8 @@
         style="@style/mission_name_style_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/total_launches"
         android:layout_marginHorizontal="16dp"
+        android:text="@string/total_launches"
         app:layout_constraintBottom_toTopOf="@+id/total_launches_value"
         app:layout_constraintLeft_toLeftOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/successful_launches_value" />
@@ -105,9 +84,8 @@
         style="@style/launches_total_total_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/efficiency"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/efficiency"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/total_launches_text"
@@ -127,48 +105,29 @@
 
 
     <Button
-        android:id="@+id/toLaunch"
+        android:id="@+id/button"
         style="@style/launches_total_tolaunch_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_barrier"
+        app:layout_constraintBottom_toBottomOf="@id/toLaunch"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/efficiency" />
+        app:layout_constraintTop_toTopOf="@+id/toLaunch" />
 
     <TextView
-        android:id="@+id/explore_launches"
+        android:id="@+id/toLaunch"
         style="@style/launches_total_all_launches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
+        android:paddingVertical="32dp"
         android:text="@string/explore_all_launches"
-        app:layout_constraintBottom_toBottomOf="@+id/toLaunch"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toTopOf="@+id/toLaunch"
+        app:layout_constraintTop_toBottomOf="@+id/efficiency"
         tools:text="Explore All Launches" />
-
-    <View
-        android:id="@+id/bottom_barrier"
-        style="@style/launches_and_rocket_item_style"
-        android:visibility="invisible"
-        android:layout_height="16dp"
-        android:layout_width="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/toLaunch"
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottom_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="parent"
-        />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

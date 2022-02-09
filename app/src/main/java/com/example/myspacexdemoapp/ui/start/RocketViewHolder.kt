@@ -3,7 +3,7 @@ package com.example.myspacexdemoapp.ui.start
 import android.content.Context
 import android.view.Display
 import android.view.WindowManager
-import android.widget.TextView
+import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +11,7 @@ import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
 
 class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val toLaunch: TextView = binding.buttonToRockets
+    private val toLaunch: Button = binding.button
     private val card: ConstraintLayout = binding.root
 
     fun onBindView(model: StartUIModel.Rockets) {

@@ -164,36 +164,34 @@ class LaunchUIMapper(private val launchData: LaunchData) {
     }
 }
 
-fun HomeData.toTimerUIList(): MutableList<StartUIModel> {
+fun HomeData.toTimerUIList(): List<StartUIModel> {
     val nextLaunch = this.launchData
     val rocketsEfficiency = this.rockets
     val timeToLaunch = nextLaunch.mission.date
     val dataset: MutableList<StartUIModel> = mutableListOf()
-    dataset.add(
-        0,
-        StartUIModel.Timer(
-            name = nextLaunch.mission.name,
-            days = timeToLaunch.day.toString(),
-            hours = timeToLaunch.hours.toString(),
-            minutes = timeToLaunch.minutes.toString(),
-            seconds = timeToLaunch.seconds.toString()
+    dataset.apply {
+        add(
+            StartUIModel.Timer(
+                name = nextLaunch.mission.name,
+                days = timeToLaunch.day.toString(),
+                hours = timeToLaunch.hours.toString(),
+                minutes = timeToLaunch.minutes.toString(),
+                seconds = timeToLaunch.seconds.toString()
+            )
         )
-    )
-    dataset.add(
-        1,
-        StartUIModel.Launches(
-            successful = rocketsEfficiency.efficiency,
-            total = rocketsEfficiency.total,
-            efficiency = "",
-            toLaunches = ""
+        add(
+            StartUIModel.Launches(
+                successful = rocketsEfficiency.efficiency,
+                total = rocketsEfficiency.total,
+                efficiency = "",
+                toLaunches = ""
+            )
         )
-    )
-    dataset.add(
-        2,
-        StartUIModel.Rockets(
-            tweet = ""
+        add(
+            StartUIModel.Rockets(
+                tweet = ""
+            )
         )
-    )
-
+    }
     return dataset
 }

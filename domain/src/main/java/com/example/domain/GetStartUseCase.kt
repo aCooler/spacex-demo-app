@@ -5,11 +5,11 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class GetStartUseCase @Inject constructor(private val spaceXApi: LaunchRepository) {
+class GetStartUseCase @Inject constructor(private val launchRepository: LaunchRepository) {
 
     fun invoke(): Flowable<HomeData> {
         val timer = Flowable.interval(0, 1000, TimeUnit.MILLISECONDS)
-        val request = spaceXApi.getNextLaunch()
+        val request = launchRepository.getNextLaunch()
         return Flowable.combineLatest(
             timer,
             request

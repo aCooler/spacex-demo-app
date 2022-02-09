@@ -8,9 +8,9 @@ import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
 import com.example.myspacexdemoapp.databinding.TimerCardBinding
 
-class StartAdapter(private val onClickListener: OnClickListener) :
+class HomeAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var listOfData: MutableList<StartUIModel> = mutableListOf()
+    private var listOfData: List<StartUIModel> = emptyList()
     private var onModel = OnModelChanged()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -28,7 +28,7 @@ class StartAdapter(private val onClickListener: OnClickListener) :
 
     override fun getItemCount(): Int = listOfData.size
 
-    fun setItems(model: MutableList<StartUIModel>) {
+    fun setItems(model: List<StartUIModel>) {
         when {
             listOfData.isEmpty() -> {
                 listOfData = model
