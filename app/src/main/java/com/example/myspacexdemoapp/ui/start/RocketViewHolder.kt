@@ -9,6 +9,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.RocketsStartBinding
+import com.example.myspacexdemoapp.getTopHeight
 
 class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(binding.root) {
     private val toLaunch: Button = binding.button
@@ -17,7 +18,7 @@ class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(b
     fun onBindView(model: StartUIModel.Rockets) {
         val wm: WindowManager = card.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display: Display = wm.defaultDisplay
-        card.layoutParams.height = display.height / 2
+        card.layoutParams.height = (display.height - getTopHeight(card)) / 2
         toLaunch.setOnClickListener {
             findNavController(it).navigate(
                 R.id.action_myStartFragment_to_myMainFragment,

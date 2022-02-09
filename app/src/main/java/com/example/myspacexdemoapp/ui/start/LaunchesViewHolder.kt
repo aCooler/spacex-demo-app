@@ -10,6 +10,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.LaunchesTotalBinding
+import com.example.myspacexdemoapp.getTopHeight
 import com.example.myspacexdemoapp.textValue
 
 class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,7 +24,7 @@ class LaunchesViewHolder(binding: LaunchesTotalBinding) : RecyclerView.ViewHolde
         val wm: WindowManager =
             card.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display: Display = wm.defaultDisplay
-        card.layoutParams.height = display.height / 2
+        card.layoutParams.height = (display.height - getTopHeight(card = card)) / 2
         successful.textValue = model.successful
         total.textValue = model.total
         val efficiencyNumber = (model.successful.toFloat() / model.total.toFloat() * 100).toInt()
