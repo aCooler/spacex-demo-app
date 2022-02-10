@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.domain.LaunchData
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
+import com.example.domain.toDateString
 import com.example.myspacexdemoapp.R
 import com.example.myspacexdemoapp.databinding.MainListCardBinding
 import com.example.myspacexdemoapp.setColor
@@ -47,7 +48,7 @@ class RecyclerViewAdapter(private val onClickListener: OnClickListener) :
             viewHolder.place.text = items[position].mission.place
             viewHolder.rocketName.text = items[position].mission.rocketName
             viewHolder.missionName.text = items[position].mission.name
-            viewHolder.date.text = items[position].mission.date
+            viewHolder.date.text = items[position].mission.date.toDateString()
             viewHolder.success.text = makeSuccess(viewHolder, position)
         }
         if (items[position].number != LaunchData.EMPTY.number) {

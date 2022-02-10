@@ -28,7 +28,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         binding.launchesDetailsList.adapter = adapter
         binding.launchesDetailsList.layoutManager = LinearLayoutManager(activity)
         viewModel.getLaunchUI()
-        viewModel.launchLiveData.observe(this, { state ->
+        viewModel.launchLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LaunchDetailsViewState.Error -> {
                     Log.d("LaunchDetailsViewState", state.error.message ?: "empty message")
@@ -51,7 +51,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     binding.swipeRefreshDetails.isRefreshing = true
                 }
             }
-        })
+        }
         binding.swipeRefreshDetails.setOnRefreshListener {
             viewModel.getLaunchUI()
         }

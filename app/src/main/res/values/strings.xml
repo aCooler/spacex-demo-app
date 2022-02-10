@@ -11,4 +11,17 @@
     <string name="notreused">Not reused</string>
     <string name="error">Error</string>
     <string name="ok">OK</string>
+    <string name="next_launch">Next launch</string>
+    <string name="days">Days</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="launches">Launches</string>
+    <string name="successful_launches">Successful Launches</string>
+    <string name="total_launches">Total Launches</string>
+    <string name="rockets">Rockets</string>
+    <string name="rockets_are_cool_theres_no_getting_around_that">Rockets are Cool. Theres no getting around that</string>
+    <string name="elon_mask">Elon Mask</string>
+    <string name="explore_all_rockets">Explore All Rockets</string>
+    <string name="explore_all_launches">Explore All Launches</string>
 </resources>

@@ -1,8 +1,11 @@
 package com.example.myspacexdemoapp.ui.mappers
 
+import com.example.domain.HomeData
 import com.example.domain.LaunchData
 import com.example.domain.Payload
+import com.example.domain.toDateString
 import com.example.myspacexdemoapp.ui.UIModel
+import com.example.myspacexdemoapp.ui.start.StartUIModel
 
 class LaunchUIMapper(private val launchData: LaunchData) {
 
@@ -114,7 +117,7 @@ class LaunchUIMapper(private val launchData: LaunchData) {
     private fun addLaunchEvent() {
 
         var listHasItems = false
-        val date = if (launchData.mission.date.isNotEmpty()) {
+        val date = if (launchData.mission.date.toDateString().isNotEmpty()) {
             listHasItems = true
             launchData.mission.date
         } else {
@@ -136,9 +139,13 @@ class LaunchUIMapper(private val launchData: LaunchData) {
         if (reused) {
             listHasItems = true
         }
-
         val ui: UIModel.LaunchEvent =
-            UIModel.LaunchEvent(date = date, rocket = rocket, reused = reused, place = place)
+            UIModel.LaunchEvent(
+                date = date.toString(),
+                rocket = rocket,
+                reused = reused,
+                place = place
+            )
         if (listHasItems) {
             recycleViewModel.add(ui)
         }
@@ -155,4 +162,36 @@ class LaunchUIMapper(private val launchData: LaunchData) {
             recycleViewModel.add(ui)
         }
     }
+}
+
+fun HomeData.toTimerUIList(): List<StartUIModel> {
+    val nextLaunch = this.launchData
+    val rocketsEfficiency = this.rockets
+    val timeToLaunch = nextLaunch.mission.date
+    val dataset: MutableList<StartUIModel> = mutableListOf()
+    dataset.apply {
+        add(
+            StartUIModel.Timer(
+                name = nextLaunch.mission.name,
+                days = timeToLaunch.day.toString(),
+                hours = timeToLaunch.hours.toString(),
+                minutes = timeToLaunch.minutes.toString(),
+                seconds = timeToLaunch.seconds.toString()
+            )
+        )
+        add(
+            StartUIModel.Launches(
+                successful = rocketsEfficiency.efficiency,
+                total = rocketsEfficiency.total,
+                efficiency = "",
+                toLaunches = ""
+            )
+        )
+        add(
+            StartUIModel.Rockets(
+                tweet = ""
+            )
+        )
+    }
+    return dataset
 }
