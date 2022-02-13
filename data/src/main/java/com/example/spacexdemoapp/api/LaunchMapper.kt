@@ -1,15 +1,19 @@
 package com.example.spacexdemoapp.api
 
 import com.apollographql.apollo3.api.ApolloResponse
+import com.example.domain.HomeData
 import com.example.domain.LaunchData
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
 import com.example.domain.Payload
+import com.example.domain.RocketsData
 import com.example.domain.RocketData
 import com.example.domain.toDateString
 import com.example.spacexdemoapp.api.retrofit.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
+import spacexdemoapp.GetNextLaunchQuery
+import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -71,6 +75,28 @@ fun ApolloResponse<GetLaunchQuery.Data>.toLaunchDetails(id: String) =
         linkInfo = this.data?.launch?.links?.toLinksInfo() ?: LinkInfo.EMPTY
     )
 
+fun ApolloResponse<GetNextLaunchQuery.Data>.toNextLaunch(): HomeData {
+    val nextLaunch = LaunchData(
+        number = this.data?.launchNext?.id ?: LaunchData.EMPTY.number,
+        mission = Mission.EMPTY.copy(
+            name = this.data?.launchNext?.mission_name ?: "",
+            date = this.data?.launchNext?.launch_date_local ?: Date()
+        ),
+        linkInfo = LinkInfo.EMPTY,
+    )
+
+    val rockets = RocketsData(
+        total = this.data?.launches?.size.toString(),
+        efficiency = this.data?.launches?.filter {
+            it?.launch_success ?: false
+        }?.size.toString()
+    )
+    return HomeData(
+        launchData = nextLaunch,
+        rockets = rockets
+    )
+}
+
 fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
     badge = mission_patch ?: LinkInfo.EMPTY.badge,
     picture = flickr_images?.firstOrNull() ?: LinkInfo.EMPTY.picture,
@@ -80,7 +106,7 @@ fun GetLaunchesQuery.Links.toLinksInfo() = LinkInfo(
 fun GetLaunchQuery.Launch.toMission(): Mission =
     Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
-        date = missionDetails.launch_date_local?.toDateString() ?: "",
+        date = missionDetails.launch_date_local ?: Date(),
         rocketName = rocket?.rocketFields?.rocket_name ?: Mission.EMPTY.rocketName,
         place = launch_site?.site_name_long ?: Mission.EMPTY.place,
         success = missionDetails.launch_success ?: Mission.EMPTY.success,
@@ -90,7 +116,7 @@ fun GetLaunchQuery.Launch.toMission(): Mission =
 fun GetLaunchesQuery.Launch.toMission(): Mission {
     return Mission(
         name = missionDetails.mission_name ?: Mission.EMPTY.name,
-        date = missionDetails.launch_date_local?.toDateString() ?: "",
+        date = missionDetails.launch_date_local ?: Mission.EMPTY.date,
         rocketName = rocket?.rocketFields?.rocket_name
             ?: Mission.EMPTY.rocketName,
         place = launch_site?.site_name_long ?: Mission.EMPTY.place,

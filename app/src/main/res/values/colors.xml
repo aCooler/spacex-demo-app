@@ -16,4 +16,5 @@
     <color name="card_border">#2b2c33</color>
     <color name="success_background_color">#99000000</color>
     <color name="basic_background">#161616</color>
+    <color name="timer_numbers_color">#8c8e8f</color>
 </resources>

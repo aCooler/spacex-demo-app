@@ -49,6 +49,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
     override fun getItemCount(): Int = listOfData.size
 
     fun setItems(model: MutableList<UIModel>) {
+        youtubeViewHolder = null
         listOfData = model
         notifyDataSetChanged()
     }

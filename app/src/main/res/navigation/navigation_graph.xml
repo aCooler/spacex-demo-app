@@ -48,4 +48,17 @@
             android:id="@+id/action_myDetailsFragment_to_myHomeFragment"
             app:popUpTo="@id/main_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/placeholder"
+        tools:layout="@layout/home_fragment"
+        android:name="com.example.myspacexdemoapp.ui.start.HomeFragment"
+        android:label="fragment_my_start">
+
+
+
+    <action
+        android:id="@+id/action_myStartFragment_to_myMainFragment"
+        app:destination="@id/main_fragment" />
+</fragment>
+
 </navigation>
