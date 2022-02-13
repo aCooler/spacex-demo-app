@@ -8,7 +8,6 @@ import com.example.domain.Mission
 import com.example.domain.Payload
 import com.example.domain.RocketsData
 import com.example.domain.RocketData
-import com.example.domain.toDateString
 import com.example.spacexdemoapp.api.retrofit.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery

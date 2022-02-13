@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/rockets_fragment">
+    app:startDestination="@id/placeholder">
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.example.myspacexdemoapp.ui.launches.MainFragment"
@@ -54,7 +54,9 @@
         android:name="com.example.myspacexdemoapp.ui.start.HomeFragment"
         android:label="fragment_my_start">
 
-
+        <action
+            android:id="@+id/action_myHomeFragment_to_myRocketsFragment"
+            app:destination="@id/rockets_fragment" />
 
     <action
         android:id="@+id/action_myStartFragment_to_myMainFragment"

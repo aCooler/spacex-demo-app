@@ -21,7 +21,7 @@ class RocketViewHolder(binding: RocketsStartBinding) : RecyclerView.ViewHolder(b
         card.layoutParams.height = (display.height - getTopHeight(card)) / 2
         toLaunch.setOnClickListener {
             findNavController(it).navigate(
-                R.id.action_myStartFragment_to_myMainFragment,
+                R.id.action_myHomeFragment_to_myRocketsFragment,
                 null,
                 null
             )
