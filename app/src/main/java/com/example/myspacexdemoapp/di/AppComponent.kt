@@ -3,14 +3,14 @@ package com.example.myspacexdemoapp.di
 import android.content.Context
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 import com.example.myspacexdemoapp.ui.launches.MainFragment
-import com.example.myspacexdemoapp.ui.start.HomeFragment
 import com.example.myspacexdemoapp.ui.rockets.RocketsFragment
+import com.example.myspacexdemoapp.ui.start.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ NetModule::class, ViewModelModule::class])
+@Component(modules = [NetModule::class, ViewModelModule::class])
 interface AppComponent {
 
     @Component.Factory
