@@ -1,9 +1,11 @@
 package com.example.myspacexdemoapp.data
 
 import com.apollographql.apollo3.api.ApolloResponse
+import com.example.spacexdemoapp.api.retrofit.Rocket
 import com.example.spacexdemoapp.api.toLaunchDetails
 import com.example.spacexdemoapp.api.toLaunches
 import com.example.spacexdemoapp.api.toNextLaunch
+import com.example.spacexdemoapp.api.toRockets
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
@@ -82,6 +84,29 @@ class LaunchRepositoryTest : TestCase() {
             ).thenReturn("My mission name")
         }
         return mockLaunch
+    }
+
+    @Test
+    fun getRockets() {
+        val mockRocket =
+            Mockito.mock(Rocket::class.java, Answers.RETURNS_DEFAULTS)
+        Mockito.`when`(
+            mockRocket.country
+        ).thenReturn("country")
+        Mockito.`when`(
+            mockRocket.costPerLaunch
+        ).thenReturn(1)
+        Mockito.`when`(
+            mockRocket.name
+        ).thenReturn("name")
+        val mockResponse: MutableList<Rocket> =
+            mutableListOf(
+                mockRocket
+            )
+        val mapped = mockResponse.toRockets()
+        assertEquals(mapped[0].country, "country")
+        assertEquals(mapped[0].cost, "1 Per Launch")
+        assertEquals(mapped[0].name, "name")
     }
 
     @Test

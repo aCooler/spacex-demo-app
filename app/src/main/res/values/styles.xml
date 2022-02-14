@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="card_rocket_name">
-        <item name="android:layout_marginBottom">8dp</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:lineSpacingExtra">4.8sp</item>
         <item name="android:paddingLeft">8dp</item>

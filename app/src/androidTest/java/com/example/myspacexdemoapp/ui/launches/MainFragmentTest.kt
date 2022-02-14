@@ -1,5 +1,6 @@
 package com.example.myspacexdemoapp.ui.launches
 
+import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -36,7 +37,14 @@ class MainFragmentTest {
 
     @Before
     fun init() {
-        launchFragmentInContainer<MainFragment>()
+        launchFragmentInContainer<MainFragment>(
+            fragmentArgs = Bundle().apply {
+                putBoolean(
+                    "isNotTest",
+                    false
+                )
+            }
+        )
         every { viewModel.launchesLiveData } returns liveData
     }
 

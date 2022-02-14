@@ -24,4 +24,6 @@
     <string name="elon_mask">Elon Mask</string>
     <string name="explore_all_rockets">Explore All Rockets</string>
     <string name="explore_all_launches">Explore All Launches</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
 </resources>

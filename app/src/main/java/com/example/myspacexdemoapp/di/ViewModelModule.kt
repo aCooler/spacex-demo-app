@@ -2,9 +2,11 @@ package com.example.myspacexdemoapp.di
 
 import com.example.domain.GetLaunchDetailsUseCase
 import com.example.domain.GetLaunchesUseCase
+import com.example.domain.GetRocketsUseCase
 import com.example.domain.GetStartUseCase
 import com.example.myspacexdemoapp.ui.launch.LaunchDetailsViewModel
 import com.example.myspacexdemoapp.ui.launches.LaunchesViewModel
+import com.example.myspacexdemoapp.ui.rockets.RocketsViewModel
 import com.example.myspacexdemoapp.ui.start.StartViewModel
 import dagger.Module
 import dagger.Provides
@@ -23,6 +25,11 @@ class ViewModelModule {
     @Singleton
     fun provideLaunchesViewModel(useCase: GetLaunchesUseCase): LaunchesViewModel {
         return LaunchesViewModel(useCase)
+    }
+    @Provides
+    @Singleton
+    fun provideRocketsViewModel(getRocketsUseCase: GetRocketsUseCase): RocketsViewModel {
+        return RocketsViewModel(getRocketsUseCase)
     }
 
     @Provides

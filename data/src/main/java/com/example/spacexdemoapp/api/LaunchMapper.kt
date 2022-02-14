@@ -6,11 +6,56 @@ import com.example.domain.LaunchData
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
 import com.example.domain.Payload
+import com.example.domain.RocketData
 import com.example.domain.RocketsData
+import com.example.spacexdemoapp.api.retrofit.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 import spacexdemoapp.GetNextLaunchQuery
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+
+fun List<Rocket>.toRockets() = this.map {
+    RocketData.EMPTY.copy(
+        name = it.name,
+        firstFlight = it.firstFlight.toFirstFlight(),
+        country = it.country,
+        cost = it.costPerLaunch.toString().toCost().toString(),
+        stagesNumber = it.stages.toString().toStages().toString(),
+        activity = it.active,
+        rocketPicture = it.flickrImages.getOrNull(0) ?: ""
+    )
+}
+
+private fun String.toCost(): CharSequence {
+    var cost = this
+    if (cost.toInt() > 1000000) {
+        "${cost.toInt() / 1000000} Millions Per Launch".also { cost = it }
+    } else {
+        "${cost.toInt()} Per Launch".also { cost = it }
+    }
+
+    return cost
+}
+
+private fun CharSequence.toStages(): CharSequence {
+    return "$this Stages"
+}
+
+private fun String?.toFirstFlight(): String {
+    return if (this.isNullOrEmpty()) {
+        ""
+    } else {
+        "First Flight ${toDateFormat()}"
+    }
+}
+
+private fun String.toDateFormat(): String {
+    val parser = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    val formatter = SimpleDateFormat("MMM dd yyyy", Locale.US)
+    return formatter.format(parser.parse(this) ?: "")
+}
 
 fun ApolloResponse<GetLaunchesQuery.Data>.toLaunches() =
     this.data?.launches?.map {

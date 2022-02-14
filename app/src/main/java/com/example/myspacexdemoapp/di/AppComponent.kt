@@ -3,13 +3,14 @@ package com.example.myspacexdemoapp.di
 import android.content.Context
 import com.example.myspacexdemoapp.ui.launch.DetailsFragment
 import com.example.myspacexdemoapp.ui.launches.MainFragment
+import com.example.myspacexdemoapp.ui.rockets.RocketsFragment
 import com.example.myspacexdemoapp.ui.start.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ NetModule::class, ViewModelModule::class])
+@Component(modules = [NetModule::class, ViewModelModule::class])
 interface AppComponent {
 
     @Component.Factory
@@ -19,5 +20,6 @@ interface AppComponent {
 
     fun inject(detailsFragment: DetailsFragment)
     fun inject(mainFragment: MainFragment)
+    fun inject(rocketsFragment: RocketsFragment)
     fun inject(homeFragment: HomeFragment)
 }

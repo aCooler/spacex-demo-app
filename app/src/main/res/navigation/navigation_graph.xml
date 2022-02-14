@@ -16,6 +16,18 @@
 
     </fragment>
     <fragment
+        android:id="@+id/rockets_fragment"
+        android:name="com.example.myspacexdemoapp.ui.rockets.RocketsFragment"
+        android:label="fragment_rockets_list"
+        tools:layout="@layout/rockets_fragment"
+        >
+
+        <action
+            android:id="@+id/action_myRocketsFragment_to_myDetailsFragment"
+            app:destination="@id/main_fragment" />
+
+    </fragment>
+    <fragment
         android:id="@+id/details_fragment"
         android:name="com.example.myspacexdemoapp.ui.launch.DetailsFragment"
         android:label="fragment_my_details"
@@ -42,7 +54,9 @@
         android:name="com.example.myspacexdemoapp.ui.start.HomeFragment"
         android:label="fragment_my_start">
 
-
+        <action
+            android:id="@+id/action_myHomeFragment_to_myRocketsFragment"
+            app:destination="@id/rockets_fragment" />
 
     <action
         android:id="@+id/action_myStartFragment_to_myMainFragment"
