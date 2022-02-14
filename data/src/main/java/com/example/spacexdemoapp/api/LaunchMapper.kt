@@ -6,14 +6,14 @@ import com.example.domain.LaunchData
 import com.example.domain.LinkInfo
 import com.example.domain.Mission
 import com.example.domain.Payload
-import com.example.domain.RocketsData
 import com.example.domain.RocketData
+import com.example.domain.RocketsData
 import com.example.spacexdemoapp.api.retrofit.Rocket
 import spacexdemoapp.GetLaunchQuery
 import spacexdemoapp.GetLaunchesQuery
 import spacexdemoapp.GetNextLaunchQuery
-import java.util.Date
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 fun List<Rocket>.toRockets() = this.map {
